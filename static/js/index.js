@@ -39,6 +39,7 @@ var vm = new Vue({
     expressStr : null,
     // 购物车点选列表
     cartList : [],
+    cartListFormual : []
   },
   created : function(){
 
@@ -211,8 +212,48 @@ var vm = new Vue({
       });
     },
 
-    cart : function(index){
-      this.cartList.push(index);
+    cart : function(index,formual){
+      if(this.cartList.indexOf(index)>-1){
+        var position = this.cartList.indexOf(index);
+        var pos = this.cartListFormual.indexOf(formual);
+        this.cartList.splice(position,1);
+        this.cartListFormual.splice(pos,1);
+      }else{
+        this.cartList.push(index);
+        this.cartListFormual.push(formual);
+      }
     },
+
+    chooseAll : function(resList){
+      var count = 0;
+      for (var i = 0; i < resList.length; i++) {
+        if(this.cartList.indexOf(resList[i]._id.$oid)<0){
+          this.cartList.push(resList[i]._id.$oid);
+          this.cartListFormual.push(resList[i].poscar.comment);
+        }else{
+          count ++;
+        }
+      }
+      if (count==resList.length) {
+        for (var i = 0; i < resList.length; i++) {
+          this.cartList.splice(this.cartList.indexOf(resList[i]._id.$oid),1);
+          this.cartListFormual.splice(this.cartListFormual.indexOf(resList[i].poscar.comment),1);
+        }
+      }
+    },
+
+    isAll : function(resList){
+      var count = 0;
+      for (var i = 0; i < resList.length; i++) {
+        if(this.cartList.indexOf(resList[i]._id.$oid)>=0){
+          count ++;
+        }
+      }
+
+      if(count==resList.length){
+        return true;
+      }
+      return false;
+    }
   }
 })
