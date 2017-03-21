@@ -1,0 +1,239 @@
+#periodic-table {
+    position: relative;
+    width: 800px;
+    margin: 0 auto;
+    padding: 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.column_label {
+    color: grey;
+    font-size: 10px;
+    top: -16px;
+    width: 100%;
+    position: absolute;
+    padding: 0 auto;
+}
+
+.row_label {
+    color: grey;
+    font-size: 10px;
+    position: absolute;
+    left: -14px;
+    top: 0;
+    padding: 35% 3px;
+}
+
+
+.main {
+    padding: 0;
+    margin: 0
+}
+
+.main:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.main li {
+    font-family: 'Roboto', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    width: 38px;
+    height: 38px;
+    position: relative;
+    font-size: 19px;
+    font-weight: bold;
+    float: left;
+    padding: 1px;
+    padding-top: 7px;
+    padding-bottom: 0;
+    margin: 3px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    text-align: center;
+    box-sizing: border-box;
+    transition: .1s ease-out;
+}
+
+.avaliable {
+    position: relative;
+    cursor: pointer;
+    background-color: white;
+    color: #777;
+}
+
+.avaliable:hover {
+    color: white !important;
+    background-color: #1794F9 !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3) !important;
+}
+
+.selectedElement {
+  color: white !important;
+  background-color: #1794F9 !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3) !important;
+}
+
+.main li div {
+    cursor: default
+}
+#current_element_wrapper {
+    position: absolute;
+    top: -5px;
+    left: 170px;
+    border-radius: 0 10px 10px 0;
+    height: 120px;
+    width: 140px;
+    border-left: 30px solid #eee;
+    background-color: #eee;
+    color: black;
+}
+
+#current_element {
+    padding-left: 10px;
+    position: absolute;
+    top: 0;
+    left: -105px;
+    background-color: white;
+    height: 120px;
+    width: 100px;
+    border-radius: 10px;
+    border: 1px solid #bbb;
+    box-sizing: border-box;
+}
+
+#number {
+    width: 100%;
+    position: absolute;
+    top: -15px;
+    margin: 0;
+}
+
+#symbol {
+    font-family: 'Open Sans', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-size: 50px;
+    font-weight: bold;
+    margin-top: 26px;
+}
+
+#weight {
+    width: 100%;
+    position: absolute;
+    bottom: -15px;
+    margin: 0 auto;
+}
+
+#name {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    font-family: 'Roboto', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#configuration {
+    position: absolute;
+    top: 28px;
+    left: 0;
+    font-size: 12px;
+    text-align: left;
+    font-family: 'Roboto', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#density {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Roboto', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#melting_temp {
+    position: absolute;
+    top: 50px;
+    left: 60px;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Roboto', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#lattice_constant {
+    position: absolute;
+    top: 75px;
+    left: 0;
+    font-size: 12px;
+    line-height: 100%;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Roboto', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#crystal_type {
+    position: absolute;
+    top: 75px;
+    left: 60px;
+    font-size: 12px;
+    line-height: 100%;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Roboto', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+#mean_debye_temp {
+    position: absolute;
+    top: 96px;
+    left: 0;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Roboto', "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.main li span {
+    display: none;
+    line-height: 1;
+}
+
+.main li.empty {
+    border: none;
+    box-shadow: none;
+    cursor: default;
+}
+
+.unavaliable {
+    background: #DAE0E0;
+    color: #aaa;
+    cursor: default;
+    box-shadow: none;
+}
+
+.main .empty:hover {
+    text-shadow: none;
+    box-shadow: none;
+    transform: none;
+    color: black;
+    background: none
+}
+
+.main .empty:hover:after {
+    color: black;
+}
+
+.main li.flat {
+    padding: 0;
+    height: 12px;
+}

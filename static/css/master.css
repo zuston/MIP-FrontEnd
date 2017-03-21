@@ -1,0 +1,9 @@
+.banner{
+  border: 1px solid black;
+  position: fixed;
+}
+
+.content{
+  height: 2000px;
+  width: 1000px;
+}

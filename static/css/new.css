@@ -1,0 +1,29 @@
+.banner{
+  background-color: #1D8CE0;
+}
+#periodic-table{
+  /*border: 1px solid black;*/
+}
+
+.searchInput{
+  margin-bottom: 200px;
+}
+
+.sonContent{
+  width: 100px;
+  height:100px;
+}
+
+
+.elementTable{
+  margin-top:30px;
+  border:1px solid #20A0FF;
+  padding:18px;
+  border-radius:10px;
+  float: left;
+}
+
+.littleInput{
+  border:1px solid #E5E9F2;
+  border-radius: 0px 5px;
+}
