@@ -27,3 +27,18 @@
   border:1px solid #E5E9F2;
   border-radius: 0px 5px;
 }
+
+.partSelectElement{
+  color: white !important;
+  background-color: #8968CD !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3) !important;
+}
+
+#partChooseTable td{
+  text-align: center;
+}
+
+#partChooseTable td:hover{
+  background-color: 	#836FFF;
+  color: white;
+}

@@ -28,7 +28,7 @@ var vm = new Vue({
     element : "element",
     avaliable : "avaliable",
 
-    hoverShowArray : new Array('Z','X','Mass','electronegativity','electronic configuration'),
+    hoverShowArray : new Array('Z','X','Mass','name','electronegativity','electronic configuration'),
 
     loadingIf : [false],
 
@@ -39,7 +39,8 @@ var vm = new Vue({
     expressStr : null,
     // 购物车点选列表
     cartList : [],
-    cartListFormual : []
+    cartListFormual : [],
+    partChooseArr : []
   },
   created : function(){
 
@@ -146,12 +147,14 @@ var vm = new Vue({
         alert("请输入");
         return
       }
+      this.cartList = []
+      this.cartListFormual = []
       this.resList.splice(0,this.resList.length);
 
       var searchContent = this.expressStr;
 
-      var changeSearchContent = searchContent.replace(/\&/g,"9").replace(/\|/g,"7");
-
+      // var changeSearchContent = searchContent.replace(/\&/g,"%").replace(/\|/g,"/");
+      var changeSearchContent = encodeURIComponent(searchContent);
       console.log(changeSearchContent);
       this.loadingIf[0] = true;
       loadingIf = this.loadingIf;
@@ -175,7 +178,7 @@ var vm = new Vue({
 
         currentPage[0] = response.data.cpage
         totalCount = response.data.count
-        totalPage = Math.ceil(response.data.count/20)
+        totalPage = Math.ceil(response.data.count/10)
         if (currentPage[0]-2<=1) {
           for (var i = currentPage-1; i>0; i--) {
             buttonPage.splice(0,0,i)
@@ -254,6 +257,159 @@ var vm = new Vue({
         return true;
       }
       return false;
+    },
+
+    // 族系选定
+    partChoose : function(tag){
+      if (tag=='1A') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('H');
+        this.partChooseArr.push('Li');
+        this.partChooseArr.push('Na');
+        this.partChooseArr.push('K');
+        this.partChooseArr.push('Rb');
+        this.partChooseArr.push('Cs');
+        this.partChooseArr.push('Fr');
+      }
+
+      if (tag=='2A') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('Be');
+        this.partChooseArr.push('Mg');
+        this.partChooseArr.push('Ca');
+        this.partChooseArr.push('Sr');
+        this.partChooseArr.push('Ba');
+        this.partChooseArr.push('Ra');
+      }
+
+      if (tag=='3B') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('Sc');
+        this.partChooseArr.push('Y');
+        // this.partChooseArr.push('Na');
+        // this.partChooseArr.push('K');
+        // this.partChooseArr.push('Rb');
+        // this.partChooseArr.push('Cs');
+        // this.partChooseArr.push('Fr');
+      }
+
+      if (tag=='4B') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('Ti');
+        this.partChooseArr.push('Zr');
+        this.partChooseArr.push('Hf');
+        this.partChooseArr.push('Rf');
+      }
+
+      if (tag=='5B') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('V');
+        this.partChooseArr.push('Nb');
+        this.partChooseArr.push('Ta');
+        this.partChooseArr.push('Db');
+      }
+
+      if (tag=='6B') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('Cr');
+        this.partChooseArr.push('Mo');
+        this.partChooseArr.push('W');
+        this.partChooseArr.push('Sg');
+      }
+
+      if (tag=='7B') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('Mn');
+        this.partChooseArr.push('Tc');
+        this.partChooseArr.push('Re');
+        this.partChooseArr.push('Bh');
+      }
+
+      if (tag=='8B') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('Fe');
+        this.partChooseArr.push('Ru');
+        this.partChooseArr.push('Os');
+        this.partChooseArr.push('Hs');
+
+        this.partChooseArr.push('Co');
+        this.partChooseArr.push('Rh');
+        this.partChooseArr.push('Ir');
+        this.partChooseArr.push('Mt');
+
+        this.partChooseArr.push('Ni');
+        this.partChooseArr.push('Pd');
+        this.partChooseArr.push('Pt');
+      }
+
+      if (tag=='1B') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('Cu');
+        this.partChooseArr.push('Ag');
+        this.partChooseArr.push('Au');
+      }
+
+      if (tag=='2B') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('Zn');
+        this.partChooseArr.push('Cd');
+        this.partChooseArr.push('Hg');
+      }
+
+      if (tag=='3A') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('B');
+        this.partChooseArr.push('Al');
+        this.partChooseArr.push('Ga');
+        this.partChooseArr.push('In');
+        this.partChooseArr.push('Tl');
+      }
+
+      if (tag=='4A') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('C');
+        this.partChooseArr.push('Si');
+        this.partChooseArr.push('Ge');
+        this.partChooseArr.push('Sn');
+        this.partChooseArr.push('Pb');
+      }
+
+      if (tag=='5A') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('N');
+        this.partChooseArr.push('P');
+        this.partChooseArr.push('As');
+        this.partChooseArr.push('Sb');
+        this.partChooseArr.push('Bi');
+      }
+
+      if (tag=='6A') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('O');
+        this.partChooseArr.push('S');
+        this.partChooseArr.push('Se');
+        this.partChooseArr.push('Te');
+        this.partChooseArr.push('Po');
+      }
+
+      if (tag=='7A') {
+        this.partChooseArr = [];
+        this.partChooseArr.push('F');
+        this.partChooseArr.push('Cl');
+        this.partChooseArr.push('Br');
+        this.partChooseArr.push('I');
+        this.partChooseArr.push('At');
+      }
+    },
+
+    // 族系移除时候清空
+    departChoose : function(){
+      this.partChooseArr = [];
+    },
+
+    // 族系click时候选定
+    choose : function(tag){
+      this.savehover(tag);
     }
   }
 })
