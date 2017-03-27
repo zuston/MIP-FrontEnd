@@ -26,7 +26,7 @@
     <div class="header">
         <div class="container">
             <div class="logo">
-                <h1><a href="#">MIP</a></h1>
+                <h1><a href="#">Materials Information Platform</a></h1>
             </div>
 
         </div>
@@ -349,9 +349,10 @@
                                 </div>
                             </div>
                             <div style="position:relative">
-                                <div id="name">element</div>
-                                <div id="configuration">{{hoverShowArray[3]}}</div>
-                                <div id="density" title="Density (gm cm^-3) (Common Crystal Phase)">{{hoverShowArray[4]}}</div>
+                                <div id="name">{{hoverShowArray[3]}}</div>
+                                <div id="configuration">{{hoverShowArray[4]}}</div>
+                                <div id="density" title="Density (gm cm^-3) (Common Crystal Phase)">{{hoverShowArray[5]}}</div>
+
                             </div>
                         </div>
                     </div>
@@ -413,7 +414,7 @@
     </div>
     <div class="col-md-1">
       <div class="input-group input-group-lg " style="margin-top:15px;">
-      <button type="button" class="btn btn-primary btn-lg" @click="search(1)">Search</button>
+      <button type="button" class="btn btn-primary btn-lg" @click="search(1,true)">Search</button>
     </div>
     </div>
   </div>
@@ -424,9 +425,15 @@
   <div class="checkedList" v-if="cartListFormual.length>0">
     <div class="container">
       <div class="row">
-        <div class="col-md-offset-1 col-md-11">
-          <a>choosed:</a>
+        <div class="col-md-offset-1 col-md-1">
+          <span>已选择:</span>
+        </div>
+        <div class="col-md-8" style="border-left:1px solid #20A0FF;border-right:1px solid #20A0FF;">
           <button type="button" class="btn btn-success formualButton" v-for="value in cartListFormual" style="margin-right:10px;margin-bottom:5px;">{{value}}</button>
+        </div>
+
+        <div class="col-md-1">
+          <button type="button" class="btn btn-default">点击计算</button>
         </div>
       </div>
     </div>
@@ -444,13 +451,14 @@
       <div class="row">
         <div class="col-md-12">
           <table class="table table-hover table-bordered">
-            <caption>结果列表&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">{{totalCount[0]}}</a>&nbsp;&nbsp;&nbsp;&nbsp;数据来源：<a style="color:#20A0FF;font-size:20px;">MIP</a><caption>
+            <caption>结果列表&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">{{totalCount[0]}}</a>&nbsp;&nbsp;&nbsp;&nbsp;数据来源：<a style="color:#20A0FF;font-size:20px;">MIP</a>&nbsp;&nbsp;&nbsp;&nbsp;数据库总计条目数：<a style="color:#20A0FF;font-size:20px;">75358</a><caption>
             <thead>
               <tr class="active">
                 <th><input type="checkbox" @click="chooseAll(resList)" v-bind:checked="isAll(resList)">&nbsp;&nbsp;序号</th>
                 <th>带隙</th>
                 <th>化学式</th>
                 <th>空间群</th>
+                <!-- <th>symmetrys</th> -->
               </tr>
             </thead>
             <tbody>
@@ -459,8 +467,9 @@
                     <input type="checkbox" v-bind:checked="cartList.indexOf(data._id.$oid)>-1">&nbsp;&nbsp;{{(index+1)+10*(currentPage[0]-1)}}
                 </td>
                 <td><p v-if="data.caculate">{{data.caculate.Band_Gap}}</p></td>
-                <td>{{data.poscar.comment}}</td>
-                <td><p v-if="data.caculate">{{data.caculate.Spacegroup}}</p></td>
+                <td>{{data.compound_name}}</td>
+                <td><p>{{data.spaceGroup}}</p></td>
+                <!-- <td><p>{{data.symmetrys}}</p></td> -->
               </tr>
             </tbody>
             </table>

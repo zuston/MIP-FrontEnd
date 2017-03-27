@@ -73,6 +73,6 @@ class Db(object):
 
 if __name__ == '__main__':
     a = Db(host='localhost',user='root',password='shacha',dbname='material')
-    result = a.execute("select z,symbol,mass,electronegativity from elements")
+    result = a.execute("select z,symbol,mass,electronegativity,name from elements")
     import json
     print json.dumps(result)

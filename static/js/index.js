@@ -28,7 +28,7 @@ var vm = new Vue({
     element : "element",
     avaliable : "avaliable",
 
-    hoverShowArray : new Array('Z','X','Mass','name','electronegativity','electronic configuration'),
+    hoverShowArray : new Array('Z','X','Mass','element','gativity','configuration'),
 
     loadingIf : [false],
 
@@ -97,13 +97,14 @@ var vm = new Vue({
             this.hoverShowArray.push(element.z)
             this.hoverShowArray.push(element.symbol)
             this.hoverShowArray.push(element.mass.toFixed(5))
-            this.hoverShowArray.push("gatavity:"+element.electronegativity.toFixed(3))
-            this.hoverShowArray.push(232323232)
+            this.hoverShowArray.push("sulfur")
+            this.hoverShowArray.push("EN:"+element.electronegativity.toFixed(3))
+            this.hoverShowArray.push(egJson[0][element.symbol])
         }
     },
     hoverOut : function(){
         // this.hoverShowArray.splice(0,this.hoverShowArray.length)
-      this.hoverShowArray = new Array('Z','X','Mass','electronegativity','electronic configuration')
+      this.hoverShowArray = new Array('Z','X','Mass','element','[EN]',' electron configuration')
     },
     savehover : function(val){
       if(this.hoverList.indexOf(val)<=-1){
@@ -135,20 +136,23 @@ var vm = new Vue({
       }
     },
 
-    remove : function(index){
-      if(this.Condition.componentChildren.length>1){
-        this.Condition.componentChildren.splice(index,1)
-      }
-    },
+    // remove : function(index){
+    //   if(this.Condition.componentChildren.length>1){
+    //     this.Condition.componentChildren.splice(index,1)
+    //   }
+    // },
 
-    search : function(page){
+    search : function(page,first=false){
+      if (first) {
+        this.cartList = []
+        this.cartListFormual = []
+      }
       count = this.totalCount
       if(this.expressStr===null||this.expressStr.length==0){
         alert("请输入");
         return
       }
-      this.cartList = []
-      this.cartListFormual = []
+
       this.resList.splice(0,this.resList.length);
 
       var searchContent = this.expressStr;
@@ -163,6 +167,7 @@ var vm = new Vue({
       buttonPage = this.buttonPage
       currentPage = this.currentPage
       endPage = this.endPage
+      console.log(changeSearchContent);
       axios.get('/m/s?expression='+changeSearchContent+"&page="+page)
       .then(function (response) {
         console.log(11111111);
