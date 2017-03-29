@@ -7,6 +7,21 @@ function searchElementJson(vp){
   }
   return 0;
 }
+// 获取url的参数
+function GetRequest(){
+  var url = location.search; //获取url中"?"符后的字串
+  var theRequest = new Object();
+  if(url.indexOf("?") != -1)
+  {
+    var str = url.substr(1);
+    var strs = str.split("&");
+    for(var i = 0; i < strs.length; i ++)
+      {
+       theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+      }
+  }
+  return theRequest;
+}
 
 var vm = new Vue({
   el : "#app",
@@ -40,7 +55,10 @@ var vm = new Vue({
     // 购物车点选列表
     cartList : [],
     cartListFormual : [],
-    partChooseArr : []
+    partChooseArr : [],
+
+    // 错误信息
+    searchError : [-1]
   },
   created : function(){
 
@@ -153,6 +171,17 @@ var vm = new Vue({
         return
       }
 
+      var Request=new Object();
+      Request=GetRequest();
+      var token = Request["token"]
+
+      if (token==undefined) {
+        this.searchError[0] = "token未携带,无法查询"
+        return
+      }
+
+      this.searchError = [-1]
+
       this.resList.splice(0,this.resList.length);
 
       var searchContent = this.expressStr;
@@ -161,58 +190,70 @@ var vm = new Vue({
       var changeSearchContent = encodeURIComponent(searchContent);
       console.log(changeSearchContent);
       this.loadingIf[0] = true;
-      loadingIf = this.loadingIf;
-      console.log(this.loadingIf+"====");
-      res = this.resList
-      buttonPage = this.buttonPage
-      currentPage = this.currentPage
-      endPage = this.endPage
-      console.log(changeSearchContent);
-      axios.get('/m/s?expression='+changeSearchContent+"&page="+page)
+      var loadingIf = this.loadingIf;
+      var res = this.resList
+      var buttonPage = this.buttonPage
+      var currentPage = this.currentPage
+      var endPage = this.endPage
+
+      var error = this.searchError
+
+
+      axios.get('/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token)
       .then(function (response) {
-        console.log(11111111);
+        console.log("searching.......");
         if(res.length!==0){
           res.splice(0,res.length)
         }
 
-        for(var value of response.data.c){
-          res.push(value)
+        console.log(response);
+        console.log("c" in response.data);
+        console.log(response.data.error!=undefined);
+        if (response.data.error!=undefined) {
+            error[0] = response.data['msg']
+            loadingIf[0] = false
+            return
         }
 
-        buttonPage.splice(0,buttonPage.length)
-
-        currentPage[0] = response.data.cpage
-        totalCount = response.data.count
-        totalPage = Math.ceil(response.data.count/10)
-        if (currentPage[0]-2<=1) {
-          for (var i = currentPage-1; i>0; i--) {
-            buttonPage.splice(0,0,i)
+        if ("c" in response.data) {
+          for(var value of response.data.c){
+            res.push(value)
           }
-        }else{
-          buttonPage.push(1)
-          buttonPage.push(currentPage[0]-2)
-          buttonPage.push(currentPage[0]-1)
 
-        }
-        buttonPage.push(currentPage[0])
+          buttonPage.splice(0,buttonPage.length)
 
-        frontIndex = buttonPage.length
+          currentPage[0] = response.data.cpage
+          totalCount = response.data.count
+          totalPage = Math.ceil(response.data.count/10)
+          if (currentPage[0]-2<=1) {
+            for (var i = currentPage-1; i>0; i--) {
+              buttonPage.splice(0,0,i)
+            }
+          }else{
+            buttonPage.push(1)
+            buttonPage.push(currentPage[0]-2)
+            buttonPage.push(currentPage[0]-1)
 
-        if (currentPage[0]+2>=totalPage) {
-          for (var i = currentPage[0]+1; i <= totalPage; i++) {
-            buttonPage.splice(frontIndex,0,i)
           }
-        }else{
-          // buttonPage.push(currentPage)
-          buttonPage.push(currentPage[0]+1)
-          buttonPage.push(currentPage[0]+2)
-          buttonPage.push(totalPage)
+          buttonPage.push(currentPage[0])
+
+          frontIndex = buttonPage.length
+
+          if (currentPage[0]+2>=totalPage) {
+            for (var i = currentPage[0]+1; i <= totalPage; i++) {
+              buttonPage.splice(frontIndex,0,i)
+            }
+          }else{
+            // buttonPage.push(currentPage)
+            buttonPage.push(currentPage[0]+1)
+            buttonPage.push(currentPage[0]+2)
+            buttonPage.push(totalPage)
+          }
+
+          endPage[0] = totalPage
+          loadingIf[0] = false
+          count[0] = totalCount
         }
-
-        endPage[0] = totalPage
-        loadingIf[0] = false
-        count[0] = totalCount
-
       })
       .catch(function (error) {
         console.log(error);

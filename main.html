@@ -442,6 +442,10 @@
   <div style="text-align:center;" v-if="loadingIf[0]">
     <img src="static/images/loading.jpg" alt="" style="width:80px;">Loading
   </div>
+
+  <div style="text-align:center;" v-if="searchError[0]!==-1" style="padding:5px;">
+    <h4>{{searchError[0]}}</h4>
+  </div>
   <!-- <h1>{{expression}}</h1>
   <h3 v-for="i in hoverList">{{i}}</h3>
   <h4>bandgap:{{bandgap}}</h4> -->
