@@ -1,0 +1,62 @@
+.elementName{
+  margin-top: 10px;
+  border: 1px solid #D3DCE6;
+  box-shadow: 0 10px 6px -6px #777;
+  /*border: 1px solid white;*/
+  /*height:20px;*/
+  border-bottom: 2px solid #D3DCE6;
+  padding: 10px;
+}
+.elementName p{
+  margin-bottom: 10px;
+}
+
+#pic{
+  margin-top: 20px;
+}
+
+.pic1{
+  border:1px solid #C0CCDA;
+  height:450px;
+}
+
+.rightContent{
+  border:1px solid #C0CCDA;
+  /*height:200px;*/
+  padding: 10px;
+}
+
+.rightContent p{
+  margin-bottom: 5px;
+}
+
+.rightContent .tableP{
+  float: left;
+  display: block;
+  /*padding: 8px;*/
+}
+
+.rightright{
+  border:1px solid #C0CCDA;
+  height: 200px;
+}
+
+.mip-rightright{
+  padding: 4px;
+}
+.mip-rightright button{
+  margin-right: 10px;
+}
+
+.mip-rightright a{
+  font-size: 15px;
+  text-indent: 2px;
+}
+
+.mip-2-leftleft{
+/*margin-top: 20px;*/
+}
+
+#downloadClass{
+  margin-top: 100px;
+}

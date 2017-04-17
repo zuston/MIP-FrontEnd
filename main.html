@@ -419,6 +419,29 @@
     </div>
   </div>
 
+  <hr>
+
+  <div class="container">
+    <div class="col-md-offset-1 col-md-3">
+      <div class="input-group input-group-sm" style="margin-top:15px;">
+            <span class="input-group-addon">化合物比例</span>
+            <input type="text" class="form-control" placeholder="输入化合物比例" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="bili" value="4:2:1">
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="input-group input-group-sm" style="margin-top:15px;">
+        <span class="input-group-addon">总量</span>
+        <input type="text" class="form-control" placeholder="输入总量" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="biliNumber" value="12">
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="input-group input-group-lg " style="margin-top:15px;">
+      <button type="button" class="btn btn-primary btn-lg" @click="search(1,true,1)">Search</button>
+    </div>
+    </div>
+  </div>
+
 
 
 
@@ -456,24 +479,29 @@
         <div class="col-md-12">
           <table class="table table-hover table-bordered">
             <caption>结果列表&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">{{totalCount[0]}}</a>&nbsp;&nbsp;&nbsp;&nbsp;数据来源：<a style="color:#20A0FF;font-size:20px;">MIP</a>&nbsp;&nbsp;&nbsp;&nbsp;数据库总计条目数：<a style="color:#20A0FF;font-size:20px;">75358</a><caption>
+            <button type="button" class="btn btn-success formualButton" @click="download()">当前搜索结果下载</button>
             <thead>
               <tr class="active">
                 <th><input type="checkbox" @click="chooseAll(resList)" v-bind:checked="isAll(resList)">&nbsp;&nbsp;序号</th>
                 <th>带隙</th>
                 <th>化学式</th>
                 <th>空间群</th>
+                <th v-if="currentSearchTag==1">valence_electrons_sum</th>
+                <th>详情</th>
                 <!-- <th>symmetrys</th> -->
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(data,index) in resList" v-bind:class="[cartList.indexOf(data._id.$oid)>-1?'success':'',]" @click="cart(data._id.$oid,data.poscar.comment)">
-                <td>
-                    <input type="checkbox" v-bind:checked="cartList.indexOf(data._id.$oid)>-1">&nbsp;&nbsp;{{(index+1)+10*(currentPage[0]-1)}}
+              <tr v-for="(data,index) in resList" v-bind:class="[cartList.indexOf(data._id.$oid)>-1?'success':'',]" >
+                <td @click="cart(data._id.$oid,data.poscar.comment)">
+                    <input type="checkbox" v-bind:checked="cartList.indexOf(data._id.$oid)>-1" >&nbsp;&nbsp;{{(index+1)+10*(currentPage[0]-1)}}
                 </td>
                 <td><p v-if="data.caculate">{{data.caculate.Band_Gap}}</p></td>
                 <td>{{data.compound_name}}</td>
                 <td><p>{{data.spaceGroup}}</p></td>
                 <!-- <td><p>{{data.symmetrys}}</p></td> -->
+                <td v-if="currentSearchTag==1"><p>{{data.ves}}</p></td>
+                <td><button type="button" class="btn btn-default btn-sm"><a v-bind:href="getInfoPage(data._id.$oid)">详情</a></button></td>
               </tr>
             </tbody>
             </table>
@@ -483,9 +511,9 @@
       <div class="row">
         <div class="col-md-offset-4 col-md-4 ">
           <ul class="pagination" style="align:center;">
-            <li><a v-if="currentPage[0]!=1" @click="search(currentPage-1)">&laquo;</a></li>
-            <li v-for="(value,index) in buttonPage" v-bind:class="{ active: currentPage==value}"><a  @click="search(value)">{{value}}</a></li>
-            <li><a v-if="endPage[0]!=currentPage[0]" @click="search(currentPage+1)">&raquo;</a></li>
+            <li><a v-if="currentPage[0]!=1" @click="search(currentPage-1,false,currentSearchTag)">&laquo;</a></li>
+            <li v-for="(value,index) in buttonPage" v-bind:class="{ active: currentPage==value}"><a  @click="search(value,false,currentSearchTag)">{{value}}</a></li>
+            <li><a v-if="endPage[0]!=currentPage[0]" @click="search(currentPage+1,false,currentSearchTag)">&raquo;</a></li>
           </ul>
         </div>
       </div>

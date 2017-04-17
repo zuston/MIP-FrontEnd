@@ -58,7 +58,14 @@ var vm = new Vue({
     partChooseArr : [],
 
     // 错误信息
-    searchError : [-1]
+    searchError : [-1],
+
+    // 比例信息查询
+    bili : "",
+    biliNumber : "",
+
+    // 当前是哪种查询的标识字段
+    currentSearchTag : 0,
   },
   created : function(){
 
@@ -115,7 +122,7 @@ var vm = new Vue({
             this.hoverShowArray.push(element.z)
             this.hoverShowArray.push(element.symbol)
             this.hoverShowArray.push(element.mass.toFixed(5))
-            this.hoverShowArray.push("sulfur")
+            this.hoverShowArray.push(element.name.toLowerCase())
             this.hoverShowArray.push("EN:"+element.electronegativity.toFixed(3))
             this.hoverShowArray.push(egJson[0][element.symbol])
         }
@@ -160,16 +167,30 @@ var vm = new Vue({
     //   }
     // },
 
-    search : function(page,first=false){
+    getInfoPage : function(oid){
+      return "info.html?token="+GetRequest()["token"]+"&id="+oid;
+    },
+
+    download : function(){
+      var ajaxString = '/m/download?bili='+encodeURIComponent(this.bili)+'&biliNumber='+encodeURIComponent(this.biliNumber);
+      axios.get(ajaxString)
+      .then(function (response) {
+        baseUrl = response.data
+        window.open("/static/"+baseUrl);
+      }).catch(function(err){
+        alert("下载失败");
+      })
+    },
+
+    search : function(page,first,searchTag=0){
+      console.log(this.searchTag);
       if (first) {
         this.cartList = []
         this.cartListFormual = []
       }
+
       count = this.totalCount
-      if(this.expressStr===null||this.expressStr.length==0){
-        alert("请输入");
-        return
-      }
+
 
       var Request=new Object();
       Request=GetRequest();
@@ -184,11 +205,26 @@ var vm = new Vue({
 
       this.resList.splice(0,this.resList.length);
 
-      var searchContent = this.expressStr;
+      var ajaxString = "";
+      if (searchTag==0) {
+        // 校验
+        if(this.expressStr===null||this.expressStr.length==0){
+          alert("请输入");
+          return
+        }
+        var searchContent = this.expressStr;
+        var changeSearchContent = encodeURIComponent(searchContent);
+        ajaxString = '/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token;
+      }else if (searchTag==1) {
+        if(this.bili===""||this.biliNumber===""){
+          alert("请输入比例");
+          return;
+        }
+        ajaxString = '/m/p?bili='+encodeURIComponent(this.bili)+'&biliNumber='+encodeURIComponent(this.biliNumber)+"&page="+page;
+      }
 
-      // var changeSearchContent = searchContent.replace(/\&/g,"%").replace(/\|/g,"/");
-      var changeSearchContent = encodeURIComponent(searchContent);
-      console.log(changeSearchContent);
+      this.currentSearchTag = searchTag;
+
       this.loadingIf[0] = true;
       var loadingIf = this.loadingIf;
       var res = this.resList
@@ -199,7 +235,7 @@ var vm = new Vue({
       var error = this.searchError
 
 
-      axios.get('/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token)
+      axios.get(ajaxString)
       .then(function (response) {
         console.log("searching.......");
         if(res.length!==0){
@@ -207,11 +243,12 @@ var vm = new Vue({
         }
 
         console.log(response);
-        console.log("c" in response.data);
-        console.log(response.data.error!=undefined);
+        // console.log("c" in response.data);
+        // console.log(response.data.error!=undefined);
         if (response.data.error!=undefined) {
             error[0] = response.data['msg']
-            loadingIf[0] = false
+            loadingIf.splice(0,1,false);
+            // loadingIf[0] = false
             return
         }
 
@@ -249,15 +286,14 @@ var vm = new Vue({
             buttonPage.push(currentPage[0]+2)
             buttonPage.push(totalPage)
           }
-
-          endPage[0] = totalPage
-          loadingIf[0] = false
-          count[0] = totalCount
+          endPage.splice(0,1,totalPage);
+          loadingIf.splice(0,1,false);
+          count.splice(0,1,totalCount);
         }
       })
       .catch(function (error) {
         console.log(error);
-        loadingIf[0] = false
+        loadingIf.splice(0,1,false);
       });
     },
 

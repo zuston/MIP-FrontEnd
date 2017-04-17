@@ -1,0 +1,267 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>MIP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="./static/css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <!-- Custom Theme files -->
+    <!--  模板样式-->
+    <link href="./static/css/style.css" rel='stylesheet' type='text/css' />
+    <!-- 自定义样式 -->
+    <!--  设置样式-->
+    <link href="./static/css/info.css" rel='stylesheet' type='text/css' />
+    <!--  原先样式-->
+    <link href="./static/css/index.css" rel='stylesheet' type='text/css' />
+    <script src="./static/js/jquery-1.11.1.min.js"></script>
+    <script src="./static/js/highcharts.js"></script>
+
+    <script type="text/javascript" src="./static/js/bootstrap.js"></script>
+
+
+</head>
+<script>
+$(function () {
+
+});
+</script>
+
+<body>
+<div id="app">
+<!-- banner -->
+
+<div class="banner">
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <h1><a href="#">Materials Information Platform</a></h1>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="main">
+  <div class="container">
+    <div class="col-md-12">
+      <div class="elementName">
+        <p>Material</p>
+        <h4 v-if="resArr[0].vasp.poscar">{{resArr[0].vasp.poscar.comment}}</h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="pic">
+    <div class="col-md-6">
+      <h4>化合物结构图</h4>
+      <hr>
+      <div class="pic1">
+        <span id="mydiv" name='$vid' ></span>
+        <span id="btns" ></span>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <h4>Material Details</h4>
+      <hr>
+      <div class="rightContent">
+          <p>BandGap</p>
+          <h4 v-if="resArr[0].vasp.caculate">{{resArr[0].vasp.caculate.Band_Gap}}</h4>
+          <h4 v-if="!resArr[0].vasp.caculate">1.232</h4>
+
+          <hr>
+          <p>Density</p>
+          <h4 v-if="resArr[0].vasp.caculate">{{resArr[0].vasp.caculate.Density}}</h4>
+          <h4 v-if="!resArr[0].vasp.caculate">1.232</h4>
+          <hr>
+          <p>SpaceGroup</p>
+          <h4 v-if="resArr[0].vasp.caculate">{{resArr[0].vasp.caculate.Spacegroup}}</h4>
+          <h4 v-if="!resArr[0].vasp.caculate">1.232</h4>
+          <hr>
+          <p>Formation_Energy</p>
+          <h4 v-if="resArr[0].vasp.caculate">{{resArr[0].vasp.caculate.Formation_Energy}}</h4>
+          <h4 v-if="!resArr[0].vasp.caculate">1.232</h4>
+          <hr>
+          <p>Crystal System</p>
+          <h4 v-if="resArr[0].vasp.caculate">{{resArr[0].vasp.caculate.Crystal_System}}</h4>
+          <h4 v-if="!resArr[0].vasp.caculate">cubic</h4>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <h4>Lattice Parameters</h4>
+      <hr>
+      <div class="row rightright" >
+        <div class="col-md-12">
+          <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+                <a href="#home" data-toggle="tab">
+                    compute
+                </a>
+            </li>
+            <li><a href="#ios" data-toggle="tab">basic</a></li>
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="home">
+              <div class="row mip-rightright">
+                <div class="col-md-6">
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">a</button>
+                  <a>{{resArr[0].dumplicate.a}}</a>
+                </div>
+                <div class="col-md-6">
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">alpha</button>
+                  <a>{{resArr[0].dumplicate.alpha}}</a>
+                </div>
+              </div>
+              <div class="row mip-rightright">
+                <div class="col-md-6">
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">b</button>
+                  <a>{{resArr[0].dumplicate.b}}</a>
+                </div>
+                <div class="col-md-6">
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">beta</button>
+                  <a>{{resArr[0].dumplicate.beta}}</a>
+                </div>
+              </div>
+              <div class="row mip-rightright">
+                <div class="col-md-6">
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">c</button>
+                  <a>{{resArr[0].dumplicate.c}}</a>
+                </div>
+                <div class="col-md-6">
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">gamma</button>
+                  <a>{{resArr[0].dumplicate.gamma}}</a>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="ios">
+              <div class="row mip-rightright">
+                <div class="col-md-6">
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">a</button>
+                  <a>{{resArr[0].dumplicate.a}}</a>
+                </div>
+                <div class="col-md-6">
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">alpha</button>
+                  <a>{{resArr[0].dumplicate.alpha}}</a>
+                </div>
+              </div>
+              <div class="row mip-rightright">
+                <div class="col-md-6">
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">b</button>
+                  <a>{{resArr[0].dumplicate.b}}</a>
+                </div>
+                <div class="col-md-6">
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">beta</button>
+                  <a>{{resArr[0].dumplicate.beta}}</a>
+                </div>
+              </div>
+              <div class="row mip-rightright">
+                <div class="col-md-6">
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">c</button>
+                  <a>{{resArr[0].dumplicate.c}}</a>
+                </div>
+                <div class="col-md-6">
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">gamma</button>
+                  <a>{{resArr[0].dumplicate.gamma}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <hr>
+      <!-- <h4>{{downloadList}}</h4> -->
+      <h4>Download</h4>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <h5>计算输入</h5>
+            <label class="checkbox-inline">
+          		<input type="checkbox" id="inlineCheckbox1" value="option1" v-model="downloadList"><a>Incar</a>
+          	</label>
+          	<label class="checkbox-inline">
+          		<input type="checkbox" id="inlineCheckbox2" value="option2" v-model="downloadList"><a>poscar</a>
+          	</label>
+            <label class="checkbox-inline">
+          		<input type="checkbox" id="inlineCheckbox2" value="option5" v-model="downloadList"><a>k-points</a>
+          	</label>
+            <br>
+            <br>
+            <h5>计算输出</h5>
+          	<label class="checkbox-inline">
+          		<input type="checkbox" id="inlineCheckbox3" value="option3" v-model="downloadList"><a>static</a>
+          	</label>
+            <label class="checkbox-inline">
+          		<input type="checkbox" id="inlineCheckbox1" value="option4" v-model="downloadList"><a>relax</a>
+          	</label>
+
+            <br>
+            <button type="button" name="button" class="btn-danger btn-sm" style="margin-top:20px;">文件下载</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    <hr>
+
+    <div class="container mip-2-leftleft">
+      <div class="col-md-6">
+        <table class="table table-hover table-bordered">
+          <h4>site_symmetry</h4>
+          <hr>
+          <thead>
+            <tr class="active">
+              <th>序号</th>
+              <th>元素名称</th>
+              <th>site_symmetry</th>
+              <th>坐标</th>
+            </tr>
+          </thead>
+          <tbody v-for="(value,key) in resArr[0].dumplicate.compound_components">
+              <!-- <tr v-for="value in resArr[0].dumplicate.compound_components[0].atom_addition_infos"> -->
+              <tr v-for="(v,k) in resArr[0].dumplicate.compound_components[key].atom_addition_infos">
+
+                <!-- <h4>{{value.atom_addition_infos[2]}}</h4> -->
+                <!-- <div class="" v-for="k in value.atom_addition_infos"> -->
+                  <!-- <h4>{{value[k]}}</h4> -->
+                <!-- </div> -->
+                <td>{{k}}</td>
+                <td>{{value.element_name}}</td>
+                <td>{{v.site_symmetry}}</td>
+                <td>{{v.atomic_coordinates}}</td>
+                <!-- <td>{{value.atom_addition_infos[16]}}</td> -->
+              </tr>
+
+          </tbody>
+          </table>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Band Structure</h4>
+            <hr>
+
+            <img src="static/images/1.png" alt="" style="width:360px;">
+            <img src="static/images/2.png" alt="" style="width:120px;">
+
+          </div>
+          <div class="col-md-12">
+            <!-- <hr> -->
+            <!-- <h4>X-Ray</h4> -->
+            <hr>
+            <div id="container" style="min-width:200px;height:400px"></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
+<script src="./static/js/vue.js"></script>
+<script src="./static/js/axios.min.js"></script>
+<script src="./static/js/info.js"></script>
+<script src="./static/js/JSmol.min.js"></script>
+<script src="./static/js/JSmolMip.js"></script>
