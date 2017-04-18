@@ -1,5 +1,5 @@
-function GetRequest(){
-  var url = location.search; //获取url中"?"符后的字串
+function GetRequest(url){
+  // var url = location.search; //获取url中"?"符后的字串
   var theRequest = new Object();
   if(url.indexOf("?") != -1)
   {
@@ -16,20 +16,20 @@ function GetRequest(){
 jQuery(document).ready(
 
 function() {
-
-var vid=jQuery("#mydiv").attr("name")
+var id = GetRequest(window.parent.location.search)["id"];
 Info = {
 	width: 400,
 	height: 400,
 	debug: false,
 	j2sPath: "static/j2s",
 	color: "0xC0C0C0",
-  	disableJ2SLoadMonitor: true,
-  	disableInitialConsole: true,
+  disableJ2SLoadMonitor: true,
+  disableInitialConsole: true,
 	addSelectionOptions: false,
 	serverURL: "http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
 	use: "HTML5",
-	script: "load /m/jsmol?id="+GetRequest()["id"],
+	script: "load /m/jsmol?id="+id,
+  // script: "load http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
 	readyFunction: null
 }
 

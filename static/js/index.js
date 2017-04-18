@@ -66,6 +66,9 @@ var vm = new Vue({
 
     // 当前是哪种查询的标识字段
     currentSearchTag : 0,
+
+    //计算数据类型
+    dataType : 0,
   },
   created : function(){
 
@@ -214,13 +217,13 @@ var vm = new Vue({
         }
         var searchContent = this.expressStr;
         var changeSearchContent = encodeURIComponent(searchContent);
-        ajaxString = '/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token;
+        ajaxString = '/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token+"&computed="+this.dataType;
       }else if (searchTag==1) {
         if(this.bili===""||this.biliNumber===""){
           alert("请输入比例");
           return;
         }
-        ajaxString = '/m/p?bili='+encodeURIComponent(this.bili)+'&biliNumber='+encodeURIComponent(this.biliNumber)+"&page="+page;
+        ajaxString = '/m/p?bili='+encodeURIComponent(this.bili)+'&biliNumber='+encodeURIComponent(this.biliNumber)+"&page="+page+"&computed="+this.dataType;
       }
 
       this.currentSearchTag = searchTag;

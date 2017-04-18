@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+<script src="https://unpkg.com/highcharts/highmaps.js"></script>
+<script src="https://code.highcharts.com/mapdata/custom/europe.js"></script>
+<!-- vue-highcharts should be load after Highmaps -->
+<script src="https://unpkg.com/vue-highcharts/dist/vue-highcharts.min.js"></script>
+<script type="text/javascript">
+  $(document).function
+</script>
+<div id="app">
+  <highmaps :options="options"></highmaps>
+</div>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+Vue.use(VueHighcharts, { Highcharts: Highcharts });
+
+var options = {
+  chart: {
+      type: 'column'
+  },
+  title: {
+      text: 'X-Ray'
+  },
+  subtitle: {
+      text: '数据来源: MIP'
+  },
+  xAxis: {
+      categories: [
+          '10',
+          '20',
+          '30',
+          '40',
+          '50',
+          '50'
+      ],
+      crosshair: true
+  },
+  yAxis: {
+      min: 0,
+      title: {
+          // text: '降雨量 (mm)'
+      }
+  },
+  tooltip: {
+      headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+      pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+      '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+      footerFormat: '</table>',
+      shared: true,
+      useHTML: true
+  },
+  plotOptions: {
+      column: {
+          pointPadding: 0.2,
+          borderWidth: 0
+      }
+  },
+  series: [{
+      name: 'Fe',
+      data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+  }]
+};
+
+var vm = new Vue({
+el: '#app',
+data: {
+  options: options
+}
+});
+
+</script>

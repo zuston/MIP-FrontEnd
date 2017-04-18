@@ -359,6 +359,22 @@
                   </div>
       </div>
 
+      <div class="col-md-offset-1 col-md-11">
+        <div class="" style="margin-top:10px;marginBottom:10px;padding:10px;">
+          <label class="checkbox-inline">
+            <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value=0 checked v-model="dataType">&nbsp;&nbsp;<a>all</a>
+          </label>
+          <label class="checkbox-inline">
+            <input type="radio" name="optionsRadiosinline" id="optionsRadios4" value=1 v-model="dataType">&nbsp;&nbsp;<a>computed</a>
+          </label>
+        </div>
+
+      </div>
+
+      <hr>
+
+
+
       <div class="col-md-offset-1 col-md-3">
         <div class="input-group input-group-sm" style="margin-top:15px;">
               <span class="input-group-addon">BandGap</span>
@@ -501,7 +517,12 @@
                 <td><p>{{data.spaceGroup}}</p></td>
                 <!-- <td><p>{{data.symmetrys}}</p></td> -->
                 <td v-if="currentSearchTag==1"><p>{{data.ves}}</p></td>
-                <td><button type="button" class="btn btn-default btn-sm"><a v-bind:href="getInfoPage(data._id.$oid)">详情</a></button></td>
+                <td>
+                  <button type="button" class="btn btn-default btn-sm" v-if="data.computed==1">
+                    <a v-bind:href="getInfoPage(data._id.$oid)">详情</a>
+                  </button>
+                  <button type="button" name="button" class="btn btn-default btn-sm" v-if="data.computed==0">未计算</button>
+                </td>
               </tr>
             </tbody>
             </table>
