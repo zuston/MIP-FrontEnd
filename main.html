@@ -472,7 +472,7 @@
         </div>
 
         <div class="col-md-1">
-          <button type="button" class="btn btn-default">点击计算</button>
+          <button type="button" class="btn btn-default" @click="caculate">点击计算</button>
         </div>
       </div>
     </div>
@@ -495,7 +495,7 @@
         <div class="col-md-12">
           <table class="table table-hover table-bordered">
             <caption>结果列表&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">{{totalCount[0]}}</a>&nbsp;&nbsp;&nbsp;&nbsp;数据来源：<a style="color:#20A0FF;font-size:20px;">MIP</a>&nbsp;&nbsp;&nbsp;&nbsp;数据库总计条目数：<a style="color:#20A0FF;font-size:20px;">75358</a><caption>
-            <button type="button" class="btn btn-success formualButton" @click="download()">当前搜索结果下载</button>
+            <button type="button" class="btn btn-success formualButton" @click="download()" v-if="currentSearchTag==1">当前搜索结果下载</button>
             <thead>
               <tr class="active">
                 <th><input type="checkbox" @click="chooseAll(resList)" v-bind:checked="isAll(resList)">&nbsp;&nbsp;序号</th>
@@ -508,9 +508,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(data,index) in resList" v-bind:class="[cartList.indexOf(data._id.$oid)>-1?'success':'',]" >
-                <td @click="cart(data._id.$oid,data.poscar.comment)">
-                    <input type="checkbox" v-bind:checked="cartList.indexOf(data._id.$oid)>-1" >&nbsp;&nbsp;{{(index+1)+10*(currentPage[0]-1)}}
+              <tr v-for="(data,index) in resList" v-bind:class="[cartList.indexOf(data.m_id)>-1?'success':'',]" >
+                <td @click="cart(data.m_id,data.poscar.comment)">
+                    <input type="checkbox" v-bind:checked="cartList.indexOf(data.m_id)>-1" >&nbsp;&nbsp;{{(index+1)+10*(currentPage[0]-1)}}
                 </td>
                 <td><p v-if="data.caculate">{{data.caculate.Band_Gap}}</p></td>
                 <td>{{data.compound_name}}</td>

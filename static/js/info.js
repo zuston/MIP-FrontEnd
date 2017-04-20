@@ -48,9 +48,9 @@ var vm = new Vue({
       var d1 = this.downloadList.indexOf("d1")>=0?1:0;
       var d2 = this.downloadList.indexOf("d2")>=0?1:0;
       var d3 = this.downloadList.indexOf("d3")>=0?1:0;
-      var url = "/static/MIP/"+this.resArr[0].extract.m_id+"/Static/test_scan/";
+      var url = "/static/xyl/"+this.resArr[0].extract.poscar_static.system_name+"/"+this.resArr[0].extract.m_id+"/Static/test_scan/";
       if (d1===1) {
-        window.open(url+"INCAR")
+        window.open(url+"INCAR","_blank")
       }
       if (d2===1) {
         window.open(url+"POSCAR")

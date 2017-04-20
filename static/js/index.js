@@ -175,7 +175,7 @@ var vm = new Vue({
     },
 
     download : function(){
-      var ajaxString = '/m/download?bili='+encodeURIComponent(this.bili)+'&biliNumber='+encodeURIComponent(this.biliNumber);
+      var ajaxString = '/m/download?bili='+(this.bili)+'&biliNumber='+encodeURIComponent(this.biliNumber);
       axios.get(ajaxString)
       .then(function (response) {
         baseUrl = response.data
@@ -315,8 +315,8 @@ var vm = new Vue({
     chooseAll : function(resList){
       var count = 0;
       for (var i = 0; i < resList.length; i++) {
-        if(this.cartList.indexOf(resList[i]._id.$oid)<0){
-          this.cartList.push(resList[i]._id.$oid);
+        if(this.cartList.indexOf(resList[i].m_id)<0){
+          this.cartList.push(resList[i].m_id);
           this.cartListFormual.push(resList[i].poscar.comment);
         }else{
           count ++;
@@ -324,16 +324,28 @@ var vm = new Vue({
       }
       if (count==resList.length) {
         for (var i = 0; i < resList.length; i++) {
-          this.cartList.splice(this.cartList.indexOf(resList[i]._id.$oid),1);
+          this.cartList.splice(this.cartList.indexOf(resList[i].m_id),1);
           this.cartListFormual.splice(this.cartListFormual.indexOf(resList[i].poscar.comment),1);
         }
       }
     },
 
+    // 传递计算
+    caculate : function(){
+      var idString = "";
+      for (var i = 0; i < this.cartList.length; i++) {
+        idString+="mids="+this.cartList[i]+"&";
+      }
+      idString = idString.substring(0,idString.length-1);
+      // idString = encodeURIComponent(idString);
+      // alert(idString);
+      window.open("http://nova.shu.edu.cn/SpringMVC/searchFromWeb.do?"+idString);
+    },
+
     isAll : function(resList){
       var count = 0;
       for (var i = 0; i < resList.length; i++) {
-        if(this.cartList.indexOf(resList[i]._id.$oid)>=0){
+        if(this.cartList.indexOf(resList[i].m_id)>=0){
           count ++;
         }
       }
