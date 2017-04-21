@@ -359,7 +359,7 @@
                   </div>
       </div>
 
-      <div class="col-md-offset-1 col-md-11">
+      <!-- <div class="col-md-offset-1 col-md-11">
         <div class="" style="margin-top:10px;marginBottom:10px;padding:10px;">
           <label class="checkbox-inline">
             <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value=0 checked v-model="dataType">&nbsp;&nbsp;<a>all</a>
@@ -369,7 +369,7 @@
           </label>
         </div>
 
-      </div>
+      </div> -->
 
       <hr>
 
@@ -502,7 +502,8 @@
                 <th>带隙</th>
                 <th>化学式</th>
                 <th>空间群</th>
-                <th v-if="currentSearchTag==1">valence_electrons_sum</th>
+                <th>原子平均质量</th>
+                <th v-if="currentSearchTag==1">element_valence_electrons_sum</th>
                 <th>详情</th>
                 <!-- <th>symmetrys</th> -->
               </tr>
@@ -513,13 +514,22 @@
                     <input type="checkbox" v-bind:checked="cartList.indexOf(data.m_id)>-1" >&nbsp;&nbsp;{{(index+1)+10*(currentPage[0]-1)}}
                 </td>
                 <td><p v-if="data.caculate">{{data.caculate.Band_Gap}}</p></td>
-                <td>{{data.compound_name}}</td>
+                <!-- <td>{{data.simplified_name}}&nbsp;&nbsp;({{data.compound_name}})</td> -->
+                <!--  改进的角标 -->
+                <td>
+                  <a v-for="(value, key, p) in elementArr[index]">
+                  {{value}}<sub>{{numberArr[index][key]}}</sub>
+                  </a>
+                  &nbsp;&nbsp;( <a v-for="(value, key, p) in complexElementArr[index]">
+                  {{value}}<sub>{{complexNumberArr[index][key]}}</sub>
+                  </a> )
+                </td>
                 <td><p>{{data.spaceGroup}}</p></td>
-                <!-- <td><p>{{data.symmetrys}}</p></td> -->
+                <td><p>{{data.atomic_average_mass}}&nbsp;<a>amu</a></p></td>
                 <td v-if="currentSearchTag==1"><p>{{data.ves}}</p></td>
                 <td>
                   <button type="button" class="btn btn-default btn-sm" v-if="data.computed==1">
-                    <a v-bind:href="getInfoPage(data._id.$oid)">详情</a>
+                    <a v-bind:href="getInfoPage(data._id.$oid)" target="_blank">详情</a>
                   </button>
                   <button type="button" name="button" class="btn btn-default btn-sm" v-if="data.computed==0">未计算</button>
                 </td>
@@ -545,6 +555,7 @@
 </body>
 </html>
 <script src="./static/js/element.js"></script>
+<script src="./static/js/util.js"></script>
 <script src="./static/js/vue.js"></script>
 <script src="./static/js/axios.min.js"></script>
 <script src="./static/js/index.js"></script>

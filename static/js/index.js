@@ -69,6 +69,14 @@ var vm = new Vue({
 
     //计算数据类型
     dataType : 0,
+
+    //化学式角标生成
+    //最简化学式的角标
+    numberArr : [],
+    elementArr : [],
+    //原始化学式的角标
+    complexNumberArr : [],
+    complexElementArr : [],
   },
   created : function(){
 
@@ -207,6 +215,10 @@ var vm = new Vue({
       this.searchError = [-1]
 
       this.resList.splice(0,this.resList.length);
+      this.numberArr = []
+      this.elementArr = []
+      this.complexNumberArr = []
+      this.complexElementArr = []
 
       var ajaxString = "";
       if (searchTag==0) {
@@ -237,6 +249,12 @@ var vm = new Vue({
 
       var error = this.searchError
 
+      var numberArr = this.numberArr
+      var elementArr = this.elementArr
+
+      var complexNumberArr = this.complexNumberArr
+      var complexElementArr = this.complexElementArr
+
 
       axios.get(ajaxString)
       .then(function (response) {
@@ -246,18 +264,19 @@ var vm = new Vue({
         }
 
         console.log(response);
-        // console.log("c" in response.data);
-        // console.log(response.data.error!=undefined);
         if (response.data.error!=undefined) {
             error[0] = response.data['msg']
             loadingIf.splice(0,1,false);
             // loadingIf[0] = false
             return
         }
-
         if ("c" in response.data) {
           for(var value of response.data.c){
             res.push(value)
+            numberArr.push(analyStringNew(value.simplified_name)[0]);
+            elementArr.push(analyStringNew(value.simplified_name)[1]);
+            complexNumberArr.push(analyStringNew(value.compound_name)[0]);
+            complexElementArr.push(analyStringNew(value.compound_name)[1]);
           }
 
           buttonPage.splice(0,buttonPage.length)
