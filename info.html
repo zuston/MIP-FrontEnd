@@ -66,7 +66,7 @@
       <hr>
       <div class="rightContent">
           <p>Volume</p>
-          <h4 v-if="resArr[0].extract.poscar_static.volume">{{resArr[0].extract.poscar_static.volume}}&nbsp;<a>m<sup>3</sup></a></h4>
+          <h4 v-if="resArr[0].extract.poscar_static.volume">{{resArr[0].extract.poscar_static.volume}}&nbsp;<a>A<sup>3</sup></a></h4>
           <hr>
 
           <p>Desity</p>
@@ -74,10 +74,10 @@
           <hr>
 
           <p>Bandgap</p>
-          <h4 v-if="resArr[0].extract.poscar_static.band_gap">{{resArr[0].extract.poscar_static.band_gap}}</h4>
+          <h4 v-if="resArr[0].extract.poscar_static.band_gap">{{resArr[0].extract.poscar_static.band_gap}}&nbsp;<a>eV</a></h4>
           <hr>
-          <p>Formation Energy</p>
-          <h4 v-if="resArr[0].extract.poscar_static.formation_energy">{{resArr[0].extract.poscar_static.formation_energy}}</h4>
+          <p>Energy per atom</p>
+          <h4 v-if="resArr[0].extract.poscar_static.formation_energy">{{resArr[0].extract.poscar_static.formation_energy}}&nbsp;<a>eV</a></h4>
           <hr>
           <p>Pointgroup Type</p>
           <h4 v-if="resArr[0].extract.poscar_static.point_group_type">{{resArr[0].extract.poscar_static.point_group_type}}</h4>
@@ -94,7 +94,7 @@
           <ul id="myTab" class="nav nav-tabs">
             <li class="active">
                 <a href="#home" data-toggle="tab">
-                    compute
+                    computed
                 </a>
             </li>
             <li><a href="#ios" data-toggle="tab">basic</a></li>
@@ -241,7 +241,7 @@
 
               <thead>
                 <tr class="active">
-                  <th>Number</th>
+                  <th>Index</th>
                   <th>Atom Name</th>
                   <th>site_symmetry</th>
                   <th>atomic_coordinates</th>
@@ -269,7 +269,7 @@
 
               <thead>
                 <tr class="active">
-                  <th>Number</th>
+                  <th>Index</th>
                   <th>Atom Name</th>
                   <th>site_symmetry</th>
                   <th>atomic_coordinates</th>

@@ -424,7 +424,7 @@
   <div class="container">
     <div class="col-md-offset-1 col-md-7">
       <div class="input-group input-group-lg" style="margin-top:15px;">
-            <span class="input-group-addon ">搜索式</span>
+            <span class="input-group-addon ">search formula</span>
             <input type="text" class="form-control" placeholder="~ & |" style="border:1px solid #8492A6;" v-model="expressStr">
         </div>
     </div>
@@ -440,15 +440,15 @@
   <div class="container">
     <div class="col-md-offset-1 col-md-3">
       <div class="input-group input-group-sm" style="margin-top:15px;">
-            <span class="input-group-addon">化合物比例</span>
-            <input type="text" class="form-control" placeholder="输入化合物比例" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="bili" value="4:2:1">
+            <span class="input-group-addon">element scale</span>
+            <input type="text" class="form-control" placeholder="" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="bili" value="4:2:1">
       </div>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-3">
       <div class="input-group input-group-sm" style="margin-top:15px;">
-        <span class="input-group-addon">总量</span>
-        <input type="text" class="form-control" placeholder="输入总量" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="biliNumber" value="12">
+        <span class="input-group-addon">valence electrons</span>
+        <input type="text" class="form-control" placeholder="" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="biliNumber" value="12">
       </div>
     </div>
     <div class="col-md-1">
@@ -465,7 +465,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-offset-1 col-md-1">
-          <span>已选择:</span>
+          <span>choosed:</span>
         </div>
         <div class="col-md-8" style="border-left:1px solid #20A0FF;border-right:1px solid #20A0FF;">
           <button type="button" class="btn btn-success formualButton" v-for="value in cartListFormual" style="margin-right:10px;margin-bottom:5px;">{{value}}</button>
@@ -494,17 +494,17 @@
       <div class="row">
         <div class="col-md-12">
           <table class="table table-hover table-bordered">
-            <caption>结果列表&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">{{totalCount[0]}}</a>&nbsp;&nbsp;&nbsp;&nbsp;数据来源：<a style="color:#20A0FF;font-size:20px;">MIP</a>&nbsp;&nbsp;&nbsp;&nbsp;数据库总计条目数：<a style="color:#20A0FF;font-size:20px;">75358</a><caption>
-            <button type="button" class="btn btn-success formualButton" @click="download()" v-if="currentSearchTag==1">当前搜索结果下载</button>
+            <caption>Result List&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">{{totalCount[0]}}</a>&nbsp;&nbsp;&nbsp;&nbsp;Data From:<a style="color:#20A0FF;font-size:20px;">MIP</a>&nbsp;&nbsp;&nbsp;&nbsp;All In DataBase count：<a style="color:#20A0FF;font-size:20px;">75358</a><caption>
+            <button type="button" class="btn btn-success formualButton" @click="download()" v-if="currentSearchTag==1">current result download</button>
             <thead>
               <tr class="active">
-                <th><input type="checkbox" @click="chooseAll(resList)" v-bind:checked="isAll(resList)">&nbsp;&nbsp;序号</th>
-                <th>带隙</th>
-                <th>化学式</th>
-                <th>空间群</th>
-                <th>原子平均质量</th>
-                <th v-if="currentSearchTag==1">element_valence_electrons_sum</th>
-                <th>详情</th>
+                <th><input type="checkbox" @click="chooseAll(resList)" v-bind:checked="isAll(resList)">&nbsp;&nbsp;Index</th>
+                <th>Band gap (eV)</th>
+                <th>Chemical formula</th>
+                <th>Space group</th>
+                <th>Relative mass (amu)</th>
+                <!-- <th v-if="currentSearchTag==1">element_valence_electrons_sum</th> -->
+                <th>Details</th>
                 <!-- <th>symmetrys</th> -->
               </tr>
             </thead>
@@ -525,13 +525,13 @@
                   </a> )
                 </td>
                 <td><p>{{data.spaceGroup}}</p></td>
-                <td><p>{{data.atomic_average_mass}}&nbsp;<a>amu</a></p></td>
-                <td v-if="currentSearchTag==1"><p>{{data.ves}}</p></td>
+                <td><p>{{data.atomic_average_mass}}&nbsp;<a></a></p></td>
+                <!-- <td v-if="currentSearchTag==1"><p>{{data.ves}}</p></td> -->
                 <td>
                   <button type="button" class="btn btn-default btn-sm" v-if="data.computed==1">
-                    <a v-bind:href="getInfoPage(data._id.$oid)" target="_blank">详情</a>
+                    <a v-bind:href="getInfoPage(data._id.$oid)" target="_blank">Click</a>
                   </button>
-                  <button type="button" name="button" class="btn btn-default btn-sm" v-if="data.computed==0">未计算</button>
+                  <button type="button" name="button" class="btn btn-default btn-sm" v-if="data.computed==0">None caculate</button>
                 </td>
               </tr>
             </tbody>

@@ -231,7 +231,7 @@ var vm = new Vue({
         var changeSearchContent = encodeURIComponent(searchContent);
         ajaxString = '/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token+"&computed="+this.dataType;
       }else if (searchTag==1) {
-        if(this.bili===""||this.biliNumber===""){
+        if(this.bili===""){
           alert("请输入比例");
           return;
         }
