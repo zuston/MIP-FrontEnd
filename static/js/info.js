@@ -44,7 +44,7 @@ var vm = new Vue({
       var elementArr = this.elementArr;
       axios.get(loadString).then(function(response){
         hg.splice(0,1,response.data);
-        var name = response.data.vasp.poscar.comment;
+        var name = response.data.basic.pymatgen_poscar.comment;
         numberArr.splice(0,1,analyString(name)[0]);
         elementArr.splice(0,1,analyString(name)[1]);
         console.log(numberArr[0]);

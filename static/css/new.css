@@ -42,3 +42,7 @@
   background-color: 	#836FFF;
   color: white;
 }
+
+.removeChartList:hover{
+  color: red;
+}

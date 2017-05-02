@@ -66,7 +66,7 @@
                             <li class="empty" contextmenu="mymenu" style="transition: 0.1s ease-out;"></li>
                             <li class="empty" contextmenu="mymenu" style="transition: 0.1s ease-out;"></li>
                             <li data-name="He" data-pos="2" data-nb="4.0026" v-bind:class="[hoverList.indexOf('He')>-1?selectedElement:'',element,avaliable,partChooseArr.indexOf('He')>-1?'partSelectElement':'']" contextmenu="mymenu" style="color: black; background-color: transparent; transition: 0.1s ease-out;" v-on:mouseover="hoverListen('He')" v-on:mouseout="hoverOut" v-on:click="savehover('He')">He
-                                <div style="font-size:9px" class="column_label">NOBLE</div>
+                                <div style="font-size:9px" class="column_label">VIIIA</div>
                             </li>
 
                             <!-- ROW 2 -->
@@ -375,16 +375,25 @@
 
 
 
+
       <div class="col-md-offset-1 col-md-3">
         <div class="input-group input-group-sm" style="margin-top:15px;">
-              <span class="input-group-addon">BandGap</span>
-              <input type="text" class="form-control" placeholder="enter the bandgap" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="bandgap">
+              <span class="input-group-addon">Space Group</span>
+              <input type="text" class="form-control" placeholder="enter the spacegroup" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="spacegroup">
         </div>
       </div>
+
       <div class="col-md-3">
         <div class="input-group input-group-sm" style="margin-top:15px;">
-              <span class="input-group-addon">SpaceGroup</span>
-              <input type="text" class="form-control" placeholder="enter the spacegroup" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="spacegroup">
+              <span class="input-group-addon">Element Scale</span>
+              <input type="text" class="form-control" placeholder="for example(1:1:1)" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="es">
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="input-group input-group-sm" style="margin-top:15px;">
+              <span class="input-group-addon">Valence Electrons</span>
+              <input type="text" class="form-control" placeholder="for example(8|18)" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="ve">
         </div>
       </div>
     </div>
@@ -396,23 +405,23 @@
       <table class="table table-bordered table-condensed" id="partChooseTable">
         <tbody>
           <tr >
-            <td class="success" v-on:mouseover="partChoose('1A')" v-on:mouseout="departChoose()" @click="choose('1A')">IA 族</td>
-            <td class="warning" v-on:mouseover="partChoose('2A')" v-on:mouseout="departChoose()" @click="choose('2A')">IIA 族</td>
-            <td class="danger" v-on:mouseover="partChoose('3B')" v-on:mouseout="departChoose()" @click="choose('3B')">IIIB 族</td>
-            <td class="success" v-on:mouseover="partChoose('4B')" v-on:mouseout="departChoose()" @click="choose('4B')">IVB 族</td>
-            <td class="warning" v-on:mouseover="partChoose('5B')" v-on:mouseout="departChoose()" @click="choose('5B')">VB 族</td>
-            <td class="danger" v-on:mouseover="partChoose('6B')" v-on:mouseout="departChoose()" @click="choose('6B')">VIB 族</td>
-            <td class="success" v-on:mouseover="partChoose('7B')" v-on:mouseout="departChoose()" @click="choose('7B')">VIIB 族</td>
-            <td class="warning" v-on:mouseover="partChoose('8B')" v-on:mouseout="departChoose()" @click="choose('8B')">VIIIB 族</td>
-            <td class="danger" v-on:mouseover="partChoose('1B')" v-on:mouseout="departChoose()" @click="choose('1B')">IB 族</td>
-            <td class="success" v-on:mouseover="partChoose('2B')" v-on:mouseout="departChoose()" @click="choose('2B')">IIB 族</td>
+            <td class="success" v-on:mouseover="partChoose('1A')" v-on:mouseout="departChoose()" @click="choose('1A')">IA </td>
+            <td class="warning" v-on:mouseover="partChoose('2A')" v-on:mouseout="departChoose()" @click="choose('2A')">IIA </td>
+            <td class="danger" v-on:mouseover="partChoose('3B')" v-on:mouseout="departChoose()" @click="choose('3B')">IIIB </td>
+            <td class="success" v-on:mouseover="partChoose('4B')" v-on:mouseout="departChoose()" @click="choose('4B')">IVB </td>
+            <td class="warning" v-on:mouseover="partChoose('5B')" v-on:mouseout="departChoose()" @click="choose('5B')">VB </td>
+            <td class="danger" v-on:mouseover="partChoose('6B')" v-on:mouseout="departChoose()" @click="choose('6B')">VIB </td>
+            <td class="success" v-on:mouseover="partChoose('7B')" v-on:mouseout="departChoose()" @click="choose('7B')">VIIB </td>
+            <td class="warning" v-on:mouseover="partChoose('8B')" v-on:mouseout="departChoose()" @click="choose('8B')">VIIIB </td>
+            <td class="danger" v-on:mouseover="partChoose('1B')" v-on:mouseout="departChoose()" @click="choose('1B')">IB </td>
+            <td class="success" v-on:mouseover="partChoose('2B')" v-on:mouseout="departChoose()" @click="choose('2B')">IIB </td>
           </tr>
           <tr>
-            <td class="danger" v-on:mouseover="partChoose('3A')" v-on:mouseout="departChoose()" @click="choose('3A')">IIIA 族</td>
-            <td class="success" v-on:mouseover="partChoose('4A')" v-on:mouseout="departChoose()" @click="choose('4A')">IVA 族</td>
-            <td class="warning" v-on:mouseover="partChoose('5A')" v-on:mouseout="departChoose()" @click="choose('5A')">VA 族</td>
-            <td class="danger" v-on:mouseover="partChoose('6A')" v-on:mouseout="departChoose()" @click="choose('6A')">VIA 族</td>
-            <td class="success" v-on:mouseover="partChoose('7A')" v-on:mouseout="departChoose()" @click="choose('7A')">VIIA 族</td>
+            <td class="danger" v-on:mouseover="partChoose('3A')" v-on:mouseout="departChoose()" @click="choose('3A')">IIIA </td>
+            <td class="success" v-on:mouseover="partChoose('4A')" v-on:mouseout="departChoose()" @click="choose('4A')">IVA </td>
+            <td class="warning" v-on:mouseover="partChoose('5A')" v-on:mouseout="departChoose()" @click="choose('5A')">VA </td>
+            <td class="danger" v-on:mouseover="partChoose('6A')" v-on:mouseout="departChoose()" @click="choose('6A')">VIA </td>
+            <td class="success" v-on:mouseover="partChoose('7A')" v-on:mouseout="departChoose()" @click="choose('7A')">VIIA </td>
             <!-- <td class="warning" v-on:mouseover="partChoose(3B)" v-on:mouseout="departChoose()">IIIB 族</td> -->
           </tr>
         </tbody>
@@ -437,7 +446,7 @@
 
   <hr>
 
-  <div class="container">
+  <!-- <div class="container">
     <div class="col-md-offset-1 col-md-3">
       <div class="input-group input-group-sm" style="margin-top:15px;">
             <span class="input-group-addon">element scale</span>
@@ -456,7 +465,7 @@
       <button type="button" class="btn btn-primary btn-lg" @click="search(1,true,1)">Search</button>
     </div>
     </div>
-  </div>
+  </div> -->
 
 
 
@@ -465,14 +474,14 @@
     <div class="container">
       <div class="row">
         <div class="col-md-offset-1 col-md-1">
-          <span>choosed:</span>
+          <span>chosed:</span>
         </div>
         <div class="col-md-8" style="border-left:1px solid #20A0FF;border-right:1px solid #20A0FF;">
-          <button type="button" class="btn btn-success formualButton" v-for="value in cartListFormual" style="margin-right:10px;margin-bottom:5px;">{{value}}</button>
+          <button type="button" class="btn btn-success formualButton" v-for="value in cartListFormual" style="margin-right:10px;margin-bottom:5px;"><a style="width:10px;font-size:20px;color:blue;" @click="removeCart(value)" class="removeChartList">x</a>&nbsp;&nbsp;{{value}}</button>
         </div>
 
         <div class="col-md-1">
-          <button type="button" class="btn btn-default" @click="caculate">点击计算</button>
+          <button type="button" class="btn btn-default" @click="caculate">click to calculate</button>
         </div>
       </div>
     </div>
@@ -482,8 +491,12 @@
     <img src="static/images/loading.jpg" alt="" style="width:80px;">Loading
   </div>
 
-  <div style="text-align:center;" v-if="searchError[0]!==-1" style="padding:5px;">
-    <h4>{{searchError[0]}}</h4>
+  <div style="text-align:center;" v-if="searchError[0]!==-1" style="padding:10px;margin:20px;">
+    <hr>
+    <h3>{{searchError[0]}}</h3>
+    <hr>
+    <br>
+    <br>
   </div>
   <!-- <h1>{{expression}}</h1>
   <h3 v-for="i in hoverList">{{i}}</h3>
@@ -494,8 +507,8 @@
       <div class="row">
         <div class="col-md-12">
           <table class="table table-hover table-bordered">
-            <caption>Result List&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">{{totalCount[0]}}</a>&nbsp;&nbsp;&nbsp;&nbsp;Data From:<a style="color:#20A0FF;font-size:20px;">MIP</a>&nbsp;&nbsp;&nbsp;&nbsp;All In DataBase count：<a style="color:#20A0FF;font-size:20px;">75358</a><caption>
-            <button type="button" class="btn btn-success formualButton" @click="download()" v-if="currentSearchTag==1">current result download</button>
+            <caption>Result List&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">{{totalCount[0]}}</a>&nbsp;&nbsp;&nbsp;&nbsp;Data From&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">MIP</a>&nbsp;&nbsp;&nbsp;&nbsp;All In DataBase Count&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">75358</a><caption>
+            <button type="button" class="btn btn-success formualButton" @click="download()">current result download</button>
             <thead>
               <tr class="active">
                 <th><input type="checkbox" @click="chooseAll(resList)" v-bind:checked="isAll(resList)">&nbsp;&nbsp;Index</th>
@@ -509,11 +522,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(data,index) in resList" v-bind:class="[cartList.indexOf(data.m_id)>-1?'success':'',]" >
-                <td @click="cart(data.m_id,data.poscar.comment)">
-                    <input type="checkbox" v-bind:checked="cartList.indexOf(data.m_id)>-1" >&nbsp;&nbsp;{{(index+1)+10*(currentPage[0]-1)}}
+              <tr v-for="(data,index) in resList" v-bind:class="[cartList.indexOf(data.original_id)>-1?'success':'',]" >
+                <td @click="cart(data.original_id,data.compound_name)">
+                    <input type="checkbox" v-bind:checked="cartList.indexOf(data.original_id)>-1" >&nbsp;&nbsp;{{(index+1)+10*(currentPage[0]-1)}}
                 </td>
-                <td><p v-if="data.caculate">{{data.caculate.Band_Gap}}</p></td>
+                <td><p>{{data.bandgap}}</p></td>
                 <!-- <td>{{data.simplified_name}}&nbsp;&nbsp;({{data.compound_name}})</td> -->
                 <!--  改进的角标 -->
                 <td>
@@ -531,7 +544,7 @@
                   <button type="button" class="btn btn-default btn-sm" v-if="data.computed==1">
                     <a v-bind:href="getInfoPage(data._id.$oid)" target="_blank">Click</a>
                   </button>
-                  <button type="button" name="button" class="btn btn-default btn-sm" v-if="data.computed==0">None caculate</button>
+                  <button type="button" name="button" class="btn btn-default btn-sm disabled" v-if="data.computed==0">None caculate</button>
                 </td>
               </tr>
             </tbody>

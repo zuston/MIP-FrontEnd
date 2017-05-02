@@ -49,6 +49,9 @@ var vm = new Vue({
 
     bandgap : null,
     spacegroup : null,
+    es : null,
+    ve : null,
+
     // 搜索的表达式
     expression : null,
     expressStr : null,
@@ -91,16 +94,39 @@ var vm = new Vue({
     },
 
     // 监听bandgap变化
-    bandgap : function(){
-      if (this.expressStr!=null&&this.expressStr.indexOf("bandgap")>0) {
-        this.expressStr = this.expressStr.replace(/\(bandgap=(\d*)\)/,"(bandgap="+this.bandgap+")");
+    es : function(){
+      if (this.expressStr!=null&&this.es.length==0) {
+        this.expressStr = this.expressStr.replace(/\(es=(.*)\)/,"");
+        return;
+      }
+      if (this.expressStr!=null&&this.expressStr.indexOf("es")>0) {
+        this.expressStr = this.expressStr.replace(/\(es=(.*)\)/,"(es="+this.es+")");
       }else{
 
         if (this.expressStr==null) {
           this.expressStr = "";
-          this.expressStr += "(bandgap="+this.bandgap+")"
+          this.expressStr += "(es="+this.es+")"
         }else{
-          this.expressStr += "&(bandgap="+this.bandgap+")"
+          this.expressStr += "&(es="+this.es+")"
+        }
+
+      }
+    },
+
+    ve : function(){
+      if (this.expressStr!=null&&this.ve.length==0) {
+        this.expressStr = this.expressStr.replace(/\(ve=(.*)\)/,"");
+        return;
+      }
+      if (this.expressStr!=null&&this.expressStr.indexOf("ve")>0) {
+        this.expressStr = this.expressStr.replace(/\(ve=(.*)\)/,"(ve="+this.ve+")");
+      }else{
+
+        if (this.expressStr==null) {
+          this.expressStr = "";
+          this.expressStr += "(ve="+this.ve+")"
+        }else{
+          this.expressStr += "&(ve="+this.ve+")"
         }
 
       }
@@ -108,6 +134,10 @@ var vm = new Vue({
 
     // 监听spacegroup变化
     spacegroup : function(){
+      if (this.expressStr!=null&&this.spacegroup.length==0) {
+        this.expressStr = this.expressStr.replace(/\(spacegroup=(.*)\)/,"");
+        return;
+      }
       if (this.expressStr!=null&&this.expressStr.indexOf("spacegroup")>0) {
         this.expressStr = this.expressStr.replace(/\(spacegroup=(\d*)\)/,"(spacegroup="+this.spacegroup+")");
       }else{
@@ -183,7 +213,8 @@ var vm = new Vue({
     },
 
     download : function(){
-      var ajaxString = '/m/download?bili='+(this.bili)+'&biliNumber='+encodeURIComponent(this.biliNumber);
+      console.log(this.expressStr);
+      var ajaxString = '/m/download?expression='+encodeURIComponent(this.expressStr);
       axios.get(ajaxString)
       .then(function (response) {
         baseUrl = response.data
@@ -263,13 +294,13 @@ var vm = new Vue({
           res.splice(0,res.length)
         }
 
-        console.log(response);
         if (response.data.error!=undefined) {
             error[0] = response.data['msg']
             loadingIf.splice(0,1,false);
             // loadingIf[0] = false
             return
         }
+        console.log(response);
         if ("c" in response.data) {
           for(var value of response.data.c){
             res.push(value)
@@ -329,6 +360,13 @@ var vm = new Vue({
         this.cartList.push(index);
         this.cartListFormual.push(formual);
       }
+    },
+
+    // 移除购物车选项
+    removeCart : function(formual){
+      var position = this.cartListFormual.indexOf(formual);
+      this.cartListFormual.splice(position,1);
+      this.cartList.splice(position,1);
     },
 
     chooseAll : function(resList){
