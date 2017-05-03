@@ -376,28 +376,56 @@
 
 
 
-      <div class="col-md-offset-1 col-md-3">
+
+      <div class="col-md-1 ">
+
+      </div>
+
+
+      <div class="col-md-3" v-if="conditionFlag[0]==false">
         <div class="input-group input-group-sm" style="margin-top:15px;">
-              <span class="input-group-addon">Space Group</span>
-              <input type="text" class="form-control" placeholder="enter the spacegroup" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="spacegroup">
+              <span class="input-group-addon"><a @click="removeCondition(0)">X</a>&nbsp;Space Group&nbsp;(sg)</span>
+              <input type="text" class="form-control" placeholder="" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="spacegroup">
         </div>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-3" v-if="conditionFlag[1]==false">
         <div class="input-group input-group-sm" style="margin-top:15px;">
-              <span class="input-group-addon">Element Scale</span>
-              <input type="text" class="form-control" placeholder="for example(1:1:1)" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="es">
+              <span class="input-group-addon"><a @click="removeCondition(1)">X</a>&nbsp;Element Scale&nbsp;(es)</span>
+              <input type="text" class="form-control" placeholder="1:1:1" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="es">
         </div>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-4" v-if="conditionFlag[2]==false">
         <div class="input-group input-group-sm" style="margin-top:15px;">
-              <span class="input-group-addon">Valence Electrons</span>
-              <input type="text" class="form-control" placeholder="for example(8|18)" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="ve">
+              <span class="input-group-addon"><a @click="removeCondition(2)">X</a>&nbsp;Valence Electrons&nbsp;(ve)</span>
+              <input type="text" class="form-control" placeholder="8|18" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="ve">
         </div>
       </div>
     </div>
   </div>
+
+  <div class="container">
+    <div class="btn-group col-md-10 col-md-offset-1">
+        <!-- <button type="button" class="btn btn-default">按钮 1</button>
+        <button type="button" class="btn btn-default">按钮 2</button> -->
+        <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Add Conditions
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a @click="addCondition(0)" v-if="conditionFlag[0]">Space Group</a></li>
+            <li><a @click="addCondition(1)" v-if="conditionFlag[1]">Element Scale</a></li>
+            <li><a @click="addCondition(2)" v-if="conditionFlag[2]">Valence Electrons</a></li>
+        </ul>
+        </div>
+    </div>
+
+  </div>
+
+  <hr>
+
 
   <div class="container">
     <div class="col-md-offset-1 col-md-10">
@@ -475,6 +503,7 @@
       <div class="row">
         <div class="col-md-offset-1 col-md-1">
           <span>chosed:</span>
+          <button type="button" name="button" class="btn btn-sm btn-default" @click="cancelCalculate">cancel</button>
         </div>
         <div class="col-md-8" style="border-left:1px solid #20A0FF;border-right:1px solid #20A0FF;">
           <button type="button" class="btn btn-success formualButton" v-for="value in cartListFormual" style="margin-right:10px;margin-bottom:5px;"><a style="width:10px;font-size:20px;color:blue;" @click="removeCart(value)" class="removeChartList">x</a>&nbsp;&nbsp;{{value}}</button>

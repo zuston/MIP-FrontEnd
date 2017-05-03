@@ -80,6 +80,8 @@ var vm = new Vue({
     //原始化学式的角标
     complexNumberArr : [],
     complexElementArr : [],
+
+    conditionFlag : [true,true,true],
   },
   created : function(){
 
@@ -96,11 +98,11 @@ var vm = new Vue({
     // 监听bandgap变化
     es : function(){
       if (this.expressStr!=null&&this.es.length==0) {
-        this.expressStr = this.expressStr.replace(/\(es=(.*)\)/,"");
+        this.expressStr = this.expressStr.replace(/\(es=(.*?)\)/,"");
         return;
       }
       if (this.expressStr!=null&&this.expressStr.indexOf("es")>0) {
-        this.expressStr = this.expressStr.replace(/\(es=(.*)\)/,"(es="+this.es+")");
+        this.expressStr = this.expressStr.replace(/\(es=(.*?)\)/,"(es="+this.es+")");
       }else{
 
         if (this.expressStr==null) {
@@ -135,17 +137,17 @@ var vm = new Vue({
     // 监听spacegroup变化
     spacegroup : function(){
       if (this.expressStr!=null&&this.spacegroup.length==0) {
-        this.expressStr = this.expressStr.replace(/\(spacegroup=(.*)\)/,"");
+        this.expressStr = this.expressStr.replace(/\(sg=(.*)\)/,"");
         return;
       }
-      if (this.expressStr!=null&&this.expressStr.indexOf("spacegroup")>0) {
-        this.expressStr = this.expressStr.replace(/\(spacegroup=(\d*)\)/,"(spacegroup="+this.spacegroup+")");
+      if (this.expressStr!=null&&this.expressStr.indexOf("sg")>0) {
+        this.expressStr = this.expressStr.replace(/\(sg=(\d*)\)/,"(sg="+this.spacegroup+")");
       }else{
         if (this.expressStr==null) {
           this.expressStr = "";
-          this.expressStr += "(spacegroup="+this.spacegroup+")"
+          this.expressStr += "(sg="+this.spacegroup+")"
         }else {
-          this.expressStr += "&(spacegroup="+this.spacegroup+")"
+          this.expressStr += "&(sg="+this.spacegroup+")"
         }
       }
     }
@@ -372,19 +374,24 @@ var vm = new Vue({
     chooseAll : function(resList){
       var count = 0;
       for (var i = 0; i < resList.length; i++) {
-        if(this.cartList.indexOf(resList[i].m_id)<0){
-          this.cartList.push(resList[i].m_id);
-          this.cartListFormual.push(resList[i].poscar.comment);
+        if(this.cartList.indexOf(resList[i].original_id)<0){
+          this.cartList.push(resList[i].original_id);
+          this.cartListFormual.push(resList[i].compound_name);
         }else{
           count ++;
         }
       }
       if (count==resList.length) {
         for (var i = 0; i < resList.length; i++) {
-          this.cartList.splice(this.cartList.indexOf(resList[i].m_id),1);
-          this.cartListFormual.splice(this.cartListFormual.indexOf(resList[i].poscar.comment),1);
+          this.cartList.splice(this.cartList.indexOf(resList[i].original_id),1);
+          this.cartListFormual.splice(this.cartListFormual.indexOf(resList[i].compound_name),1);
         }
       }
+    },
+
+    cancelCalculate : function(){
+      this.cartList.splice(0,this.cartList.length);
+      this.cartListFormual.splice(0,this.cartListFormual.length);
     },
 
     // 传递计算
@@ -402,7 +409,7 @@ var vm = new Vue({
     isAll : function(resList){
       var count = 0;
       for (var i = 0; i < resList.length; i++) {
-        if(this.cartList.indexOf(resList[i].m_id)>=0){
+        if(this.cartList.indexOf(resList[i].original_id)>=0){
           count ++;
         }
       }
@@ -411,6 +418,18 @@ var vm = new Vue({
         return true;
       }
       return false;
+    },
+
+    addCondition : function(tag){
+      console.log(tag);
+      console.log(this.conditionFlag[tag]);
+      this.conditionFlag.splice(tag,1,false);
+      console.log(this.conditionFlag[tag]);
+
+    },
+
+    removeCondition : function(tag){
+      this.conditionFlag.splice(tag,1,true);
     },
 
     // 族系选定
