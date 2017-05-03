@@ -46,3 +46,7 @@
 .removeChartList:hover{
   color: red;
 }
+
+#removeX{
+  color: red;
+}

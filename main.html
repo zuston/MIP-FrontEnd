@@ -371,7 +371,39 @@
 
       </div> -->
 
+
+
       <hr>
+
+      <div class="container">
+        <div class="col-md-offset-1 col-md-10">
+          <!-- <button type="button" class="btn btn-danger btn-sm" v-on:mouseover="partChoose(1)" v-on:mouseout="departChoose(1)"> I  族</button> -->
+          <table class="table table-bordered table-condensed" id="partChooseTable">
+            <tbody>
+              <tr >
+                <td class="success" v-on:mouseover="partChoose('1A')" v-on:mouseout="departChoose()" @click="choose('1A')">IA </td>
+                <td class="warning" v-on:mouseover="partChoose('2A')" v-on:mouseout="departChoose()" @click="choose('2A')">IIA </td>
+                <td class="danger" v-on:mouseover="partChoose('3B')" v-on:mouseout="departChoose()" @click="choose('3B')">IIIB </td>
+                <td class="success" v-on:mouseover="partChoose('4B')" v-on:mouseout="departChoose()" @click="choose('4B')">IVB </td>
+                <td class="warning" v-on:mouseover="partChoose('5B')" v-on:mouseout="departChoose()" @click="choose('5B')">VB </td>
+                <td class="danger" v-on:mouseover="partChoose('6B')" v-on:mouseout="departChoose()" @click="choose('6B')">VIB </td>
+                <td class="success" v-on:mouseover="partChoose('7B')" v-on:mouseout="departChoose()" @click="choose('7B')">VIIB </td>
+                <td class="warning" v-on:mouseover="partChoose('8B')" v-on:mouseout="departChoose()" @click="choose('8B')">VIIIB </td>
+                <td class="danger" v-on:mouseover="partChoose('1B')" v-on:mouseout="departChoose()" @click="choose('1B')">IB </td>
+                <td class="success" v-on:mouseover="partChoose('2B')" v-on:mouseout="departChoose()" @click="choose('2B')">IIB </td>
+              </tr>
+              <tr>
+                <td class="danger" v-on:mouseover="partChoose('3A')" v-on:mouseout="departChoose()" @click="choose('3A')">IIIA </td>
+                <td class="success" v-on:mouseover="partChoose('4A')" v-on:mouseout="departChoose()" @click="choose('4A')">IVA </td>
+                <td class="warning" v-on:mouseover="partChoose('5A')" v-on:mouseout="departChoose()" @click="choose('5A')">VA </td>
+                <td class="danger" v-on:mouseover="partChoose('6A')" v-on:mouseout="departChoose()" @click="choose('6A')">VIA </td>
+                <td class="success" v-on:mouseover="partChoose('7A')" v-on:mouseout="departChoose()" @click="choose('7A')">VIIA </td>
+                <!-- <td class="warning" v-on:mouseover="partChoose(3B)" v-on:mouseout="departChoose()">IIIB 族</td> -->
+              </tr>
+            </tbody>
+        </table>
+        </div>
+      </div>
 
 
 
@@ -384,22 +416,25 @@
 
       <div class="col-md-3" v-if="conditionFlag[0]==false">
         <div class="input-group input-group-sm" style="margin-top:15px;">
-              <span class="input-group-addon"><a @click="removeCondition(0)">X</a>&nbsp;Space Group&nbsp;(sg)</span>
-              <input type="text" class="form-control" placeholder="" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="spacegroup">
+              <span class="input-group-addon">Space Group&nbsp;(sg)</span>
+              <input type="text" class="form-control" placeholder="" style="border:1px solid #8492A6;" v-model="spacegroup">
+              <span class="input-group-addon" id="basic-addon2" @click="removeCondition(0)" ><a id="removeX">X</a>&nbsp;</span>
         </div>
       </div>
 
       <div class="col-md-3" v-if="conditionFlag[1]==false">
         <div class="input-group input-group-sm" style="margin-top:15px;">
-              <span class="input-group-addon"><a @click="removeCondition(1)">X</a>&nbsp;Element Scale&nbsp;(es)</span>
-              <input type="text" class="form-control" placeholder="1:1:1" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="es">
+              <span class="input-group-addon">Element Scale&nbsp;(es)</span>
+              <input type="text" class="form-control" placeholder="1:1:1" style="border:1px solid #8492A6;" v-model="es">
+              <span class="input-group-addon" id="basic-addon2" @click="removeCondition(1)" ><a id="removeX">X</a>&nbsp;</span>
         </div>
       </div>
 
       <div class="col-md-4" v-if="conditionFlag[2]==false">
         <div class="input-group input-group-sm" style="margin-top:15px;">
-              <span class="input-group-addon"><a @click="removeCondition(2)">X</a>&nbsp;Valence Electrons&nbsp;(ve)</span>
-              <input type="text" class="form-control" placeholder="8|18" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="ve">
+              <span class="input-group-addon">Valence Electrons&nbsp;(ve)</span>
+              <input type="text" class="form-control" placeholder="8|18" style="border:1px solid #8492A6;" v-model="ve">
+              <span class="input-group-addon" id="basic-addon2" @click="removeCondition(0)"><a  id="removeX">X</a>&nbsp;</span>
         </div>
       </div>
     </div>
@@ -427,35 +462,7 @@
   <hr>
 
 
-  <div class="container">
-    <div class="col-md-offset-1 col-md-10">
-      <!-- <button type="button" class="btn btn-danger btn-sm" v-on:mouseover="partChoose(1)" v-on:mouseout="departChoose(1)"> I  族</button> -->
-      <table class="table table-bordered table-condensed" id="partChooseTable">
-        <tbody>
-          <tr >
-            <td class="success" v-on:mouseover="partChoose('1A')" v-on:mouseout="departChoose()" @click="choose('1A')">IA </td>
-            <td class="warning" v-on:mouseover="partChoose('2A')" v-on:mouseout="departChoose()" @click="choose('2A')">IIA </td>
-            <td class="danger" v-on:mouseover="partChoose('3B')" v-on:mouseout="departChoose()" @click="choose('3B')">IIIB </td>
-            <td class="success" v-on:mouseover="partChoose('4B')" v-on:mouseout="departChoose()" @click="choose('4B')">IVB </td>
-            <td class="warning" v-on:mouseover="partChoose('5B')" v-on:mouseout="departChoose()" @click="choose('5B')">VB </td>
-            <td class="danger" v-on:mouseover="partChoose('6B')" v-on:mouseout="departChoose()" @click="choose('6B')">VIB </td>
-            <td class="success" v-on:mouseover="partChoose('7B')" v-on:mouseout="departChoose()" @click="choose('7B')">VIIB </td>
-            <td class="warning" v-on:mouseover="partChoose('8B')" v-on:mouseout="departChoose()" @click="choose('8B')">VIIIB </td>
-            <td class="danger" v-on:mouseover="partChoose('1B')" v-on:mouseout="departChoose()" @click="choose('1B')">IB </td>
-            <td class="success" v-on:mouseover="partChoose('2B')" v-on:mouseout="departChoose()" @click="choose('2B')">IIB </td>
-          </tr>
-          <tr>
-            <td class="danger" v-on:mouseover="partChoose('3A')" v-on:mouseout="departChoose()" @click="choose('3A')">IIIA </td>
-            <td class="success" v-on:mouseover="partChoose('4A')" v-on:mouseout="departChoose()" @click="choose('4A')">IVA </td>
-            <td class="warning" v-on:mouseover="partChoose('5A')" v-on:mouseout="departChoose()" @click="choose('5A')">VA </td>
-            <td class="danger" v-on:mouseover="partChoose('6A')" v-on:mouseout="departChoose()" @click="choose('6A')">VIA </td>
-            <td class="success" v-on:mouseover="partChoose('7A')" v-on:mouseout="departChoose()" @click="choose('7A')">VIIA </td>
-            <!-- <td class="warning" v-on:mouseover="partChoose(3B)" v-on:mouseout="departChoose()">IIIB 族</td> -->
-          </tr>
-        </tbody>
-    </table>
-    </div>
-  </div>
+
 
 
   <div class="container">
