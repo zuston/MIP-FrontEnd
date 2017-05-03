@@ -578,7 +578,7 @@
                 <!-- <td v-if="currentSearchTag==1"><p>{{data.ves}}</p></td> -->
                 <td>
                   <button type="button" class="btn btn-default btn-sm" v-if="data.computed==1">
-                    <a v-bind:href="getInfoPage(data._id.$oid)" target="_blank">Click</a>
+                    <a v-bind:href="getInfoPage(data.id)" target="_blank">Click</a>
                   </button>
                   <button type="button" name="button" class="btn btn-default btn-sm disabled" v-if="data.computed==0">None caculate</button>
                 </td>
