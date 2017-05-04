@@ -215,15 +215,7 @@ var vm = new Vue({
     },
 
     download : function(){
-      console.log(this.expressStr);
-      var ajaxString = '/m/download?expression='+encodeURIComponent(this.expressStr);
-      axios.get(ajaxString)
-      .then(function (response) {
-        baseUrl = response.data
-        window.open("/static/"+baseUrl);
-      }).catch(function(err){
-        alert("下载失败");
-      })
+      window.open('/m/download?expression='+encodeURIComponent(this.expressStr));
     },
 
     search : function(page,first,searchTag=0){
@@ -261,6 +253,8 @@ var vm = new Vue({
           return
         }
         var searchContent = this.expressStr;
+        searchContent = searchContent.replace("|","#");
+        console.log(searchContent);
         var changeSearchContent = encodeURIComponent(searchContent);
         ajaxString = '/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token+"&computed="+this.dataType;
       }else if (searchTag==1) {
