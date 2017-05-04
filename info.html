@@ -4,6 +4,7 @@
     <title>MIP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="./static/images/bitbug_favicon.ico" />
     <link href="./static/css/bootstrap.css" rel='stylesheet' type='text/css' />
     <!-- Custom Theme files -->
     <!--  模板样式-->
@@ -66,21 +67,21 @@
       <hr>
       <div class="rightContent">
           <p>Volume</p>
-          <h4 v-if="resArr[0].extract.poscar_static.volume">{{resArr[0].extract.poscar_static.volume}}&nbsp;<a>A<sup>3</sup></a></h4>
+          <h4 v-if="resArr[0].extract.extract_info.volume">{{resArr[0].extract.extract_info.volume}}&nbsp;<a>A<sup>3</sup></a></h4>
           <hr>
 
           <p>Desity</p>
-          <h5 v-if="resArr[0].extract.poscar_static.desity">{{resArr[0].extract.poscar_static.desity}}&nbsp;<a>g/cm<sup>3</sup></a></h5>
+          <h5 v-if="resArr[0].extract.extract_info.desity">{{resArr[0].extract.extract_info.desity}}&nbsp;<a>g/cm<sup>3</sup></a></h5>
           <hr>
 
           <p>Bandgap</p>
-          <h4 v-if="resArr[0].extract.poscar_static.band_gap">{{resArr[0].extract.poscar_static.band_gap.toFixed(5)}}&nbsp;<a>eV</a></h4>
+          <h4 v-if="resArr[0].extract.extract_info.band_gap">{{resArr[0].extract.extract_info.band_gap.toFixed(5)}}&nbsp;<a>eV</a></h4>
           <hr>
           <p>Energy per atom</p>
-          <h4 v-if="resArr[0].extract.poscar_static.formation_energy">{{resArr[0].extract.poscar_static.formation_energy.toFixed(5)}}&nbsp;<a>eV</a></h4>
+          <h4 v-if="resArr[0].extract.extract_info.formation_energy">{{resArr[0].extract.extract_info.formation_energy.toFixed(5)}}&nbsp;<a>eV</a></h4>
           <hr>
           <p>Pointgroup Type</p>
-          <h4 v-if="resArr[0].extract.poscar_static.point_group_type">{{resArr[0].extract.poscar_static.point_group_type}}</h4>
+          <h4 v-if="resArr[0].extract.extract_info.point_group_type">{{resArr[0].extract.extract_info.point_group_type}}</h4>
 
 
       </div>
@@ -104,31 +105,31 @@
               <div class="row mip-rightright">
                 <div class="col-md-6">
                   <button type="button"class="btn btn-primary btn-sm"  name="button">a</button>
-                  <a>{{resArr[0].extract.poscar_static.a}}</a>
+                  <a>{{resArr[0].extract.extract_info.a}}</a>
                 </div>
                 <div class="col-md-6">
                   <button type="button"class="btn btn-primary btn-sm"  name="button">alpha</button>
-                  <a>{{resArr[0].extract.poscar_static.alpha}}</a>
+                  <a>{{resArr[0].extract.extract_info.alpha}}</a>
                 </div>
               </div>
               <div class="row mip-rightright">
                 <div class="col-md-6">
                   <button type="button"class="btn btn-primary btn-sm"  name="button">b</button>
-                  <a>{{resArr[0].extract.poscar_static.b}}</a>
+                  <a>{{resArr[0].extract.extract_info.b}}</a>
                 </div>
                 <div class="col-md-6">
                   <button type="button"class="btn btn-primary btn-sm"  name="button">beta</button>
-                  <a>{{resArr[0].extract.poscar_static.beta}}</a>
+                  <a>{{resArr[0].extract.extract_info.beta}}</a>
                 </div>
               </div>
               <div class="row mip-rightright">
                 <div class="col-md-6">
                   <button type="button"class="btn btn-primary btn-sm"  name="button">c</button>
-                  <a>{{resArr[0].extract.poscar_static.c}}</a>
+                  <a>{{resArr[0].extract.extract_info.c}}</a>
                 </div>
                 <div class="col-md-6">
                   <button type="button"class="btn btn-primary btn-sm"  name="button">gamma</button>
-                  <a>{{resArr[0].extract.poscar_static.gamma}}</a>
+                  <a>{{resArr[0].extract.extract_info.gamma}}</a>
                 </div>
               </div>
             </div>
@@ -247,8 +248,8 @@
                   <th>Atomic Coordinates</th>
                 </tr>
               </thead>
-              <tbody v-for="(value,key) in resArr[0].extract.poscar_static.compound_components">
-                  <tr v-for="(v,k) in resArr[0].extract.poscar_static.compound_components[key].atomic_infos">
+              <tbody v-for="(value,key) in resArr[0].extract.extract_info.compound_components">
+                  <tr v-for="(v,k) in resArr[0].extract.extract_info.compound_components[key].atomic_infos">
 
                     <!-- <h4>{{value.atom_addition_infos[2]}}</h4> -->
                     <!-- <div class="" v-for="k in value.atom_addition_infos"> -->

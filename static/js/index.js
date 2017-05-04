@@ -82,9 +82,11 @@ var vm = new Vue({
     complexElementArr : [],
 
     conditionFlag : [true,true,true],
+
+    userInfo : [-1],
   },
   created : function(){
-
+    this.load(GetRequest()["token"]);
   },
   watch : {
     resList : function () {
@@ -168,6 +170,18 @@ var vm = new Vue({
 
   },
   methods : {
+    load : function(id){
+      var loadString = "/m/userInfo?token="+id;
+      var uinfo = this.userInfo;
+      axios.get(loadString).then(function(response){
+        if (response.data!="nullzero") {
+          uinfo.splice(0,1,response.data);
+        }
+      }).catch(function(error){
+
+      });
+    },
+
     addCondition : function(event){
       this.Condition.componentChildren.push(new ConditionObject(0,0,0,[""]))
     },
@@ -238,7 +252,7 @@ var vm = new Vue({
     },
 
     download : function(){
-      window.open('/m/download?expression='+encodeURIComponent(this.expressStr));
+      window.open('/m/download?expression='+encodeURIComponent(this.expressStr)+'&computed='+this.dataType);
     },
 
     search : function(page,first,searchTag=0){
@@ -276,7 +290,7 @@ var vm = new Vue({
           return
         }
         var searchContent = this.expressStr;
-        searchContent = searchContent.replace("|","#");
+        searchContent = searchContent.replace(/\|/g,"#");
         console.log(searchContent);
         var changeSearchContent = encodeURIComponent(searchContent);
         ajaxString = '/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token+"&computed="+this.dataType;

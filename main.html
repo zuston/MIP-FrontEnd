@@ -4,6 +4,7 @@
     <title>MIP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="./static/images/bitbug_favicon.ico" />
     <link href="./static/css/bootstrap.css" rel='stylesheet' type='text/css' />
     <!-- Custom Theme files -->
     <!--  模板样式-->
@@ -16,6 +17,7 @@
     <!--  元素周期表样式-->
     <link href="./static/css/n_search.css" rel='stylesheet' type='text/css' />
 
+
     <script src="./static/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="./static/js/bootstrap.js"></script>
 </head>
@@ -27,6 +29,10 @@
         <div class="container">
             <div class="logo">
                 <h1><a href="#">Materials Information Platform</a></h1>
+            </div>
+            <div class="" style="float:right;">
+              <button type="button" name="button" class="btn btn-primary" v-if="userInfo[0]==-1"><a href="http://nova.shu.edu.cn/SpringMVC/login.do" target="_blank" style="color:#fff;">Login</a></button>
+              <button type="button" name="button" class="btn btn-primary" v-if="userInfo[0]!=-1">{{userInfo[0]}}</button>
             </div>
         </div>
     </div>
@@ -440,7 +446,7 @@
   </div>
 
   <div class="container">
-    <div class="btn-group col-md-10 col-md-offset-1">
+    <div class="btn-group col-md-2 col-md-offset-1">
         <!-- <button type="button" class="btn btn-default">按钮 1</button>
         <button type="button" class="btn btn-default">按钮 2</button> -->
         <div class="btn-group">
@@ -454,6 +460,18 @@
             <li><a @click="addCondition(2)" v-if="conditionFlag[2]">Valence Electrons</a></li>
         </ul>
         </div>
+    </div>
+
+    <div class="col-md-3">
+      <label class="checkbox-inline">
+    		<input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="0" checked v-model="dataType"> <a>all</a>
+    	</label>
+    	<label class="checkbox-inline">
+    		<input type="radio" name="optionsRadiosinline" id="optionsRadios4"  value="1" v-model="dataType"> <a>computed</a>
+    	</label>
+
+      <!-- <el-switch v-model="dataType" on-value="0" off-value="1"></el-switch> -->
+
     </div>
 
   </div>
@@ -474,6 +492,7 @@
     <div class="col-md-1">
       <div class="input-group input-group-lg " style="margin-top:15px;">
       <button type="button" class="btn btn-primary btn-lg" @click="search(1,true)">Search</button>
+      <!-- <el-button type="primary" icon="search" @click="search(1,true)"><a>Search</a></el-button> -->
     </div>
     </div>
   </div>
@@ -576,10 +595,23 @@
                 <td><p>{{data.atomic_average_mass}}&nbsp;<a></a></p></td>
                 <!-- <td v-if="currentSearchTag==1"><p>{{data.ves}}</p></td> -->
                 <td>
-                  <button type="button" class="btn btn-default btn-sm" v-if="data.computed==1">
+                  <!-- <button type="button" class="btn btn-default btn-sm" v-if="data.computed==1">
                     <a v-bind:href="getInfoPage(data.id)" target="_blank">Click</a>
-                  </button>
-                  <button type="button" name="button" class="btn btn-default btn-sm disabled" v-if="data.computed==0">None caculate</button>
+                  </button> -->
+
+                  <div class="btn-group" v-if="data.computed==1">
+                    <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" >Click
+                			<span class="caret"></span>
+                		</button>
+                		<ul class="dropdown-menu pull-right" role="menu">
+                			<li v-for="v in data.jobs"><a v-bind:href="getInfoPage(v)" target="_blank" style="color:blue;">{{v}}</a></li>
+                		</ul>
+                  </div>
+
+                  <div class="btn-group" v-if="data.computed==0">
+                    <button type="button" name="button" class="btn btn-default btn-sm disabled">None caculate</button>
+                  </div>
+
                 </td>
               </tr>
             </tbody>
@@ -606,4 +638,7 @@
 <script src="./static/js/util.js"></script>
 <script src="./static/js/vue.js"></script>
 <script src="./static/js/axios.min.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="./static/js/index.js"></script>
+<!-- element ui -->
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
