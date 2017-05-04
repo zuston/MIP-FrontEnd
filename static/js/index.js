@@ -95,17 +95,21 @@ var vm = new Vue({
 
     },
 
-    // 监听bandgap变化
     es : function(){
       if (this.expressStr!=null&&this.es.length==0) {
         this.expressStr = this.expressStr.replace(/\(es=(.*?)\)/,"");
+        if (this.expressStr.charAt(this.expressStr.length-1)=="&") {
+          this.expressStr = this.expressStr.substr(0,this.expressStr.length-1);
+        }else if (this.expressStr.charAt(0)=="&") {
+          this.expressStr = this.expressStr.substr(1,this.expressStr.length);
+        }
         return;
       }
       if (this.expressStr!=null&&this.expressStr.indexOf("es")>0) {
         this.expressStr = this.expressStr.replace(/\(es=(.*?)\)/,"(es="+this.es+")");
       }else{
 
-        if (this.expressStr==null) {
+        if (this.expressStr==null||this.expressStr=="") {
           this.expressStr = "";
           this.expressStr += "(es="+this.es+")"
         }else{
@@ -117,14 +121,19 @@ var vm = new Vue({
 
     ve : function(){
       if (this.expressStr!=null&&this.ve.length==0) {
-        this.expressStr = this.expressStr.replace(/\(ve=(.*)\)/,"");
+        this.expressStr = this.expressStr.replace(/\(ve=(.*?)\)/,"");
+        if (this.expressStr.charAt(this.expressStr.length-1)=="&") {
+          this.expressStr = this.expressStr.substr(0,this.expressStr.length-1);
+        }else if (this.expressStr.charAt(0)=="&") {
+          this.expressStr = this.expressStr.substr(1,this.expressStr.length);
+        }
         return;
       }
       if (this.expressStr!=null&&this.expressStr.indexOf("ve")>0) {
-        this.expressStr = this.expressStr.replace(/\(ve=(.*)\)/,"(ve="+this.ve+")");
+        this.expressStr = this.expressStr.replace(/\(ve=(.*?)\)/,"(ve="+this.ve+")");
       }else{
 
-        if (this.expressStr==null) {
+        if (this.expressStr==null||this.expressStr=="") {
           this.expressStr = "";
           this.expressStr += "(ve="+this.ve+")"
         }else{
@@ -137,13 +146,18 @@ var vm = new Vue({
     // 监听spacegroup变化
     spacegroup : function(){
       if (this.expressStr!=null&&this.spacegroup.length==0) {
-        this.expressStr = this.expressStr.replace(/\(sg=(.*)\)/,"");
+        this.expressStr = this.expressStr.replace(/\(sg=(.*?)\)/,"");
+        if (this.expressStr.charAt(this.expressStr.length-1)=="&") {
+          this.expressStr = this.expressStr.substr(0,this.expressStr.length-1);
+        }else if (this.expressStr.charAt(0)=="&") {
+          this.expressStr = this.expressStr.substr(1,this.expressStr.length);
+        }
         return;
       }
       if (this.expressStr!=null&&this.expressStr.indexOf("sg")>0) {
-        this.expressStr = this.expressStr.replace(/\(sg=(\d*)\)/,"(sg="+this.spacegroup+")");
+        this.expressStr = this.expressStr.replace(/\(sg=(\d*?)\)/,"(sg="+this.spacegroup+")");
       }else{
-        if (this.expressStr==null) {
+        if (this.expressStr==null||this.expressStr=="") {
           this.expressStr = "";
           this.expressStr += "(sg="+this.spacegroup+")"
         }else {
@@ -187,21 +201,30 @@ var vm = new Vue({
         this.expressStr += this.expression[i]+"&";
       }
       this.expressStr = this.expressStr.substring(0,this.expressStr.length-1);
-      if(this.bandgap!=null){
-        if(this.expressStr.length>0){
-          this.expressStr += "&(bandgap="+this.bandgap+")";
-        }else{
-          this.expressStr += "(bandgap="+this.bandgap+")";
-        }
-      }
 
       if(this.spacegroup!=null){
         if(this.expressStr.length>0){
-          this.expressStr += "&(spacegroup="+this.bandspacegroupgap+")";
+          this.expressStr += "&(sg="+this.spacegroup+")";
         }else{
-          this.expressStr += "(spacegroup="+this.spacegroup+")";
+          this.expressStr += "(sg="+this.spacegroup+")";
         }
       }
+
+      if(this.es!=null){
+        if(this.es.length>0){
+          this.expressStr += "&(es="+this.es+")";
+        }else{
+          this.expressStr += "(es="+this.es+")";
+        }
+      }
+      if(this.ve!=null){
+        if(this.ve.length>0){
+          this.expressStr += "&(ve="+this.ve+")";
+        }else{
+          this.expressStr += "(ve="+this.ve+")";
+        }
+      }
+
     },
 
     // remove : function(index){
