@@ -32,7 +32,6 @@ var vm = new Vue({
     this.load(GetRequest()["token"],GetRequest()["id"]);
   },
   ready : function(){
-    // this.isFileExsit();
   },
   methods : {
     load : function(token,id){
@@ -42,6 +41,8 @@ var vm = new Vue({
 
       var numberArr = this.numberArr;
       var elementArr = this.elementArr;
+
+      var picExsit = this.isFileExsit
       axios.get(loadString).then(function(response){
         hg.splice(0,1,response.data);
         var name = response.data.basic.pymatgen_poscar.comment;
@@ -49,6 +50,8 @@ var vm = new Vue({
         elementArr.splice(0,1,analyString(name)[1]);
         console.log(numberArr[0]);
         console.log(elementArr[0]);
+        console.log(response.data);
+        picExsit();
       }).catch(function(error){
         console.log(error);
       });
@@ -70,22 +73,43 @@ var vm = new Vue({
       }
     },
 
+
+    downloadFromMongo : function(){
+      var d1 = this.downloadList.indexOf("d1")>=0?1:0;
+      var d2 = this.downloadList.indexOf("d2")>=0?1:0;
+      var d3 = this.downloadList.indexOf("d3")>=0?1:0;
+      if (d1===1) {
+        window.open("/m/filedownload?mid="+this.resArr[0].extract._id.$oid+"&filename="+"incar")
+      }
+      if (d2===1) {
+        window.open("/m/filedownload?mid="+this.resArr[0].extract._id.$oid+"&filename="+"poscar")
+      }
+      if (d3===1) {
+        window.open("/m/filedownload?mid="+this.resArr[0].extract._id.$oid+"&filename="+"kpoints")
+
+      }
+    },
+
     figure : function(number){
-      return "/static/MIP/"+this.resArr[0].extract.m_id+"-bandStructure/figure_"+number+".png";
+      var filename = this.resArr[0].basic.original_id;
+      var imgNameMapper = ["","BSimg","DOSimg"];
+      return "/static/MIP/"+filename+"/"+imgNameMapper[number]+".png";
     },
 
     isFileExsit : function(){
-      var picUrl_1 = "/static/MIP/"+this.resArr[0].extract.m_id+"-bandStructure/figure_"+1+".png";
+      var picUrl_1 = "/static/MIP/"+this.resArr[0].basic.original_id+"/BSimg.png";
       var picExsitFlag = this.picExsitFlag;
       $.ajax({
          url:picUrl_1,
          type:'HEAD',
          error: function() {
+           console.log(11111111111111111);
              picExsitFlag.splice(0,1,false);
              return false;
          },
          success: function() {
              //file exists
+             console.log(2222222222222222);
              picExsitFlag.splice(0,1,true);
              return true;
 
