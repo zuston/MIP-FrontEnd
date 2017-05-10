@@ -84,6 +84,8 @@ var vm = new Vue({
     conditionFlag : [true,true,true],
 
     userInfo : [-1],
+
+    dataBaseCount : [],
   },
   created : function(){
     this.load(GetRequest()["token"]);
@@ -319,6 +321,8 @@ var vm = new Vue({
       var complexNumberArr = this.complexNumberArr
       var complexElementArr = this.complexElementArr
 
+      var dbCount = this.dataBaseCount
+
 
       axios.get(ajaxString)
       .then(function (response) {
@@ -346,10 +350,12 @@ var vm = new Vue({
           buttonPage.splice(0,buttonPage.length)
 
           currentPage[0] = response.data.cpage
+          dbCount.splice(0,1,response.data.allCount)
           totalCount = response.data.count
-          totalPage = Math.ceil(response.data.count/10)
+          totalPage = Math.ceil(response.data.count/30)
           if (currentPage[0]-2<=1) {
             for (var i = currentPage-1; i>0; i--) {
+              console.log("the firewall is too big");
               buttonPage.splice(0,0,i)
             }
           }else{
@@ -364,7 +370,8 @@ var vm = new Vue({
 
           if (currentPage[0]+2>=totalPage) {
             for (var i = currentPage[0]+1; i <= totalPage; i++) {
-              buttonPage.splice(frontIndex,0,i)
+              console.log("the firewall is too fat");
+              buttonPage.splice(frontIndex++,0,i)
             }
           }else{
             // buttonPage.push(currentPage)
@@ -529,22 +536,27 @@ var vm = new Vue({
         this.partChooseArr.push('Bh');
       }
 
-      if (tag=='8B') {
+      if (tag=='8B1') {
         this.partChooseArr = [];
         this.partChooseArr.push('Fe');
         this.partChooseArr.push('Ru');
         this.partChooseArr.push('Os');
         this.partChooseArr.push('Hs');
+      }
 
+      if (tag=='8B2') {
         this.partChooseArr.push('Co');
         this.partChooseArr.push('Rh');
         this.partChooseArr.push('Ir');
         this.partChooseArr.push('Mt');
+      }
 
+      if (tag=='8B3') {
         this.partChooseArr.push('Ni');
         this.partChooseArr.push('Pd');
         this.partChooseArr.push('Pt');
       }
+
 
       if (tag=='1B') {
         this.partChooseArr = [];
