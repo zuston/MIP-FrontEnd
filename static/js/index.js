@@ -626,6 +626,32 @@ var vm = new Vue({
     // 族系click时候选定
     choose : function(tag){
       this.savehover(tag);
+    },
+
+    chooseAllResult : function(){
+      var searchContent = this.expressStr;
+      searchContent = searchContent.replace(/\|/g,"#");
+      var changeSearchContent = encodeURIComponent(searchContent);
+      ajaxString = '/m/calculate?expression='+changeSearchContent+"&computed="+this.dataType;
+
+      axios.get(ajaxString).then(function(response){
+        var calculateString = ""
+        console.log(response.data);
+        var ddata = response.data.c
+
+        for(var value of ddata){
+          var mid = value.original_id
+          calculateString += "mids="+mid+"&"
+          console.log(mid)
+        }
+        // 计算传递参数值
+        calculateString = calculateString.substring(0,calculateString.length-1)
+        window.open("http://nova.shu.edu.cn/SpringMVC/searchFromWeb.do?"+calculateString);
+        console.log("end");
+      }).catch(function(error){
+        console.log(error);
+      });
+
     }
   }
 })

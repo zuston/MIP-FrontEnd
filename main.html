@@ -582,7 +582,7 @@
           <table class="table table-hover table-bordered">
             <caption>Result List&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">{{totalCount[0]}}</a>&nbsp;&nbsp;&nbsp;&nbsp;Data From&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">MIP</a>&nbsp;&nbsp;&nbsp;&nbsp;All In DataBase Count&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">{{dataBaseCount[0]}}</a><caption>
             <button type="button" class="btn btn-success formualButton" @click="download()">current result download</button>
-            <!-- &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" @click="chooseAllResult" v-bind:checked="isAllResult">&nbsp;&nbsp;<a>all result to calculate</a> -->
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="chooseAllResult"><a>all result to calculate</a></button>
             <thead>
               <tr class="active">
                 <th><input type="checkbox" @click="chooseAll(resList)" v-bind:checked="isAll(resList)">&nbsp;&nbsp;Index</th>
@@ -598,7 +598,7 @@
             <tbody>
               <tr v-for="(data,index) in resList" v-bind:class="[cartList.indexOf(data.original_id)>-1?'success':'',]" >
                 <td @click="cart(data.original_id,data.compound_name)">
-                    <input type="checkbox" v-bind:checked="cartList.indexOf(data.original_id)>-1" >&nbsp;&nbsp;{{(index+1)+10*(currentPage[0]-1)}}
+                    <input type="checkbox" v-bind:checked="cartList.indexOf(data.original_id)>-1" >&nbsp;&nbsp;{{(index+1)+30*(currentPage[0]-1)}}
                 </td>
                 <td><p>{{data.bandgap}}</p></td>
                 <!-- <td>{{data.simplified_name}}&nbsp;&nbsp;({{data.compound_name}})</td> -->
