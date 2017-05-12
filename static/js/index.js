@@ -642,7 +642,6 @@ var vm = new Vue({
         for(var value of ddata){
           var mid = value.original_id
           calculateString += "mids="+mid+"&"
-          console.log(mid)
         }
         // 计算传递参数值
         calculateString = calculateString.substring(0,calculateString.length-1)

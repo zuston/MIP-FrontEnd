@@ -91,13 +91,15 @@ var vm = new Vue({
     },
 
     figure : function(number){
-      var filename = this.resArr[0].basic.original_id;
+      var filename = this.resArr[0].jobid+"_"+this.resArr[0].basic.original_id;
       var imgNameMapper = ["","BSimg","DOSimg"];
-      return "/static/MIP/"+filename+"/"+imgNameMapper[number]+".png";
+      console.log(filename);
+      return "/static/xyl/"+filename+"/"+imgNameMapper[number]+".png";
     },
 
     isFileExsit : function(){
-      var picUrl_1 = "/static/MIP/"+this.resArr[0].basic.original_id+"/BSimg.png";
+      var picUrl_1 = "/static/xyl/"+this.resArr[0].jobid+"_"+this.resArr[0].basic.original_id+"/BSimg.png";
+      console.log(picUrl_1);
       var picExsitFlag = this.picExsitFlag;
       $.ajax({
          url:picUrl_1,
