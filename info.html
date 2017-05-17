@@ -67,18 +67,21 @@
       <hr>
       <div class="rightContent">
           <p>Volume</p>
-          <h4 v-if="resArr[0].extract.extract_info.volume">{{resArr[0].extract.extract_info.volume}}&nbsp;<a>A<sup>3</sup></a></h4>
+          <h4 v-if="resArr[0].extract.extract_info.volume"><a style="float:left;display:block;color:black;">{{resArr[0].extract.extract_info.volume}}</a>&nbsp;
+            <!-- <a style="display:block;float:left;margin-left:6px;margin-top:-5px;font-weight:bold;"><p style="line-height:0.6;font-size:4px;margin-left:1px;">o</p><p style="line-height:0.6;">A<sup>3</sup></p></a> -->
+            <a>&Aring;<sup>3</sup></a>
+          </h4>
           <hr>
 
-          <p>Desity</p>
-          <h5 v-if="resArr[0].extract.extract_info.desity">{{resArr[0].extract.extract_info.desity}}&nbsp;<a>g/cm<sup>3</sup></a></h5>
+          <p>Density</p>
+          <h4 v-if="resArr[0].extract.extract_info.desity">{{resArr[0].extract.extract_info.desity.toFixed(3)}}&nbsp;<a>g/cm<sup>3</sup></a></h4>
           <hr>
 
           <p>Bandgap</p>
-          <h4 v-if="resArr[0].extract.extract_info.band_gap">{{resArr[0].extract.extract_info.band_gap.toFixed(5)}}&nbsp;<a>eV</a></h4>
+          <h4 v-if="resArr[0].extract.extract_info.band_gap">{{resArr[0].extract.extract_info.band_gap.toFixed(2)}}&nbsp;<a>eV</a></h4>
           <hr>
           <p>Energy per atom</p>
-          <h4 v-if="resArr[0].extract.extract_info.formation_energy">{{resArr[0].extract.extract_info.formation_energy.toFixed(5)}}&nbsp;<a>eV</a></h4>
+          <h4 v-if="resArr[0].extract.extract_info.formation_energy">{{resArr[0].extract.extract_info.formation_energy.toFixed(4)}}&nbsp;<a>eV</a></h4>
           <hr>
           <p>Pointgroup Type</p>
           <h4 v-if="resArr[0].extract.extract_info.point_group_type">{{resArr[0].extract.extract_info.point_group_type}}</h4>
@@ -104,32 +107,50 @@
             <div class="tab-pane fade in active" id="home">
               <div class="row mip-rightright">
                 <div class="col-md-6">
-                  <button type="button"class="btn btn-primary btn-sm"  name="button">a</button>
-                  <a>{{resArr[0].extract.extract_info.a}}</a>
+                  <button type="button"class="btn btn-primary btn-sm"  name="button" style="display:block;float:left;">a</button>
+                  <!-- <span style="display:block;float:left;">
+                    <a style="float:left;display:block;">{{resArr[0].extract.extract_info.a.toFixed(3)}}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a style="display:block;float:left;margin-left:6px;margin-top:0px;font-weight:bold;"><p style="line-height:0.6;font-size:4px;margin-left:1px;">o</p><p style="line-height:0.6;">A<sup>3</sup></p></a>
+                  </span> -->
+                  <a>{{resArr[0].extract.extract_info.a.toFixed(3)}}</a>
+                  <a>&Aring;<sup>3</sup></a>
                 </div>
                 <div class="col-md-6">
-                  <button type="button"class="btn btn-primary btn-sm"  name="button">alpha</button>
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">&alpha;</button>
                   <a>{{resArr[0].extract.extract_info.alpha}}</a>
+                  <a>	&deg;</a>
                 </div>
               </div>
               <div class="row mip-rightright">
                 <div class="col-md-6">
-                  <button type="button"class="btn btn-primary btn-sm"  name="button">b</button>
-                  <a>{{resArr[0].extract.extract_info.b}}</a>
+                  <button type="button"class="btn btn-primary btn-sm"  name="button" style="display:block;float:left;">b</button>
+                  <!-- <span style="display:block;float:left;">
+                    <a style="float:left;display:block;">{{resArr[0].extract.extract_info.b.toFixed(3)}}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a style="display:block;float:left;margin-left:6px;margin-top:0px;font-weight:bold;"><p style="line-height:0.6;font-size:4px;margin-left:1px;">o</p><p style="line-height:0.6;">A<sup>3</sup></p></a>
+                  </span> -->
+                  <a>{{resArr[0].extract.extract_info.b.toFixed(3)}}</a>
+                  <a>&Aring;<sup>3</sup></a>
                 </div>
                 <div class="col-md-6">
-                  <button type="button"class="btn btn-primary btn-sm"  name="button">beta</button>
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">&beta;</button>
                   <a>{{resArr[0].extract.extract_info.beta}}</a>
+                  <a>	&deg;</a>
                 </div>
               </div>
               <div class="row mip-rightright">
                 <div class="col-md-6">
-                  <button type="button"class="btn btn-primary btn-sm"  name="button">c</button>
-                  <a>{{resArr[0].extract.extract_info.c}}</a>
+                  <button type="button"class="btn btn-primary btn-sm"  name="button" style="display:block;float:left;">c</button>
+                  <!-- <span style="display:block;float:left;">
+                    <a style="float:left;display:block;">{{resArr[0].extract.extract_info.c.toFixed(3)}}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a style="display:block;float:left;margin-left:6px;margin-top:0px;font-weight:bold;"><p style="line-height:0.6;font-size:4px;margin-left:1px;">o</p><p style="line-height:0.6;">A<sup>3</sup></p></a>
+                  </span> -->
+                  <a>{{resArr[0].extract.extract_info.c.toFixed(3)}}</a>
+                  <a>&Aring;<sup>3</sup></a>
                 </div>
                 <div class="col-md-6">
-                  <button type="button"class="btn btn-primary btn-sm"  name="button">gamma</button>
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">&gamma;</button>
                   <a>{{resArr[0].extract.extract_info.gamma}}</a>
+                  <a>	&deg;</a>
                 </div>
               </div>
             </div>
@@ -137,31 +158,40 @@
               <div class="row mip-rightright">
                 <div class="col-md-6">
                   <button type="button"class="btn btn-primary btn-sm"  name="button">a</button>
-                  <a>{{resArr[0].basic.a}}</a>
+                  <!-- <a>{{resArr[0].basic.a}}</a> -->
+                  <a>{{resArr[0].basic.a.toFixed(3)}}</a>
+                  <a>&Aring;<sup>3</sup></a>
                 </div>
                 <div class="col-md-6">
-                  <button type="button"class="btn btn-primary btn-sm"  name="button">alpha</button>
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">&alpha;</button>
                   <a>{{resArr[0].basic.alpha}}</a>
+                  <a>	&deg;</a>
                 </div>
               </div>
               <div class="row mip-rightright">
                 <div class="col-md-6">
                   <button type="button"class="btn btn-primary btn-sm"  name="button">b</button>
-                  <a>{{resArr[0].basic.b}}</a>
+                  <!-- <a>{{resArr[0].basic.b}}</a> -->
+                  <a>{{resArr[0].basic.b.toFixed(3)}}</a>
+                  <a>&Aring;<sup>3</sup></a>
                 </div>
                 <div class="col-md-6">
-                  <button type="button"class="btn btn-primary btn-sm"  name="button">beta</button>
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">&beta;</button>
                   <a>{{resArr[0].basic.beta}}</a>
+                  <a>	&deg;</a>
                 </div>
               </div>
               <div class="row mip-rightright">
                 <div class="col-md-6">
                   <button type="button"class="btn btn-primary btn-sm"  name="button">c</button>
-                  <a>{{resArr[0].basic.c}}</a>
+                  <!-- <a>{{resArr[0].basic.c}}</a> -->
+                  <a>{{resArr[0].basic.c.toFixed(3)}}</a>
+                  <a>&Aring;<sup>3</sup></a>
                 </div>
                 <div class="col-md-6">
-                  <button type="button"class="btn btn-primary btn-sm"  name="button">gamma</button>
+                  <button type="button"class="btn btn-primary btn-sm"  name="button">&gamma;</button>
                   <a>{{resArr[0].basic.gamma}}</a>
+                  <a>	&deg;</a>
                 </div>
               </div>
             </div>
