@@ -43,7 +43,7 @@ var vm = new Vue({
     element : "element",
     avaliable : "avaliable",
 
-    hoverShowArray : new Array('Z','X','Mass','element','gativity','configuration'),
+    hoverShowArray : new Array('Z','X','Mass','element','Electronegativity(EN)','configuration'),
 
     loadingIf : [false],
 
@@ -100,6 +100,9 @@ var vm = new Vue({
     },
 
     es : function(){
+      if (this.es===null) {
+        return;
+      }
       if (this.expressStr!=null&&this.es.length==0) {
         this.expressStr = this.expressStr.replace(/\(es=(.*?)\)/,"");
         if (this.expressStr.charAt(this.expressStr.length-1)=="&") {
@@ -124,6 +127,9 @@ var vm = new Vue({
     },
 
     ve : function(){
+      if (this.ve===null) {
+        return
+      }
       if (this.expressStr!=null&&this.ve.length==0) {
         this.expressStr = this.expressStr.replace(/\(ve=(.*?)\)/,"");
         if (this.expressStr.charAt(this.expressStr.length-1)=="&") {
@@ -149,6 +155,9 @@ var vm = new Vue({
 
     // 监听spacegroup变化
     spacegroup : function(){
+      if (this.spacegroup===null) {
+        return;
+      }
       if (this.expressStr!=null&&this.spacegroup.length==0) {
         this.expressStr = this.expressStr.replace(/\(sg=(.*?)\)/,"");
         if (this.expressStr.charAt(this.expressStr.length-1)=="&") {
@@ -255,6 +264,10 @@ var vm = new Vue({
 
     download : function(){
       window.open('/m/download?expression='+encodeURIComponent(this.expressStr)+'&computed='+this.dataType);
+    },
+    
+    poscarDownload : function(){
+      window.open('/m/poscarDownload?expression='+encodeURIComponent(this.expressStr)+'&computed='+this.dataType);
     },
 
     search : function(page,first,searchTag=0){
@@ -627,6 +640,17 @@ var vm = new Vue({
     choose : function(tag){
       this.savehover(tag);
     },
+
+    clearSearch : function(){
+      this.expressStr = null;
+      this.expression = null;
+      this.ve = null;
+      this.es = null;
+      this.spacegroup = null;
+      this.hoverList.splice(0,this.hoverList.length);
+    },
+
+
 
     chooseAllResult : function(){
       var searchContent = this.expressStr;

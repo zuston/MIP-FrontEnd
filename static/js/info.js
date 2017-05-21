@@ -51,7 +51,7 @@ var vm = new Vue({
         console.log(numberArr[0]);
         console.log(elementArr[0]);
         console.log(response.data);
-        picExsit();
+        // picExsit();
       }).catch(function(error){
         console.log(error);
       });
@@ -91,10 +91,11 @@ var vm = new Vue({
     },
 
     figure : function(number){
-      var filename = this.resArr[0].jobid+"_"+this.resArr[0].basic.original_id;
-      var imgNameMapper = ["","BSimg","DOSimg"];
-      console.log(filename);
-      return "/static/xyl/"+filename+"/"+imgNameMapper[number]+".png";
+      // var filename = this.resArr[0].jobid+"_"+this.resArr[0].basic.original_id;
+      // var imgNameMapper = ["","BSimg","DOSimg"];
+      // console.log(filename);
+      // return "/static/xyl/"+filename+"/"+imgNameMapper[number]+".png";
+      return "/m/imgload?jobid="+this.resArr[0].jobid+"&type="+number;
     },
 
     isFileExsit : function(){
