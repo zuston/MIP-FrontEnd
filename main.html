@@ -594,6 +594,7 @@
             <button type="button" class="btn btn-success formualButton" @click="download()">current results download (excel)</button>
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-success formualButton" @click="poscarDownload"><a style="color:black;">current results download (poscar)</a></button>
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="chooseAllResult"><a>all results to calculate</a></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="chooseRandomResult(300)"><a>300 random results to calculate</a></button>
             <thead>
               <tr class="active">
                 <th><input type="checkbox" @click="chooseAll(resList)" v-bind:checked="isAll(resList)">&nbsp;&nbsp;Index</th>

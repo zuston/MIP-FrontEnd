@@ -24,16 +24,36 @@ var vm = new Vue({
     //实践看看角标的生成
     numberArr : [],
     elementArr : [],
+
+    highchartUrl:"",
+    highchartUrl1:"",
+    highchartUrl2:"",
+    highchartUrl3:"",
+    highchartUrl4:"",
+    highchartFlag:false,
+
+
   },
   watch : {
 
   },
   created : function(){
+    this.initHighchartsUrl();
+    this.highchartFlag=true
     this.load(GetRequest()["token"],GetRequest()["id"]);
   },
   ready : function(){
   },
   methods : {
+
+    initHighchartsUrl:function(){
+      this.highchartUrl="http://nova.shu.edu.cn/SpringMVC/page/highCharts.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl1="http://nova.shu.edu.cn/SpringMVC/page/TPPTypeChart.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl2="http://nova.shu.edu.cn/SpringMVC/page/TPNTypeChart.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl3="http://nova.shu.edu.cn/SpringMVC/page/PFPTypeChart.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl4="http://nova.shu.edu.cn/SpringMVC/page/PFNTypeChart.html?extract_id="+GetRequest()["id"];
+    },
+
     load : function(token,id){
       var hg = this.resArr
       // TODO: token 验证

@@ -29,6 +29,7 @@ Info = {
 	serverURL: "http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
 	use: "HTML5",
 	script: "load /m/jsmol?id="+id,
+  // script: "load /m/testjsmol",
   // script: "load http://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
 	readyFunction: null
 }
