@@ -681,7 +681,7 @@ var vm = new Vue({
       var searchContent = this.expressStr;
       searchContent = searchContent.replace(/\|/g,"#");
       var changeSearchContent = encodeURIComponent(searchContent);
-      ajaxString = '/m/calculate?expression='+changeSearchContent+"&computed="+this.dataType;
+      ajaxString = '/m/randomcalculate?expression='+changeSearchContent+"&computed="+this.dataType;
 
       axios.get(ajaxString).then(function(response){
         var calculateString = ""
@@ -694,7 +694,7 @@ var vm = new Vue({
         }
         // 计算传递参数值
         calculateString = calculateString.substring(0,calculateString.length-1)
-        window.open("http://nova.shu.edu.cn/SpringMVC/searchFromWebRandom.do?"+calculateString+"&randomRange=300");
+        window.open("http://nova.shu.edu.cn/SpringMVC/searchFromWeb.do?"+calculateString);
         console.log("end");
       }).catch(function(error){
         console.log(error);
