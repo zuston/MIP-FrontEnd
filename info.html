@@ -19,7 +19,8 @@
     <script src="./static/js/highcharts.js"></script>
 
     <script type="text/javascript" src="./static/js/bootstrap.js"></script>
-
+    <script type="text/javascript" src="./static/js/infoC.js">
+    </script>
 </head>
 <script type="text/javascript">
 function changeFrameHeight(){
@@ -239,6 +240,119 @@ function changeFrameHeight(){
     <hr>
 
     <div class="container mip-2-leftleft" id="">
+
+      <div class="col-md-12" style="margin-bottom:20px;">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+    					<!-- <div class="col-md-3">Type:</div> -->
+    					<div class="col-md-12">
+                <a>Type:</a>
+    						<label class="checkbox-inline"><input type="radio"
+    							name="optionsRadiosinline" id="p_type" value="p_type"
+    							onclick='clickRadio("p_type")' checked>&nbsp;&nbsp;<a>P-Type</a>
+    						</label> <label class="checkbox-inline"> <input type="radio"
+    							name="optionsRadiosinline" id="n_type" value="n_type"
+    							onclick='clickRadio("n_type")'>&nbsp;&nbsp;<a>N-Type</a>
+    						</label>
+    					</div>
+
+
+              <div class="col-md-12" style="margin-top:10px;">
+                <div class="row">
+                  <div class="col-md-2">
+                    <a>Temperature:</a>
+                    &nbsp;&nbsp;
+                  </div>
+                  <div class="col-md-3" style="margin-left:10px;">
+                    <input class="form-control" id="T" type="text" style="width:100px;">
+                  </div>
+                  <div class="col-md-2">
+                    <a>K</a>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="col-md-12" style="margin-top:10px;">
+                <div class="row">
+                  <div class="col-md-2">
+                    <a>Carrier:</a>
+                    &nbsp;&nbsp;
+                  </div>
+                  <div class="col-md-3" style="margin-left:10px;">
+                    <input class="form-control" id="carr" type="text" style="width:100px;">
+                  </div>
+                  <div class="col-md-3">
+                    <a>10<sup>20</sup>cm<sup>-3</sup></a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12" style="margin-top:10px;">
+                <div class="row">
+                  <div class="col-md-2">
+                    <a>Edf:</a>
+                    &nbsp;&nbsp;
+                  </div>
+                  <div class="col-md-3" style="margin-left:10px;">
+                    <input class="form-control" id="deformation_potential" type="text" style="width:100px;">
+                  </div>
+                  <div class="col-md-2">
+                    <a>eV</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12" style="margin-top:10px;">
+                <div class="row">
+                  <div class="col-md-2">
+                    <a>C:</a>
+                    &nbsp;&nbsp;
+                  </div>
+                  <div class="col-md-3" style="margin-left:10px;">
+                    <input class="form-control" id="elastic_constant" type="text" style="width:100px;">
+                  </div>
+                  <div class="col-md-2">
+                    <a>GPa</a>
+                  </div>
+
+                  <div class="col-md-2 col-md-offset-1">
+                    <button class="btn btn-primary " style="float: right"
+        							onclick="clickBtn()">Calculate</button>
+                  </div>
+                </div>
+              </div>
+
+    					<div class="col-md-12">
+
+    					</div>
+    				</div>
+          </div>
+
+          <div class="col-md-6" id="resultDiv"
+    				style="float: right">
+    				<h1>Result</h1>
+            <div class="" style="margin-top:8px;">
+              <a >ThermoPower : </a> <label id="tp"></label>
+            </div>
+
+            <div class="" style="margin-top:8px;">
+              <a>Power
+               Factor : </a><label id="pf"></label>
+            </div>
+            <div class=""  style="margin-top:8px;">
+              <a>bxsf file download
+              :</a>
+            </div>
+            <div class="" style="margin-top:8px;">
+              <a class="btn btn-info" id="downloadBtn" target="_blank">download</a><br>
+            </div>
+
+    			</div>
+        </div>
+
+      </div>
 
 
       <div class="col-md-12" v-if="picExsitFlag[0]">
