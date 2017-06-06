@@ -23,16 +23,16 @@
 </head>
 <body>
 <div id="app">
-<!-- banner -->
-<div class="banner">
-    <div class="header">
-        <div class="container">
+
+<div class="banner" >
+    <div class="header" style="background-color:#428CB6;">
+        <div class="container" >
             <div class="logo">
-                <h1><a href="#">Materials Information Platform</a></h1>
+                <span><a href="#" style="font-size:18px;color:white;">Materials  Information  Platform</a></span>
             </div>
-            <div class="" style="float:right;">
-              <button type="button" name="button" class="btn btn-primary" v-if="userInfo[0]==-1"><a href="http://nova.shu.edu.cn/SpringMVC/login.do" style="color:#fff;">Login</a></button>
-              <button type="button" name="button" class="btn btn-primary" v-if="userInfo[0]!=-1">{{userInfo[0]}}</button>
+            <div class="" style="float:right;margin-top:-6px;">
+              <button type="button" name="button" class="btn btn-primary btn-sm" v-if="userInfo[0]==-1"><a href="http://nova.shu.edu.cn/SpringMVC/login.do" style="color:#fff;">Login</a></button>
+              <button type="button" name="button" class="btn btn-primary btn-sm" v-if="userInfo[0]!=-1">USER&nbsp;:&nbsp;{{userInfo[0]}}</button>
             </div>
         </div>
     </div>
