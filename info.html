@@ -241,6 +241,70 @@ function changeFrameHeight(){
 
     <div class="container mip-2-leftleft" id="">
 
+
+
+
+      <div class="col-md-12" v-if="picExsitFlag[0]">
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Electronic Structure</h4>
+            <hr>
+
+            <img alt="" style="width:45%;" v-bind:src="figure(1)">
+            <img alt="" style="width:45%;" v-bind:src="figure(2)">
+
+          </div>
+          <div class="col-md-6">
+            <hr>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12" v-if="highchartFlag">
+        <iframe :src="highchartUrl" width="1000px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
+      </div>
+
+      <h4>Electrical Transport</h4>
+      <hr>
+      <div class="col-md-6">
+        <iframe :src="highchartUrl1" width="500px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
+      </div>
+
+      <div class="col-md-6">
+        <iframe :src="highchartUrl2" width="500px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
+      </div>
+
+      <div class="col-md-6">
+        <iframe :src="highchartUrl3" width="500px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
+      </div>
+
+      <div class="col-md-6">
+        <iframe :src="highchartUrl4" width="500px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
+      </div>
+
+      <!-- <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                  <iframe src="http://nova.shu.edu.cn/SpringMVC/page/TPPTypeChart.html?extract_id=5931199df09f7d2951b1f3de"  id="myiframe" scrolling="no" frameborder="0" onload="changeFrameHeight()" width="200px"></iframe>
+                </div>
+
+                <div class="col-md-6">
+                  <iframe src="http://nova.shu.edu.cn/SpringMVC/page/TPNTypeChart.html?extract_id=5931199df09f7d2951b1f3de" width="450px" height="220px"></iframe>
+
+                </div>
+
+                <div class="col-md-6">
+                  <iframe src="http://nova.shu.edu.cn/SpringMVC/page/PFPTypeChart.html?extract_id=5931199df09f7d2951b1f3de" width="450px" height="220px"></iframe>
+
+                </div>
+
+                <div class="col-md-6">
+                  <iframe src="http://nova.shu.edu.cn/SpringMVC/page/PFNTypeChart.html?extract_id=5931199df09f7d2951b1f3de" width="450px" height="220px"></iframe>
+
+                </div>
+            </div>
+      </div> -->
+
       <div class="col-md-12" style="margin-bottom:20px;">
         <div class="row">
           <div class="col-md-6">
@@ -277,7 +341,7 @@ function changeFrameHeight(){
               <div class="col-md-12" style="margin-top:10px;">
                 <div class="row">
                   <div class="col-md-2">
-                    <a>Carrier:</a>
+                    <a>Carrier:<a id="neg">&nbsp;-</a></a>
                     &nbsp;&nbsp;
                   </div>
                   <div class="col-md-3" style="margin-left:10px;">
@@ -334,85 +398,20 @@ function changeFrameHeight(){
     				style="float: right;display:none;">
     				<h1>Result</h1>
             <div class="" style="margin-top:8px;">
-              <a >ThermoPower : </a> <label id="tp"></label>
+              <a >ThermoPower : </a> <label id="tp" style="color:black;"></label>&nbsp;&nbsp;uV/K
             </div>
 
             <div class="" style="margin-top:8px;">
-              <a>Power
-               Factor : </a><label id="pf"></label>
-            </div>
-            <div class=""  style="margin-top:8px;">
-              <a>bxsf file download
-              :</a>
+              <a>PowerFactor : </a><label id="pf" style="color:black;"></label>&nbsp;&nbsp;1E-4Wm-1K-2
             </div>
             <div class="" style="margin-top:8px;">
-              <a class="btn btn-info" id="downloadBtn" target="_blank">download</a><br>
+              <a class="btn btn-info" id="downloadBtn" target="_blank">bxsf file download</a><br>
             </div>
 
     			</div>
         </div>
 
       </div>
-
-
-      <div class="col-md-12" v-if="picExsitFlag[0]">
-        <div class="row">
-          <div class="col-md-12">
-            <h4>Band Structure</h4>
-            <hr>
-
-            <img alt="" style="width:45%;" v-bind:src="figure(1)">
-            <img alt="" style="width:45%;" v-bind:src="figure(2)">
-
-          </div>
-          <div class="col-md-6">
-            <hr>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-12" v-if="highchartFlag">
-        <iframe :src="highchartUrl" width="1000px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
-      </div>
-
-      <div class="col-md-6">
-        <iframe :src="highchartUrl1" width="500px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
-      </div>
-
-      <div class="col-md-6">
-        <iframe :src="highchartUrl2" width="500px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
-      </div>
-
-      <div class="col-md-6">
-        <iframe :src="highchartUrl3" width="500px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
-      </div>
-
-      <div class="col-md-6">
-        <iframe :src="highchartUrl4" width="500px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
-      </div>
-
-      <!-- <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-6">
-                  <iframe src="http://nova.shu.edu.cn/SpringMVC/page/TPPTypeChart.html?extract_id=5931199df09f7d2951b1f3de"  id="myiframe" scrolling="no" frameborder="0" onload="changeFrameHeight()" width="200px"></iframe>
-                </div>
-
-                <div class="col-md-6">
-                  <iframe src="http://nova.shu.edu.cn/SpringMVC/page/TPNTypeChart.html?extract_id=5931199df09f7d2951b1f3de" width="450px" height="220px"></iframe>
-
-                </div>
-
-                <div class="col-md-6">
-                  <iframe src="http://nova.shu.edu.cn/SpringMVC/page/PFPTypeChart.html?extract_id=5931199df09f7d2951b1f3de" width="450px" height="220px"></iframe>
-
-                </div>
-
-                <div class="col-md-6">
-                  <iframe src="http://nova.shu.edu.cn/SpringMVC/page/PFNTypeChart.html?extract_id=5931199df09f7d2951b1f3de" width="450px" height="220px"></iframe>
-
-                </div>
-            </div>
-      </div> -->
 
 
       <div class="col-md-12">
