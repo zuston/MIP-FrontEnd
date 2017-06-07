@@ -23,7 +23,6 @@ function getUrlParam(name) {
 		tmpdt["T"] = $("#T").val();
 		tmpdt["deformation_potential"] = $("#deformation_potential").val();
 		tmpdt["elastic_constant"] = $("#elastic_constant").val();
-		alert(JSON.stringify(tmpdt));
 		$.ajax({
 			 url : "/SpringMVC/ajax_trans_calculate.do",
 			 /* url : "http://localhost:8080/SpringMVC/ajax_trans_calculate.do",  */
