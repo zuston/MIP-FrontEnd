@@ -5,24 +5,28 @@ function getUrlParam(name) {
 	    }
 	 function clickRadio(tmpType){
 		 if(tmpType=="n_type"){
-			 $("#neg").css('visibility') == 'hidden';
+			 $("#neg").attr("style", "visibility:hidden");  ;
 		 }
 		 if(tmpType=="p_type"){
-			 $("#neg").css('visibility') == 'visible';
+			 $("#neg").attr("style", "visibility:visible");  ;
 		 }
 	 }
 
 	function clickBtn(){
 		var tmpdt = new Object();
-		alert($("#p_type").is(':checked'));
-		tmpdt["extract_id"] = getUrlParam('extract_id');
+		if($("#p_type").is(':checked')){
+			tmpdt["carr"] = "-"+$("#carr").val();
+		}else{
+			tmpdt["carr"] = $("#carr").val();
+		}
+		tmpdt["extract_id"] = getUrlParam('id');
 		tmpdt["T"] = $("#T").val();
-		tmpdt["carr"] = $("#carr").val();
 		tmpdt["deformation_potential"] = $("#deformation_potential").val();
 		tmpdt["elastic_constant"] = $("#elastic_constant").val();
+		alert(JSON.stringify(tmpdt));
 		$.ajax({
-			 url : "http://nova.shu.edu.cn/SpringMVC/ajax_trans_calculate.do",
-			 /* url : "http://localhost:8080/SpringMVC/ajax_trans_calculate.do",   */
+			 url : "/SpringMVC/ajax_trans_calculate.do",
+			 /* url : "http://localhost:8080/SpringMVC/ajax_trans_calculate.do",  */
 			type : 'post',
 			dataType : "json",
 			contentType : "application/json",
@@ -34,7 +38,7 @@ function getUrlParam(name) {
 					alert(data.tp); */
 					$("#tp").html(data.tp);
 					$("#pf").html(data.pf);
-					$("#downloadBtn").attr("href","http://nova.shu.edu.cn/SpringMVC/downloadbxsf.do?folderName="+data.folderName);
+					$("#downloadBtn").attr("href","/SpringMVC/downloadbxsf.do?folderName="+data.folderName);
 					$("#resultDiv").show();
 				}
 			},
