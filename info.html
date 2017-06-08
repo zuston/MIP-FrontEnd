@@ -250,8 +250,19 @@ function changeFrameHeight(){
             <h4>Electronic Structure</h4>
             <hr>
 
-            <img alt="" style="width:45%;" v-bind:src="figure(1)">
-            <img alt="" style="width:45%;" v-bind:src="figure(2)">
+            <div class="col-md-6">
+              <div class="" style="margin-top:40px;">
+                <img alt="" width="95%" v-bind:src="figure(1)">
+              </div>
+            </div>
+
+            <!-- <img alt="" style="width:45%;" v-bind:src="figure(2)"> -->
+
+            <div class="col-md-6">
+              <iframe :src="highchartUrl" width="500px" height="400px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
+            </div>
+
+
 
           </div>
           <div class="col-md-6">
@@ -260,9 +271,7 @@ function changeFrameHeight(){
         </div>
       </div>
 
-      <div class="col-md-12" v-if="highchartFlag">
-        <iframe :src="highchartUrl" width="1000px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
-      </div>
+
 
       <h4>Electrical Transport</h4>
       <hr>
@@ -305,7 +314,7 @@ function changeFrameHeight(){
             </div>
       </div> -->
 
-      <div class="col-md-12" style="margin-bottom:20px;border:1px solid #99A9BF;padding-top:10px;border-radius:2px;">
+      <div class="col-md-12" style="margin-bottom:20px;padding-top:10px;border-radius:2px;">
         <div class="row">
           <div class="col-md-6">
             <div class="row">
