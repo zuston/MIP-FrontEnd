@@ -440,7 +440,7 @@
 
       <div class="col-md-3" v-if="conditionFlag[0]==false">
         <div class="input-group input-group-sm" style="margin-top:15px;">
-              <span class="input-group-addon">Space Group&nbsp;(sg)</span>
+              <span class="input-group-addon">Space Group</span>
               <input type="text" class="form-control" placeholder="" style="border:1px solid #8492A6;" v-model="spacegroup">
               <span class="input-group-addon" id="basic-addon2" @click="removeCondition(0)" ><a id="removeX">X</a>&nbsp;</span>
         </div>
@@ -448,7 +448,7 @@
 
       <div class="col-md-3" v-if="conditionFlag[1]==false">
         <div class="input-group input-group-sm" style="margin-top:15px;">
-              <span class="input-group-addon">Element Scale&nbsp;(es)</span>
+              <span class="input-group-addon">Atomic Ratio</span>
               <input type="text" class="form-control" placeholder="1:1:1" style="border:1px solid #8492A6;" v-model="es">
               <span class="input-group-addon" id="basic-addon2" @click="removeCondition(1)" ><a id="removeX">X</a>&nbsp;</span>
         </div>
@@ -456,7 +456,7 @@
 
       <div class="col-md-4" v-if="conditionFlag[2]==false">
         <div class="input-group input-group-sm" style="margin-top:15px;">
-              <span class="input-group-addon">Valence Electrons&nbsp;(ve)</span>
+              <span class="input-group-addon">Valence Electrons</span>
               <input type="text" class="form-control" placeholder="8|18" style="border:1px solid #8492A6;" v-model="ve">
               <span class="input-group-addon" id="basic-addon2" @click="removeCondition(2)"><a  id="removeX">X</a>&nbsp;</span>
         </div>
@@ -475,7 +475,7 @@
         </button>
         <ul class="dropdown-menu">
             <li><a @click="addCondition(0)" v-if="conditionFlag[0]">Space Group</a></li>
-            <li><a @click="addCondition(1)" v-if="conditionFlag[1]">Element Scale</a></li>
+            <li><a @click="addCondition(1)" v-if="conditionFlag[1]">Atomic Ratio</a></li>
             <li><a @click="addCondition(2)" v-if="conditionFlag[2]">Valence Electrons</a></li>
         </ul>
         </div>

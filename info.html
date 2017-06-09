@@ -321,7 +321,7 @@ function changeFrameHeight(){
     					<!-- <div class="col-md-3">Type:</div> -->
     					<div class="col-md-12">
                 <a>Type:</a>
-    						<label class="checkbox-inline" style="margin-left:40px;"><input type="radio"
+    						<label class="checkbox-inline" style="margin-left:80px;"><input type="radio"
     							name="optionsRadiosinline" id="p_type" value="p_type"
     							onclick='clickRadio("p_type")' checked>&nbsp;&nbsp;<a>P-Type</a>
     						</label> <label class="checkbox-inline"> <input type="radio"
@@ -333,7 +333,7 @@ function changeFrameHeight(){
 
               <div class="col-md-12" style="margin-top:10px;">
                 <div class="row">
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                     <a>Temperature:</a>
                     &nbsp;&nbsp;
                   </div>
@@ -349,8 +349,8 @@ function changeFrameHeight(){
 
               <div class="col-md-12" style="margin-top:10px;">
                 <div class="row">
-                  <div class="col-md-2">
-                    <a>Carrier:<a id="neg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</a></a>
+                  <div class="col-md-3">
+                    <a>Carrier:</a>
                     &nbsp;&nbsp;
                   </div>
                   <div class="col-md-3" style="margin-left:10px;">
@@ -364,7 +364,7 @@ function changeFrameHeight(){
 
               <div class="col-md-12" style="margin-top:10px;">
                 <div class="row">
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                     <a>Deformation Potential:</a>
                     &nbsp;&nbsp;
                   </div>
@@ -379,7 +379,7 @@ function changeFrameHeight(){
 
               <div class="col-md-12" style="margin-top:10px;">
                 <div class="row">
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                     <a>Elastic Constant:</a>
                     &nbsp;&nbsp;
                   </div>
@@ -407,14 +407,16 @@ function changeFrameHeight(){
     				style="float: right;display:none;">
     				<h1>Result</h1>
             <div class="" style="margin-top:8px;">
-              <a >ThermoPower : </a> <label id="tp" style="color:black;"></label>&nbsp;&nbsp;<a>uV/K</a>
+              <a >Thermopower : </a> <label id="tp" style="color:black;"></label>&nbsp;&nbsp;<a>uV/K</a>
             </div>
 
             <div class="" style="margin-top:8px;">
-              <a>PowerFactor : </a><label id="pf" style="color:black;"></label>&nbsp;&nbsp;<a>1E-4Wm-1K-2</a>
+              <a>Power Factor : </a><label id="pf" style="color:black;"></label>&nbsp;&nbsp;<a>1E-4Wm-1K-2</a>
             </div>
             <div class="" style="margin-top:8px;">
-              <a class="btn btn-info" id="downloadBtn" target="_blank">bxsf file download</a><br>
+              <a class="btn btn-info" id="downloadBtn" target="_blank">Feri surface (bxsf)</a><br>
+              <p style="font-size:10px;">To be visualized by</p>
+              <p style="font-size:10px;">xcrysden -bxsf [file].bxsf</p>
             </div>
 
     			</div>
