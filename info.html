@@ -273,21 +273,21 @@ function changeFrameHeight(){
 
 
 
-      <h4>Electrical Transport</h4>
+      <h4 v-if="isShowPic[0]">Electrical Transport</h4>
       <hr>
-      <div class="col-md-6">
+      <div class="col-md-6" v-if="isShowPic[0]">
         <iframe :src="highchartUrl1" width="500px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-6" v-if="isShowPic[0]">
         <iframe :src="highchartUrl2" width="500px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-6" v-if="isShowPic[0]">
         <iframe :src="highchartUrl3" width="500px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-md-6" v-if="isShowPic[0]">
         <iframe :src="highchartUrl4" width="500px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
       </div>
 
@@ -314,7 +314,7 @@ function changeFrameHeight(){
             </div>
       </div> -->
 
-      <div class="col-md-12" style="margin-bottom:20px;padding-top:10px;border-radius:2px;">
+      <div class="col-md-12" style="margin-bottom:20px;padding-top:10px;border-radius:2px;" v-if="isShowPic[0]">
         <div class="row">
           <div class="col-md-6">
             <div class="row">
@@ -404,7 +404,7 @@ function changeFrameHeight(){
           </div>
 
           <div class="col-md-6" id="resultDiv"
-    				style="float: right;display:none;">
+    				style="float: right;display:none;" >
     				<h1>Result</h1>
             <div class="" style="margin-top:8px;">
               <a >Thermopower : </a> <label id="tp" style="color:black;"></label>&nbsp;&nbsp;<a>uV/K</a>

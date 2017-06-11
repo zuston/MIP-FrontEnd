@@ -31,8 +31,8 @@ var vm = new Vue({
     highchartUrl3:"",
     highchartUrl4:"",
     highchartFlag:false,
-
-
+    // 图片展示 tag
+    isShowPic:[false],
   },
   watch : {
 
@@ -61,6 +61,7 @@ var vm = new Vue({
 
       var numberArr = this.numberArr;
       var elementArr = this.elementArr;
+      var isShowPicT = this.isShowPic;
 
       var picExsit = this.isFileExsit
       axios.get(loadString).then(function(response){
@@ -71,6 +72,10 @@ var vm = new Vue({
         console.log(numberArr[0]);
         console.log(elementArr[0]);
         console.log(response.data);
+        console.log(response.data.isshow);
+        if (response.data.isshow==1) {
+          isShowPicT.splice(0,1,true);
+        }
         // picExsit();
       }).catch(function(error){
         console.log(error);
