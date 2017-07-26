@@ -8,10 +8,9 @@
     <link href="./static/css/bootstrap.css" rel='stylesheet' type='text/css' />
     <!-- Custom Theme files -->
     <!--  模板样式-->
-    <link href="./static/css/style.css" rel='stylesheet' type='text/css' />
+    <!-- <link href="./static/css/style.css" rel='stylesheet' type='text/css' /> -->
     <!-- 自定义样式 -->
     <!--  设置样式-->
-    <link href="./static/css/info.css" rel='stylesheet' type='text/css' />
     <!--  原先样式-->
     <link href="./static/css/index.css" rel='stylesheet' type='text/css' />
     <script src="./static/js/JSmol.min.js"></script>
@@ -19,8 +18,9 @@
     <script src="./static/js/highcharts.js"></script>
 
     <script type="text/javascript" src="./static/js/bootstrap.js"></script>
-    <script type="text/javascript" src="./static/js/infoC.js">
-    </script>
+    <script type="text/javascript" src="./static/js/infoC.js"></script>
+
+    <link href="./static/css/info.css" rel='stylesheet' type='text/css' />
 </head>
 <script type="text/javascript">
 function changeFrameHeight(){
@@ -34,16 +34,53 @@ function changeFrameHeight(){
 <div id="">
 <!-- banner -->
 
-<div class="banner" >
-    <div class="header" style="background-color:#428CB6;">
-        <div class="container" >
-            <div class="logo">
-                <span><a href="#" style="font-size:18px;color:white;">Materials  Information  Platform</a></span>
+<div class="banner">
+  <nav class="navbar navbar-default navbar-fixed-top  navbar-inverse ">
+          <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="http://nova.shu.edu.cn/SpringMVC/login.do">MIP</a>
             </div>
-        </div>
-    </div>
-</div>
 
+            <!-- 左上角的导航 -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+              <ul class="nav navbar-nav" >
+              <li ><a href="http://nova.shu.edu.cn/SpringMVC/login.do">Home<span class="sr-only">(current)</span></a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">account <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">my profile</a></li>
+                  <li><a href="http://nova.shu.edu.cn/SpringMVC/jobquery.do">my jobs</a></li>
+                  <li><a href="#">my server</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">maintain <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">server status</a></li>
+                </ul>
+              </li>
+              <li data-toggle="modal" data-target="#about"><a href="#" >About</a></li>
+            </ul>
+
+
+              <ul class="nav navbar-nav navbar-right">
+                <!-- <li data-toggle="modal" v-if="userInfo[0]==-1"><a id="username">Login</a></li> -->
+                <!-- <li data-toggle="modal" v-if="userInfo[0]!=-1"><a href="/SpringMVC/logout.do" id="logout">{{userInfo[0]}}&nbsp;:&nbsp;Logout</a></li> -->
+              </ul>
+            </div>
+          </div>
+  </nav>
+</div>
+<hr>
+<hr>
 <div class="main" id="app">
   <div class="container">
     <div class="col-md-12">
