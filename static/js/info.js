@@ -33,24 +33,32 @@ var vm = new Vue({
     highchartFlag:false,
     // 图片展示 tag
     isShowPic:[false],
+
+    lock : true,
   },
   watch : {
 
   },
   created : function(){
-    this.initHighchartsUrl();
     this.highchartFlag=true
     this.load(GetRequest()["token"],GetRequest()["id"]);
   },
-  ready : function(){
+
+  mounted : function(){
+    this.initHighchartsUrl();
   },
   methods : {
 
     initHighchartsUrl:function(){
+      setTimeout("",5000)
       this.highchartUrl="http://nova.shu.edu.cn/SpringMVC/page/highCharts.html?extract_id="+GetRequest()["id"];
+      setTimeout("",5000)
       this.highchartUrl1="http://nova.shu.edu.cn/SpringMVC/page/TPPTypeChart.html?extract_id="+GetRequest()["id"];
+      setTimeout("",5000)
       this.highchartUrl2="http://nova.shu.edu.cn/SpringMVC/page/TPNTypeChart.html?extract_id="+GetRequest()["id"];
+      setTimeout("",5000)
       this.highchartUrl3="http://nova.shu.edu.cn/SpringMVC/page/PFPTypeChart.html?extract_id="+GetRequest()["id"];
+      setTimeout("",5000)
       this.highchartUrl4="http://nova.shu.edu.cn/SpringMVC/page/PFNTypeChart.html?extract_id="+GetRequest()["id"];
     },
 

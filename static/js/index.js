@@ -110,6 +110,8 @@ var vm = new Vue({
     userInfo : [-1],
 
     dataBaseCount : [],
+
+    randomCalculateCount : 300,
   },
   created : function(){
     this.load(GetRequest()["token"]);
@@ -291,6 +293,11 @@ var vm = new Vue({
     },
 
     poscarDownload : function(){
+      window.open('/m/poscarDownload?expression='+encodeURIComponent(this.expressStr)+'&computed='+this.dataType);
+    },
+
+    allDownload : function(){
+      window.open('/m/download?expression='+encodeURIComponent(this.expressStr)+'&computed='+this.dataType);
       window.open('/m/poscarDownload?expression='+encodeURIComponent(this.expressStr)+'&computed='+this.dataType);
     },
 
@@ -709,6 +716,7 @@ var vm = new Vue({
 
 
     chooseRandomResult : function(randomValue){
+      console.log(randomValue);
       var searchContent = this.expressStr;
       searchContent = searchContent.replace(/\|/g,"#");
       var changeSearchContent = encodeURIComponent(searchContent);

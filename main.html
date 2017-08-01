@@ -474,10 +474,6 @@
         </div>
       </div>
 
-
-
-
-
       <div class="col-md-1 ">
 
       </div>
@@ -508,6 +504,8 @@
       </div>
     </div>
   </div>
+
+  <hr>
 
   <div class="container">
     <div class="btn-group col-md-2 col-md-offset-1">
@@ -639,7 +637,8 @@
             <button type="button" class="btn btn-success formualButton" @click="download()">current results download (excel)</button>
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-success formualButton" @click="poscarDownload"><a style="color:black;">current results download (poscar)</a></button>
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="chooseAllResult"><a>all results to calculate</a></button>
-            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="chooseRandomResult(300)"><a>300 random results to calculate</a></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="chooseRandomResult(randomCalculateCount)"><input type="text" name="" v-model="randomCalculateCount" style="border-radius:5px;border:2px solid #a1a1a1;"/><a> random results to calculate</a></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="allDownload"><a>all results download(excel and poscar)</a></button>
             <thead>
               <tr class="active">
                 <th><input type="checkbox" @click="chooseAll(resList)" v-bind:checked="isAll(resList)">&nbsp;&nbsp;Index</th>
@@ -657,7 +656,7 @@
                 <td @click="cart(data.original_id,data.compound_name)">
                     <input type="checkbox" v-bind:checked="cartList.indexOf(data.original_id)>-1" >&nbsp;&nbsp;{{(index+1)+30*(currentPage[0]-1)}}
                 </td>
-                <td><p v-if="data.bandgap"><a v-if="data.bandgap>0.05">{{data.bandgap}}</a><a v-else>0</a></p></td>
+                <td><p v-if="data.bandgap"><a v-if="data.bandgap>0.03">{{data.bandgap}}</a><a v-else>0</a></p></td>
                 <!-- <td>{{data.simplified_name}}&nbsp;&nbsp;({{data.compound_name}})</td> -->
                 <!--  改进的角标 -->
                 <td>

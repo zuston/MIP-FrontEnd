@@ -20,16 +20,10 @@
     <script type="text/javascript" src="./static/js/bootstrap.js"></script>
     <script type="text/javascript" src="./static/js/infoC.js"></script>
 
+    <script src="https://cdn.bootcss.com/echarts/3.6.2/echarts.min.js"></script>
+
     <link href="./static/css/info.css" rel='stylesheet' type='text/css' />
 </head>
-<script type="text/javascript">
-function changeFrameHeight(){
-  var ifm= document.getElementById("myiframe");
-  ifm.height=document.documentElement.clientHeight;
-  // ifm.width=document.documentElement.clientWidth;
-}
-</script>
-
 <body>
 <div id="">
 <!-- banner -->
@@ -97,7 +91,7 @@ function changeFrameHeight(){
   </div>
 
   <div class="container" id="pic">
-    <div class="col-md-5">
+    <div class="col-md-5" v-if="lock">
       <h4>Structure</h4>
       <hr>
       <!-- <div class="pic1" id="mydiv" v-pre class="col-md-12">
@@ -122,7 +116,7 @@ function changeFrameHeight(){
           <hr>
 
           <p>Bandgap</p>
-          <h4 v-if="resArr[0].extract.extract_info.band_gap">{{resArr[0].extract.extract_info.band_gap.toFixed(2)}}&nbsp;<a>eV</a></h4>
+          <h4 v-if="resArr[0].extract.extract_info.band_gap"><a v-if="resArr[0].extract.extract_info.band_gap>0.03">{{resArr[0].extract.extract_info.band_gap.toFixed(2)}}</a><a v-else>0</a>&nbsp;<a>eV</a></h4>
           <hr>
           <p>Energy per atom</p>
           <h4 v-if="resArr[0].extract.extract_info.formation_energy">{{resArr[0].extract.extract_info.formation_energy.toFixed(4)}}&nbsp;<a>eV</a></h4>
@@ -276,7 +270,7 @@ function changeFrameHeight(){
     </div>
     <hr>
 
-    <div class="container mip-2-leftleft" id="">
+    <div class="container mip-2-leftleft" v-if="lock">
 
 
 
