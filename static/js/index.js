@@ -75,6 +75,7 @@ var vm = new Vue({
     spacegroup : null,
     es : null,
     ve : null,
+    en : null,
 
     // 搜索的表达式
     expression : null,
@@ -105,7 +106,7 @@ var vm = new Vue({
     complexNumberArr : [],
     complexElementArr : [],
 
-    conditionFlag : [true,true,true],
+    conditionFlag : [true,true,true,true],
 
     userInfo : [-1],
 
@@ -174,6 +175,33 @@ var vm = new Vue({
           this.expressStr += "(ve="+this.ve+")"
         }else{
           this.expressStr += "&(ve="+this.ve+")"
+        }
+
+      }
+    },
+
+    en : function(){
+      if (this.en===null) {
+        return
+      }
+      if (this.expressStr!=null&&this.en.length==0) {
+        this.expressStr = this.expressStr.replace(/\(en=(.*?)\)/,"");
+        if (this.expressStr.charAt(this.expressStr.length-1)=="&") {
+          this.expressStr = this.expressStr.substr(0,this.expressStr.length-1);
+        }else if (this.expressStr.charAt(0)=="&") {
+          this.expressStr = this.expressStr.substr(1,this.expressStr.length);
+        }
+        return;
+      }
+      if (this.expressStr!=null&&this.expressStr.indexOf("en")>0) {
+        this.expressStr = this.expressStr.replace(/\(en=(.*?)\)/,"(en="+this.en+")");
+      }else{
+
+        if (this.expressStr==null||this.expressStr=="") {
+          this.expressStr = "";
+          this.expressStr += "(en="+this.en+")"
+        }else{
+          this.expressStr += "&(en="+this.en+")"
         }
 
       }
