@@ -32,7 +32,7 @@ var vm = new Vue({
     highchartUrl4:"",
     highchartFlag:false,
     // 图片展示 tag
-    isShowPic:[false],
+    isShowPic:[true],
 
     lock : true,
   },
