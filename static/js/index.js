@@ -112,7 +112,7 @@ var vm = new Vue({
 
     dataBaseCount : [],
 
-    randomCalculateCount : 300,
+    randomCalculateCount : null,
   },
   created : function(){
     this.load(GetRequest()["token"]);
@@ -317,11 +317,26 @@ var vm = new Vue({
     },
 
     download : function(){
-      window.open('/m/download?expression='+encodeURIComponent(this.expressStr)+'&computed='+this.dataType);
+      // 获取选中的下载
+      var idString = "";
+      for (var i = 0; i < this.cartList.length; i++) {
+        idString+=this.cartList[i]+"&";
+      }
+      idString = idString.substring(0,idString.length-1);
+      window.open('/m/choosedExcelDownload?mids='+encodeURIComponent(idString)+'&computed='+this.dataType);
+      // window.open('/m/download?expression='+encodeURIComponent(this.expressStr)+'&computed='+this.dataType);
     },
 
     poscarDownload : function(){
-      window.open('/m/poscarDownload?expression='+encodeURIComponent(this.expressStr)+'&computed='+this.dataType);
+      // 获取选中的下载
+      var idString = "";
+      for (var i = 0; i < this.cartList.length; i++) {
+        idString+=this.cartList[i]+"&";
+      }
+      idString = idString.substring(0,idString.length-1);
+      window.open('/m/choosedPoscarDownload?mids='+encodeURIComponent(idString)+'&computed='+this.dataType);
+
+      // window.open('/m/poscarDownload?expression='+encodeURIComponent(this.expressStr)+'&computed='+this.dataType);
     },
 
     allDownload : function(){

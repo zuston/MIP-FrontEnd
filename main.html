@@ -648,7 +648,7 @@
             <button type="button" class="btn btn-success formualButton" @click="download()">current results download (excel)</button>
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-success formualButton" @click="poscarDownload"><a style="color:black;">current results download (poscar)</a></button>
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="chooseAllResult"><a>all results to calculate</a></button>
-            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="chooseRandomResult(randomCalculateCount)"><input type="text" name="" v-model="randomCalculateCount" style="border-radius:5px;border:2px solid #a1a1a1;"/><a> random results to calculate</a></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="chooseRandomResult(randomCalculateCount)"><input type="text" name="" v-model="randomCalculateCount" style="border-radius:1px;border:1px solid #a1a1a1;" placeholder="e.g. 300" /><a> random results to calculate</a></button>
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="allDownload"><a>all results download(excel and poscar)</a></button>
             <thead>
               <tr class="active">
