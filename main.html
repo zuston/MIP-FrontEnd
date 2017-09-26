@@ -645,8 +645,7 @@
         <div class="col-md-12">
           <table class="table table-hover table-bordered">
             <caption>Result List&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">{{totalCount[0]}}</a>&nbsp;&nbsp;&nbsp;&nbsp;Data From&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">MIP</a>&nbsp;&nbsp;&nbsp;&nbsp;All In DataBase Count&nbsp;&nbsp;<a style="color:#20A0FF;font-size:20px;">{{dataBaseCount[0]}}</a><caption>
-            <button type="button" class="btn btn-success formualButton" @click="download()">current results download (excel)</button>
-            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-success formualButton" @click="poscarDownload"><a style="color:black;">current results download (poscar)</a></button>
+            <button type="button" class="btn btn-success formualButton" @click="selectedDownload()">Selected results download</button>
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="chooseAllResult"><a>all results to calculate</a></button>
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="chooseRandomResult(randomCalculateCount)"><input type="text" name="" v-model="randomCalculateCount" style="border-radius:1px;border:1px solid #a1a1a1;" placeholder="e.g. 300" /><a> random results to calculate</a></button>
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  class="btn btn-default btn-default" name="button" @click="allDownload"><a>all results download(excel and poscar)</a></button>

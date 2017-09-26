@@ -316,6 +316,11 @@ var vm = new Vue({
       return "info.html?token="+GetRequest()["token"]+"&id="+oid;
     },
 
+    selectedDownload : function(){
+      this.download();
+      this.poscarDownload();
+    },
+
     download : function(){
       // 获取选中的下载
       var idString = "";
