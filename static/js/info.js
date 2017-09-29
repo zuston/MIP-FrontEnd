@@ -77,17 +77,21 @@ var vm = new Vue({
         var name = response.data.basic.pymatgen_poscar.comment;
         numberArr.splice(0,1,analyString(name)[0]);
         elementArr.splice(0,1,analyString(name)[1]);
-        console.log(numberArr[0]);
-        console.log(elementArr[0]);
-        console.log(response.data);
-        console.log(response.data.isshow);
+        // console.log(numberArr[0]);
+        // console.log(elementArr[0]);
+        // console.log(response.data);
+        // console.log(response.data.isshow);
         if (response.data.isshow==1) {
           isShowPicT.splice(0,1,true);
+        }
+        if (hg[0].extract.extract_info.band_gap<0.1) {
+          isShowPicT[0] = false;
         }
         // picExsit();
       }).catch(function(error){
         console.log(error);
       });
+      
     },
 
     download : function(){

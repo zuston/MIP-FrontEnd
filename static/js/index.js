@@ -239,7 +239,7 @@ var vm = new Vue({
       var loadString = "/m/userInfo?token="+id;
       var uinfo = this.userInfo;
       axios.get(loadString).then(function(response){
-        if (response.data!="nullzero") {
+        if (response.data!="error") {
           uinfo.splice(0,1,response.data);
         }
       }).catch(function(error){
