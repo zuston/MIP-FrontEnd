@@ -115,9 +115,9 @@
           <h4 v-if="resArr[0].extract.extract_info.desity">{{resArr[0].extract.extract_info.desity.toFixed(3)}}&nbsp;<a>g/cm<sup>3</sup></a></h4>
           <hr>
 
-          <p>Bandgap</p>
+          <p v-if="resArr[0].extract.extract_info.band_gap">Bandgap</p>
           <h4 v-if="resArr[0].extract.extract_info.band_gap"><a v-if="resArr[0].extract.extract_info.band_gap>0.03">{{resArr[0].extract.extract_info.band_gap.toFixed(2)}}</a><a v-else>0</a>&nbsp;<a>eV</a></h4>
-          <hr>
+          <hr v-if="resArr[0].extract.extract_info.band_gap">
           <p>Energy per atom</p>
           <h4 v-if="resArr[0].extract.extract_info.formation_energy">{{resArr[0].extract.extract_info.formation_energy.toFixed(4)}}&nbsp;<a>eV</a></h4>
           <hr>
