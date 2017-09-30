@@ -84,7 +84,7 @@ var vm = new Vue({
         if (response.data.isshow==1) {
           isShowPicT.splice(0,1,true);
         }
-        if (hg[0].extract.extract_info.band_gap<0.1) {
+        if (hg[0].extract.extract_info.band_gap<0.1||!hg[0].isShowTransport) {
           isShowPicT[0] = false;
         }
         // picExsit();
