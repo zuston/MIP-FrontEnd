@@ -534,7 +534,7 @@ var vm = new Vue({
       // idString = encodeURIComponent(idString);
       // alert(idString);
       // window.open("http://nova.shu.edu.cn/SpringMVC/searchFromWeb.do?"+idString);
-      openWindowWithPost("http://nova.shu.edu.cn/SpringMVC/searchFromWeb.do",this.cartList)
+      openWindowWithPost("http://nova.shu.edu.cn:8083/MIP/searchFromWeb.do",this.cartList)
     },
 
     isAll : function(resList){
@@ -754,7 +754,7 @@ var vm = new Vue({
         // window.open("http://nova.shu.edu.cn/SpringMVC/searchFromWeb.do?"+calculateString);
         console.log(dlist);
         console.log("change the file");
-        openWindowWithPost("http://nova.shu.edu.cn/SpringMVC/searchFromWeb.do",dlist)
+        openWindowWithPost("http://nova.shu.edu.cn:8083/MIP/searchFromWeb.do",dlist)
         console.log("end");
       }).catch(function(error){
         console.log(error);
@@ -784,7 +784,7 @@ var vm = new Vue({
         // 计算传递参数值
         calculateString = calculateString.substring(0,calculateString.length-1)
         // window.open("http://nova.shu.edu.cn/SpringMVC/searchFromWeb.do?"+calculateString);
-        openWindowWithPost("http://nova.shu.edu.cn/SpringMVC/searchFromWeb.do",dlist)
+        openWindowWithPost("http://nova.shu.edu.cn:8083/MIP/searchFromWeb.do",dlist)
         console.log("end");
       }).catch(function(error){
         console.log(error);
