@@ -222,3 +222,7 @@ body a,.grid_1,plan_1,plan_1.one,plan_1.two,i.icon1, i.icon2, i.icon3, i.icon4, 
 #myTabContent{
   margin-top: 15px;
 }
+
+#line{
+  border: 1px solid #EFF2F7;height: 1px;margin-bottom: 5px;
+}

@@ -109,21 +109,41 @@
             <!-- <a style="display:block;float:left;margin-left:6px;margin-top:-5px;font-weight:bold;"><p style="line-height:0.6;font-size:4px;margin-left:1px;">o</p><p style="line-height:0.6;">A<sup>3</sup></p></a> -->
             <a>&Aring;<sup>3</sup></a>
           </h4>
-          <hr>
+          <div id="line"></div>
 
           <p>Density</p>
           <h4 v-if="resArr[0].extract.extract_info.desity">{{resArr[0].extract.extract_info.desity.toFixed(3)}}&nbsp;<a>g/cm<sup>3</sup></a></h4>
-          <hr>
+          <div id="line"></div>
 
           <p v-if="resArr[0].extract.extract_info.band_gap">Bandgap</p>
           <h4 v-if="resArr[0].extract.extract_info.band_gap"><a v-if="resArr[0].extract.extract_info.band_gap>0.03">{{resArr[0].extract.extract_info.band_gap.toFixed(2)}}</a><a v-else>0</a>&nbsp;<a>eV</a></h4>
-          <hr v-if="resArr[0].extract.extract_info.band_gap">
+          <div id="line"></div>
+
           <p>Energy per atom</p>
           <h4 v-if="resArr[0].extract.extract_info.formation_energy">{{resArr[0].extract.extract_info.formation_energy.toFixed(4)}}&nbsp;<a>eV</a></h4>
-          <hr>
-          <p>Pointgroup Type</p>
-          <h4 v-if="resArr[0].extract.extract_info.point_group_type">{{resArr[0].extract.extract_info.point_group_type}}</h4>
+          <div id="line" v-if="resArr[0].extract.extract_info.space_group_type"></div>
+          <p v-if="resArr[0].extract.extract_info.space_group_type">Space Group</p>
+          <h4 v-if="resArr[0].extract.extract_info.space_group_type">{{resArr[0].extract.extract_info.space_group_type}}</h4>
+         
+          
+          <div v-if="resArr[0].extract.extract_info.spin_polarization===true|resArr[0].extract.extract_info.spin_polarization===false">
+            <div id="line"></div>
+            <p>Spin Polarization</p>
+            <h4>{{resArr[0].extract.extract_info.spin_polarization}}</h4>
+          </div>
 
+          <div v-if="resArr[0].extract.extract_info.magnetic_moment">
+            <div id="line"></div>
+            <p>Magnetic Moment</p>
+            <h4>{{resArr[0].extract.extract_info.magnetic_moment}}&nbsp;<a>&mu;<sub>B</sub></a></h4>
+          </div> 
+
+
+          <div v-if="resArr[0].extract.extract_info.ferrum_electronic_phase===true|resArr[0].extract.extract_info.ferrum_electronic_phase===false">
+            <div id="line"></div>
+            <p>Ferroelectric Phase</p>
+            <h4>{{resArr[0].extract.extract_info.ferrum_electronic_phase}}</h4>
+          </div>
 
       </div>
     </div>
@@ -290,7 +310,7 @@
             <!-- <img alt="" style="width:45%;" v-bind:src="figure(2)"> -->
 
             <div class="col-md-6">
-              <iframe :src="highchartUrl" width="500px" height="400px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
+              <iframe :src="highchartUrl" width="500px" height="450px" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ scrolling=”no” allowtransparency=”yes”></iframe>
             </div>
 
 

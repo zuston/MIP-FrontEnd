@@ -24,7 +24,7 @@ function getUrlParam(name) {
 		tmpdt["deformation_potential"] = $("#deformation_potential").val();
 		tmpdt["elastic_constant"] = $("#elastic_constant").val();
 		$.ajax({
-			 url : "/SpringMVC/ajax_trans_calculate.do",
+			 url : "/MIP/ajax_trans_calculate.do",
 			 /* url : "http://localhost:8080/SpringMVC/ajax_trans_calculate.do",  */
 			type : 'post',
 			dataType : "json",
@@ -37,7 +37,7 @@ function getUrlParam(name) {
 					alert(data.tp); */
 					$("#tp").html(data.tp);
 					$("#pf").html(data.pf);
-					$("#downloadBtn").attr("href","/SpringMVC/downloadbxsf.do?folderName="+data.folderName);
+					$("#downloadBtn").attr("href","/MIP/downloadbxsf.do?folderName="+data.folderName);
 					$("#resultDiv").show();
 				}
 			},
