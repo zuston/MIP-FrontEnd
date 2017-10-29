@@ -47,6 +47,112 @@ function GetRequest(){
   return theRequest;
 }
 
+// 是否只存在一个 key 值
+function isExistOneKey(paramsList){
+  var map = new HashMap()
+  for (var i = 0; i < paramsList.length; i++) {
+    var obj = paramsList[i]
+    map.put(obj.connection,"")
+  }
+  if (map.size()==1) return true;
+  return false;
+}
+
+function simpleGenerator(paramsList){
+  var spaceGroupFormualList = []
+  if (paramsList.length!=0) {
+    var spaceGroupFormual = ""
+    // 校验连接条件，只支持全部 And 或 全部 Or
+    var tag = isExistOneKey(paramsList)
+    var compareIndex = paramsList[0].connection
+    if (tag===true) {
+      // 一个条件或者多个组合 and
+      if (paramsList.length==1) {
+        var obj = paramsList[0]
+        spaceGroupFormual = "(sg"+obj.action+obj.value+")"
+        return spaceGroupFormual
+      }
+      else if (compareIndex=='and') {
+        // 多个 and 后序条件会冲掉前面的条件
+        var hm = new HashMap()
+        for (var i = 0; i < paramsList.length; i++) {
+          var obj = paramsList[i]
+          if (obj.action=="=") {
+            return false
+          }
+          hm.put(obj.action,obj)
+        }
+        // todo 判断是否存在两个
+        if (hm.size()==2) {
+          var leftOne = hm.get(">")
+          var rightOne = hm.get("<")
+          spaceGroupFormual = "(sg="+leftOne.value+"-"+rightOne.value+")"
+          return spaceGroupFormual
+        }else{
+          if (hm.containsKey(">")) {
+            spaceGroupFormual = "(sg"+hm.get(">").action+hm.get(">").value+")"
+          }else{
+            spaceGroupFormual = "(sg"+hm.get("<").action+hm.get("<").value+")"
+          }
+          return spaceGroupFormual
+        }
+
+      }else{
+        // 全部是 = 一种情况
+        // 或者是包含其他符号
+        var hm = new HashMap()
+        for (var i = 0; i < paramsList.length; i++) {
+          var obj = paramsList[i]
+          hm.put(obj.action,obj)
+        }
+        if (hm.size==1 && hm.containsKey("=")) {
+          var valueList = []
+          for (var i = 0; i < paramsList.length; i++) {
+            var obj = paramsList[i]
+            valueList.push(obj.value)
+          }
+          spaceGroupFormual = "(sg=)"+valueList.join("|")+")"
+          return spaceGroupFormual
+        }else{
+          // 复杂符号的 or 组合
+          // return 0
+          // 暂时直接第一个为主
+          var obj = paramsList[0]
+          spaceGroupFormual = "(sg"+obj.action+obj.value+")"
+          return spaceGroupFormual
+        }
+      }
+    }else {
+      // 出现多个 and or 是非法
+      return false
+    }
+  }
+}
+// 组合算法
+function simpleComponentArgs(needComponentList,keyList){
+  var step = needComponentList.length
+  var resList = []
+  loop(0,resList,step+1,"",needComponentList,keyList)
+  return resList
+}
+function loop(step,resList,end,tempString,needComponentList,keyList){
+  if (step==end) {
+    resList.push(tempString)
+    return
+  }
+  var obj = needComponentList[step]
+  var tag = keyList[step]
+  for (var i = 0; i < 2; i++) {
+    var tempO = obj[i]
+    if (tempString.length!=0) {
+      tempString += "&"+tag+tempO.action+tempO.value
+    }else {
+      tempString = tag+tempO.action+tempO.value
+    }
+    loop(step+1,resList,end,tempString,needComponentList,keyList)
+  }
+}
+
 var vm = new Vue({
   el : "#app",
   data : {
@@ -113,6 +219,17 @@ var vm = new Vue({
     dataBaseCount : [],
 
     randomCalculateCount : null,
+
+    // 点选搜索模块
+    atomRadio : [],
+    spaceGroup : [],
+    valenceElectrons : [],
+    elementTypeNumbers : [],
+    // 临时测试变量
+    sstring : '',
+    // 元素是全选还是只含有
+    formualType : 2,
+
   },
   created : function(){
     this.load(GetRequest()["token"]);
@@ -790,6 +907,259 @@ var vm = new Vue({
         console.log(error);
       });
 
+    },
+
+    // 点选检索的增加单个条件中的复合部分
+    addSearchCondition : function(index){
+      // spaceGroup
+      if (index===0) {
+        var obj = new Object()
+        obj.action = "<"
+        obj.value = 216
+        obj.connection = "and"
+        this.spaceGroup.push(obj)
+      }
+
+      // atom radio
+      if (index===1) {
+         var obj = new Object()
+         obj.action = "="
+         obj.value = "1:1:1"
+         obj.connection = "and"
+         this.atomRadio.push(obj)
+      }
+
+      // valenceElectrons
+      if (index===2) {
+        var obj = new Object()
+        obj.action = "="
+        obj.value = 10
+        obj.connection = "and"
+        this.valenceElectrons.push(obj)
+      }
+
+      // elementTypeNumbers
+      if (index===3) {
+        var obj = new Object()
+        obj.action = "="
+        obj.value = 10
+        obj.connection = "and"
+        this.elementTypeNumbers.push(obj)
+      }
+
+    },
+
+    removeSearchCondition : function(tag,indexValue){
+      if (tag===0) {
+        this.spaceGroup.splice(indexValue,1)
+      }
+      if (tag===1) {
+        this.atomRadio.splice(indexValue,1)
+      }
+      if (tag===2) {
+        this.valenceElectrons.splice(indexValue,1)
+      }
+      if (tag===3) {
+        this.elementTypeNumbers.splice(indexValue,1)
+      }
+    },
+
+    generateFormual : function(){
+      var conditionFormual = ""
+      // spaceGroup
+      var spaceGroupFormualList = []
+      if (this.spaceGroup.length!=0) {
+        var res = simpleGenerator(this.spaceGroup)
+        if (res===false) {
+          this.sstring = "error"
+          return
+        }
+        if (res===0) {
+          spaceGroupFormualList = this.spaceGroup
+        }else {
+          conditionFormual += res
+        }
+        // var spaceGroupFormual = ""
+        // // 校验连接条件，只支持全部 And 或 全部 Or
+        // var tag = isExistOneKey(this.spaceGroup)
+        // var compareIndex = this.spaceGroup[0].connection
+        // if (tag===true) {
+        //   // 一个条件或者多个组合 and
+        //   if (this.spaceGroup.length==1) {
+        //     var obj = this.spaceGroup[0]
+        //     spaceGroupFormual = "(sg"+obj.action+obj.value+")"
+        //     conditionFormual += spaceGroupFormual
+        //   }
+        //   else if (compareIndex=='and') {
+        //     // 多个 and 后序条件会冲掉前面的条件
+        //     var hm = new HashMap()
+        //     for (var i = 0; i < this.spaceGroup.length; i++) {
+        //       var obj = this.spaceGroup[i]
+        //       if (obj.action=="=") {
+        //         this.sstring = "exist = is error"
+        //         return
+        //       }
+        //       hm.put(obj.action,obj)
+        //     }
+        //     // todo 判断是否存在两个
+        //     var leftOne = hm.get(">")
+        //     var rightOne = hm.get("<")
+        //     spaceGroupFormual = "(sg="+leftOne.value+"-"+rightOne.value+")"
+        //     conditionFormual += spaceGroupFormual
+        //   }else{
+        //     // 全部是 = 一种情况
+        //     // 或者是包含其他符号
+        //     var hm = new HashMap()
+        //     for (var i = 0; i < this.spaceGroup.length; i++) {
+        //       var obj = this.spaceGroup[i]
+        //       hm.put(obj.action,obj)
+        //     }
+        //     if (hm.size==1 && hm.containsKey("=")) {
+        //       var valueList = []
+        //       for (var i = 0; i < this.spaceGroup.length; i++) {
+        //         var obj = this.spaceGroup[i]
+        //         valueList.push(obj.value)
+        //       }
+        //       spaceGroupFormual = valueList.join("|")
+        //       conditionFormual += "(sg="+spaceGroupFormual+")"
+        //     }else{
+        //       // 复杂符号的 or 组合
+        //       spaceGroupFormualList = this.spaceGroup
+        //     }
+        //   }
+        // }else {
+        //   // 出现多个 and or 是非法
+        //   this.sstring = "multiply and or is error"
+        //   return
+        // }
+      }
+
+      // atomRadio 表达式形式 es=1:1:1 or es=1:1:1|1:2:4
+      if (this.atomRadio.length!=0) {
+        var atomRadioFormual = ""
+        if (this.atomRadio.length==1) {
+          atomRadioFormual = "(es="+this.atomRadio[0].value+")"
+        }else {
+          var tempList = []
+          for (var i = 0; i < this.atomRadio.length; i++) {
+            var obj = this.atomRadio[i]
+            tempList.push(obj.value)
+          }
+          atomRadioFormual += "(es="+tempList.join("|")+")"
+        }
+        if (conditionFormual.length!=0) {
+          conditionFormual += "&"+atomRadioFormual
+        }else{
+          conditionFormual = atomRadioFormual
+        }
+      }
+
+      var valenceElectronsFormualList = []
+      if (this.valenceElectrons.length!=0) {
+        var res = simpleGenerator(this.valenceElectrons)
+        if (res===false) {
+          this.sstring = "error"
+          return
+        }
+        if (res===0) {
+          valenceElectronsFormualList = this.valenceElectrons
+        }else {
+          if (conditionFormual.length!=0) {
+            conditionFormual += "&"+res
+          }else{
+            conditionFormual = res
+          }
+        }
+      }
+
+      var elementTypeNumbersFormualList = []
+      if (this.elementTypeNumbers.length!=0) {
+        var res = simpleGenerator(this.elementTypeNumbers)
+        if (res===false) {
+          this.sstring = "error"
+          return
+        }
+        if (res===0) {
+          elementTypeNumbersFormualList = this.elementTypeNumbers
+        }else {
+          if (conditionFormual.length!=0) {
+            conditionFormual += "&"+res
+          }else{
+            conditionFormual = res
+          }
+        }
+      }
+      // 后端暂时不支持多 | 的表达式
+      // var needComponentList = []
+      // var keyList = []
+      // if (spaceGroupFormualList.length>=1) {
+      //   needComponentList.push(spaceGroupFormualList)
+      //   keyList.push("sg")
+      // }
+      // if (valenceElectronsFormualList.length>=1) {
+      //   needComponentList.push(valenceElectronsFormualList)
+      //   keyList.push("ve")
+      // }
+      // if (elementTypeNumbersFormualList.length>=1) {
+      //   needComponentList.push(elementTypeNumbersFormualList)
+      //   keyList.push("en")
+      // }
+      // var componentFormualList = simpleComponentArgs(needComponentList,keyList)
+
+      this.sstring = conditionFormual
+    },
+
+    searchV2 : function(page,tag){
+      this.generateFormual()
+      // 生成 element 句子
+      var originalString = this.expressStr
+      if (this.expressStr != null && this.expressStr!="") {
+        // all ---> {S,Si,H}
+        if (this.formualType==0) {
+          var tempList = this.expressStr.split("&")
+          var tempStr = tempList.join(",")
+          this.expressStr = "{"+tempStr+"}"
+        }
+        // Exclusive
+        if (this.formualType==1) {
+          this.expressStr += "^"
+        }
+        // Include 不做操作
+      }
+      // 剔除 error 错误信息
+      if (this.sstring.length>0&&this.sstring!="error") {
+        if (this.expressStr != null) {
+          this.expressStr += "&"+this.sstring
+        }else{
+          this.expressStr = this.sstring
+        }
+      }
+      this.search(page,tag)
+      this.expressStr = originalString
+    },
+
+    clearV2 : function(){
+      this.clearSearch()
+      this.atomRadio = []
+      this.spaceGroup = []
+      this.valenceElectrons = []
+      this.elementTypeNumbers = []
+    },
+
+    removeConditionV2 : function(index){
+      if (index==0) {
+        this.spaceGroup = []
+      }
+      if (index==1) {
+        this.atomRadio = []
+      }
+      if (index==2) {
+        this.valenceElectrons = []
+      }
+      if (index==4) {
+        this.elementTypeNumbers = []
+      }
+      this.removeCondition(index)
     }
   }
 })

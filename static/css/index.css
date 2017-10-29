@@ -129,3 +129,19 @@
 .pcontent{
   margin-top: 20px;
 }
+
+
+.positionLine{
+  border: 1px solid #D3DCE6;
+  border-radius: 2px;
+}
+
+.elementName{
+  margin-top: 10px;
+  border: 1px solid #D3DCE6;
+  box-shadow: 0 10px 6px -6px #777;
+  /*border: 1px solid white;*/
+  /*height:20px;*/
+  border-bottom: 2px solid #D3DCE6;
+  padding: 10px;
+}

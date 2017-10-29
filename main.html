@@ -479,7 +479,7 @@
       </div>
 
 
-      <div class="col-md-3" v-if="conditionFlag[0]==false">
+      <!-- <div class="col-md-3" v-if="conditionFlag[0]==false">
         <div class="input-group input-group-sm" style="margin-top:15px;">
               <span class="input-group-addon">Space Group</span>
               <input type="text" class="form-control" placeholder="" style="border:1px solid #8492A6;" v-model="spacegroup">
@@ -509,12 +509,177 @@
               <input type="text" class="form-control" placeholder="3|4" style="border:1px solid #8492A6;" v-model="en">
               <span class="input-group-addon" id="basic-addon2" @click="removeCondition(3)"><a  id="removeX">X</a>&nbsp;</span>
         </div>
-      </div>
+      </div> -->
 
 
     </div>
   </div>
 
+  <div class="container">
+    <div class="col-md-offset-1 col-md-10 elementName">
+      <div class="col-md-7">
+        <span style="font-size:18px;">Selected Elements</span>
+        <a style="margin-left:10px;font-size:15px;">{{expressStr}}</a>
+      </div>
+      <div class="col-md-5">
+        <label class="checkbox-inline">
+      		<input type="radio" name="optionsRadiosinline1" id="optionsRadios1" value="0" v-model="formualType"> <a>All</a>
+      	</label>
+      	<label class="checkbox-inline">
+      		<input type="radio" name="optionsRadiosinline2" id="optionsRadios2"  value="1" v-model="formualType"> <a>Exclusive</a>
+      	</label>
+        <label class="checkbox-inline">
+      		<input type="radio" name="optionsRadiosinline3" id="optionsRadios3"  value="2" v-model="formualType"> <a>Include</a>
+      	</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- 点击设置检索条件模块 -->
+  <div class="container">
+    <div class="col-md-offset-1 col-md-10">
+        <form role="form">
+
+          <!-- Sapce Group -->
+          <div class="row elementName" v-if="conditionFlag[0]==false">
+              <div class="col-md-4">
+                <h4>Space Group&nbsp;&nbsp;<a @click="removeConditionV2(0)">cancel</a>&nbsp;&nbsp;<a @click="addSearchCondition(0)">add</a></h4>
+              </div>
+              <div class="col-md-8">
+                <div class="col-md-10 positionLine" style="padding-top:10px;" v-for="(obj,indexValue) in spaceGroup">
+
+                  <div class="row" >
+                       <div class="form-group col-md-2">
+                        <select class="form-control" v-model="obj.action">
+                        <option value="=">=</option>
+                        <option value=">">></option>
+                        <option value="<"><</option>
+                      </select>
+                    </div>
+
+                  <div class="col-md-3">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" v-model="obj.value">
+                        <span class="input-group-addon" id="basic-addon2"><a  id="removeX" @click="removeSearchCondition(0,indexValue)">X</a>&nbsp;</span>
+                    </div>
+                    </div>
+
+                    <div class="form-group col-md-2" v-if="indexValue!=spaceGroup.length-1">
+                        <select class="form-control" v-model="obj.connection">
+                        <option value="and">And</option>
+                        <!-- <option value="or">Or</option> -->
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+
+            <!-- Atom Radio 设置 -->
+            <div class="row elementName" v-if="conditionFlag[1]==false">
+                <div class="col-md-4">
+                  <h4>Atom Radio&nbsp;&nbsp;<a @click="removeConditionV2(1)">cancel</a>&nbsp;&nbsp;<a @click="addSearchCondition(1)">add</a></h4>
+                </div>
+                  <div class="col-md-8">
+                    <div class="col-md-10 positionLine" v-for="(obj,indexValue) in atomRadio" style="padding-top:10px;">
+                      <div class="row" >
+                           <div class="form-group col-md-2">
+                            <select class="form-control" v-model="obj.action">
+                            <option value="=">=</option>
+                          </select>
+                        </div>
+
+                      <div class="col-md-3">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" v-model="obj.value">
+                            <span class="input-group-addon" id="basic-addon2"><a  id="removeX" @click="removeSearchCondition(1,indexValue)">X</a>&nbsp;</span>
+                        </div>
+                        </div>
+
+                        <div class="form-group col-md-2" v-if="indexValue!=atomRadio.length-1">
+                            <select class="form-control" v-model="obj.connection">
+                            <option value="or">Or</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+
+            <!-- Valence Electrons -->
+            <div class="row elementName" v-if="conditionFlag[2]==false">
+                <div class="col-md-4">
+                  <h4><a style="font-size:15px;color:black;">Valence Electrons</a>&nbsp;&nbsp;<a @click="removeConditionV2(2)">cancel</a>&nbsp;&nbsp;<a @click="addSearchCondition(2)">add</a></h4>
+                </div>
+                <div class="col-md-8">
+                  <div class="col-md-10 positionLine" v-for="(obj,indexValue) in valenceElectrons" style="padding-top:10px;" >
+
+                    <div class="row" >
+                         <div class="form-group col-md-2">
+                          <select class="form-control" v-model="obj.action">
+                          <option value="=">=</option>
+                          <option value=">">></option>
+                          <option value="<"><</option>
+                        </select>
+                      </div>
+
+                    <div class="col-md-3">
+                      <div class="input-group input-group-sm">
+                          <input type="text" class="form-control" v-model="obj.value">
+                          <span class="input-group-addon" id="basic-addon2"><a  id="removeX" @click="removeSearchCondition(2,indexValue)">X</a>&nbsp;</span>
+                      </div>
+                      </div>
+
+                      <div class="form-group col-md-2" v-if="indexValue!=valenceElectrons.length-1">
+                          <select class="form-control" v-model="obj.connection">
+                          <option value="and">And</option>
+                          <!-- <option value="or">Or</option> -->
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <!-- Element Type Numbers -->
+            <div class="row elementName" v-if="conditionFlag[3]==false">
+                <div class="col-md-4">
+                  <h4><a style="font-size:12px;color:black;">Element Type Numbers</a>&nbsp;&nbsp;<a @click="removeConditionV2(3)">cancel</a>&nbsp;&nbsp;<a @click="addSearchCondition(3)">Add</a></h4>
+                </div>
+                <div class="col-md-8">
+                  <div class="col-md-10 positionLine" v-for="(obj,indexValue) in elementTypeNumbers" style="padding-top:10px;">
+
+                    <div class="row" >
+                         <div class="form-group col-md-2">
+                          <select class="form-control" v-model="obj.action">
+                            <option value="=">=</option>
+                            <option value=">">></option>
+                            <option value="<"><</option>
+                        </select>
+                      </div>
+
+                    <div class="col-md-3">
+                      <div class="input-group input-group-sm">
+                          <input type="text" class="form-control" v-model="obj.value">
+                          <span class="input-group-addon" id="basic-addon2"><a  id="removeX" @click="removeSearchCondition(3,indexValue)">X</a>&nbsp;</span>
+                      </div>
+                      </div>
+                      <div class="form-group col-md-2" v-if="indexValue!=elementTypeNumbers.length-1">
+                          <select class="form-control" v-model="obj.connection">
+                          <option value="and">And</option>
+                          <!-- <option value="or">Or</option> -->
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+  </div>
   <hr>
 
   <div class="container">
@@ -535,7 +700,7 @@
         </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-5" style="margin-top:10px;margin-bottom:10px;">
       <label class="checkbox-inline">
     		<input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="0" v-model="dataType"> <a>all</a>
     	</label>
@@ -550,63 +715,16 @@
 
     </div>
 
+    <div class="col-md-4">
+      <button type="button" name="button" class="btn btn-primary" @click="searchV2(1,true)">Search</button>
+      <button type="button" name="button" class="btn btn-primary" @click="clearV2()">Clear</button>
+    </div>
   </div>
-
-  <hr>
-
-
-
 
 
   <div class="container">
-    <div class="col-md-offset-1 col-md-7">
-      <div class="input-group input-group-lg" style="margin-top:15px;">
-            <span class="input-group-addon ">search formula</span>
-            <input type="text" class="form-control" placeholder="~ & |" style="border:1px solid #8492A6;" v-model="expressStr">
-        </div>
-    </div>
-    <div class="col-md-1">
-      <div class="input-group input-group-lg " style="margin-top:15px;">
-      <button type="button" class="btn btn-primary btn-lg" @click="search(1,true)">Search</button>
-      <!-- <el-button type="primary" icon="search" @click="search(1,true)"><a>Search</a></el-button> -->
-      </div>
-    </div>
-
-
-    <div class="col-md-1">
-      <div class="input-group input-group-lg" style="margin-top:15px;">
-        <button type="button" name="button" class="btn btn-default btn-lg" @click="clearSearch">Clear</button>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- <div class="container">
-    <div class="col-md-offset-1 col-md-3">
-      <div class="input-group input-group-sm" style="margin-top:15px;">
-            <span class="input-group-addon">element scale</span>
-            <input type="text" class="form-control" placeholder="" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="bili" value="4:2:1">
-      </div>
-    </div>
-
-    <div class="col-md-3">
-      <div class="input-group input-group-sm" style="margin-top:15px;">
-        <span class="input-group-addon">valence electrons</span>
-        <input type="text" class="form-control" placeholder="" style="border:1px solid #8492A6;border-top-right-radius:5px;border-bottom-right-radius:5px;" v-model="biliNumber" value="12">
-      </div>
-    </div>
-    <div class="col-md-1">
-      <div class="input-group input-group-lg " style="margin-top:15px;">
-      <button type="button" class="btn btn-primary btn-lg" @click="search(1,true,1)">Search</button>
-    </div>
-    </div>
-  </div> -->
-
-
-
-
   <div class="checkedList" v-if="cartListFormual.length>0">
+    <hr>
     <div class="container">
       <div class="row">
         <div class="col-md-offset-1 col-md-1">
@@ -719,6 +837,7 @@
 
 </div>
 </div>
+<hr>
 </body>
 </html>
 <script src="./static/js/element.js"></script>
