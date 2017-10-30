@@ -127,6 +127,10 @@ var vm = new Vue({
       }
     },
 
+    sourceDownload : function(){
+      window.open("/MIP/download_bandstructure.do?extract_id="+this.resArr[0].extract._id.$oid)
+    },
+
     figure : function(number){
       // var filename = this.resArr[0].jobid+"_"+this.resArr[0].basic.original_id;
       // var imgNameMapper = ["","BSimg","DOSimg"];
