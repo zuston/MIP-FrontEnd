@@ -58,7 +58,7 @@ function isExistOneKey(paramsList){
   return false;
 }
 
-function simpleGenerator(paramsList){
+function simpleGenerator(paramsList,suffix){
   var spaceGroupFormualList = []
   if (paramsList.length!=0) {
     var spaceGroupFormual = ""
@@ -69,7 +69,7 @@ function simpleGenerator(paramsList){
       // 一个条件或者多个组合 and
       if (paramsList.length==1) {
         var obj = paramsList[0]
-        spaceGroupFormual = "(sg"+obj.action+obj.value+")"
+        spaceGroupFormual = "("+suffix+obj.action+obj.value+")"
         return spaceGroupFormual
       }
       else if (compareIndex=='and') {
@@ -86,13 +86,13 @@ function simpleGenerator(paramsList){
         if (hm.size()==2) {
           var leftOne = hm.get(">")
           var rightOne = hm.get("<")
-          spaceGroupFormual = "(sg="+leftOne.value+"-"+rightOne.value+")"
+          spaceGroupFormual = "("+suffix+"="+leftOne.value+"-"+rightOne.value+")"
           return spaceGroupFormual
         }else{
           if (hm.containsKey(">")) {
-            spaceGroupFormual = "(sg"+hm.get(">").action+hm.get(">").value+")"
+            spaceGroupFormual = "("+suffix+hm.get(">").action+hm.get(">").value+")"
           }else{
-            spaceGroupFormual = "(sg"+hm.get("<").action+hm.get("<").value+")"
+            spaceGroupFormual = "("+suffix+hm.get("<").action+hm.get("<").value+")"
           }
           return spaceGroupFormual
         }
@@ -111,14 +111,14 @@ function simpleGenerator(paramsList){
             var obj = paramsList[i]
             valueList.push(obj.value)
           }
-          spaceGroupFormual = "(sg=)"+valueList.join("|")+")"
+          spaceGroupFormual = "("+suffix+"=)"+valueList.join("|")+")"
           return spaceGroupFormual
         }else{
           // 复杂符号的 or 组合
           // return 0
           // 暂时直接第一个为主
           var obj = paramsList[0]
-          spaceGroupFormual = "(sg"+obj.action+obj.value+")"
+          spaceGroupFormual = "("+suffix+obj.action+obj.value+")"
           return spaceGroupFormual
         }
       }
@@ -202,7 +202,7 @@ var vm = new Vue({
     currentSearchTag : 0,
 
     //计算数据类型
-    dataType : 0,
+    dataType : 2,
 
     //化学式角标生成
     //最简化学式的角标
@@ -362,10 +362,6 @@ var vm = new Vue({
       }).catch(function(error){
 
       });
-    },
-
-    addCondition : function(event){
-      this.Condition.componentChildren.push(new ConditionObject(0,0,0,[""]))
     },
 
     hoverListen : function(val){
@@ -669,11 +665,7 @@ var vm = new Vue({
     },
 
     addCondition : function(tag){
-      console.log(tag);
-      console.log(this.conditionFlag[tag]);
       this.conditionFlag.splice(tag,1,false);
-      console.log(this.conditionFlag[tag]);
-
     },
 
     removeCondition : function(tag){
@@ -969,7 +961,7 @@ var vm = new Vue({
       // spaceGroup
       var spaceGroupFormualList = []
       if (this.spaceGroup.length!=0) {
-        var res = simpleGenerator(this.spaceGroup)
+        var res = simpleGenerator(this.spaceGroup,"sg")
         if (res===false) {
           this.sstring = "error"
           return
@@ -1056,7 +1048,7 @@ var vm = new Vue({
 
       var valenceElectronsFormualList = []
       if (this.valenceElectrons.length!=0) {
-        var res = simpleGenerator(this.valenceElectrons)
+        var res = simpleGenerator(this.valenceElectrons,"ve")
         if (res===false) {
           this.sstring = "error"
           return
@@ -1074,7 +1066,7 @@ var vm = new Vue({
 
       var elementTypeNumbersFormualList = []
       if (this.elementTypeNumbers.length!=0) {
-        var res = simpleGenerator(this.elementTypeNumbers)
+        var res = simpleGenerator(this.elementTypeNumbers,"en")
         if (res===false) {
           this.sstring = "error"
           return
@@ -1134,6 +1126,7 @@ var vm = new Vue({
           this.expressStr = this.sstring
         }
       }
+      // alert(this.expressStr)
       this.search(page,tag)
       this.expressStr = originalString
     },
@@ -1156,10 +1149,19 @@ var vm = new Vue({
       if (index==2) {
         this.valenceElectrons = []
       }
-      if (index==4) {
+      if (index==3) {
         this.elementTypeNumbers = []
       }
       this.removeCondition(index)
-    }
+    },
+
+    addConditionV2 : function(index){
+      this.addSearchCondition(index)
+      this.addCondition(index)
+    },
+
+    cancelSeletedElements : function(){
+      this.clearSearch()
+    },
   }
 })

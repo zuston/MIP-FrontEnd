@@ -503,7 +503,7 @@
 
   <div class="container">
     <div class="col-md-offset-1 col-md-10 elementName">
-      <div class="col-md-7">
+      <div class="col-md-6">
         <span style="font-size:18px;">Selected Elements</span>
         <a style="margin-left:10px;font-size:15px;">{{expressStr}}</a>
       </div>
@@ -517,6 +517,9 @@
         <label class="checkbox-inline">
       		<input type="radio" name="optionsRadiosinline3" id="optionsRadios3"  value="2" v-model="formualType"> <a>Include</a>
       	</label>
+      </div>
+      <div class="col-md-1">
+        <button type="button" class="btn btn-sm btn-success formualButton" name="button" @click="cancelSeletedElements">cancel</button>
       </div>
     </div>
   </div>
@@ -565,7 +568,7 @@
             <!-- Atom Radio 设置 -->
             <div class="row elementName" v-if="conditionFlag[1]==false">
                 <div class="col-md-4">
-                  <h4>Atom Radio&nbsp;&nbsp;<a @click="removeConditionV2(1)">cancel</a>&nbsp;&nbsp;<a @click="addSearchCondition(1)">add</a></h4>
+                  <h4>Atomic Ratio&nbsp;&nbsp;<a @click="removeConditionV2(1)">cancel</a>&nbsp;&nbsp;<a @click="addSearchCondition(1)">add</a></h4>
                 </div>
                   <div class="col-md-8">
                     <div class="col-md-10 positionLine" v-for="(obj,indexValue) in atomRadio" style="padding-top:10px;">
@@ -631,7 +634,7 @@
             <!-- Element Type Numbers -->
             <div class="row elementName" v-if="conditionFlag[3]==false">
                 <div class="col-md-4">
-                  <h4><a style="font-size:12px;color:black;">Element Type Numbers</a>&nbsp;&nbsp;<a @click="removeConditionV2(3)">cancel</a>&nbsp;&nbsp;<a @click="addSearchCondition(3)">Add</a></h4>
+                  <h4><a style="font-size:12px;color:black;">Element Type Numbers</a>&nbsp;&nbsp;<a @click="removeConditionV2(3)">cancel</a>&nbsp;&nbsp;<a @click="addSearchCondition(3)">add</a></h4>
                 </div>
                 <div class="col-md-8">
                   <div class="col-md-10 positionLine" v-for="(obj,indexValue) in elementTypeNumbers" style="padding-top:10px;">
@@ -677,20 +680,20 @@
             Add Conditions
             <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu">
-            <li><a @click="addCondition(0)" v-if="conditionFlag[0]">Space Group</a></li>
-            <li><a @click="addCondition(1)" v-if="conditionFlag[1]">Atomic Ratio</a></li>
-            <li><a @click="addCondition(2)" v-if="conditionFlag[2]">Valence Electrons</a></li>
-            <li><a @click="addCondition(3)" v-if="conditionFlag[3]">Element Type Numbers</a></li>
+        <ul class="dropdown-menu" v-if="formualType!=0">
+            <li><a @click="addConditionV2(0)" v-if="conditionFlag[0]">Space Group</a></li>
+            <li><a @click="addConditionV2(1)" v-if="conditionFlag[1]">Atomic Ratio</a></li>
+            <li><a @click="addConditionV2(2)" v-if="conditionFlag[2]">Valence Electrons</a></li>
+            <li><a @click="addConditionV2(3)" v-if="conditionFlag[3]">Element Type Numbers</a></li>
         </ul>
         </div>
     </div>
 
     <div class="col-md-5" style="margin-top:10px;margin-bottom:10px;">
-      <label class="checkbox-inline">
+      <label class="checkbox-inline" v-if="userInfo[0]!=-1&(userInfo[0]=='jyang'|userInfo[0]=='test')">
     		<input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="0" v-model="dataType"> <a>all</a>
     	</label>
-    	<label class="checkbox-inline">
+    	<label class="checkbox-inline" v-if="userInfo[0]!=-1&(userInfo[0]=='jyang'|userInfo[0]=='test')">
     		<input type="radio" name="optionsRadiosinline" id="optionsRadios4"  value="1" v-model="dataType"> <a>computed</a>
     	</label>
       <label class="checkbox-inline">
