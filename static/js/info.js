@@ -51,15 +51,15 @@ var vm = new Vue({
 
     initHighchartsUrl:function(){
       setTimeout("",5000)
-      this.highchartUrl="http://nova.shu.edu.cn:8083/MIP/page/highCharts.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl="http://202.120.121.199:8083/MIP/page/highCharts.html?extract_id="+GetRequest()["id"];
       setTimeout("",5000)
-      this.highchartUrl1="http://nova.shu.edu.cn:8083/MIP/page/TPPTypeChart.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl1="http://202.120.121.199:8083/MIP/page/TPPTypeChart.html?extract_id="+GetRequest()["id"];
       setTimeout("",5000)
-      this.highchartUrl2="http://nova.shu.edu.cn:8083/MIP/page/TPNTypeChart.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl2="http://202.120.121.199:8083/MIP/page/TPNTypeChart.html?extract_id="+GetRequest()["id"];
       setTimeout("",5000)
-      this.highchartUrl3="http://nova.shu.edu.cn:8083/MIP/page/PFPTypeChart.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl3="http://202.120.121.199:8083/MIP/page/PFPTypeChart.html?extract_id="+GetRequest()["id"];
       setTimeout("",5000)
-      this.highchartUrl4="http://nova.shu.edu.cn:8083/MIP/page/PFNTypeChart.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl4="http://202.120.121.199:8083/MIP/page/PFNTypeChart.html?extract_id="+GetRequest()["id"];
     },
 
     load : function(token,id){
@@ -91,7 +91,7 @@ var vm = new Vue({
       }).catch(function(error){
         console.log(error);
       });
-      
+
     },
 
     download : function(){

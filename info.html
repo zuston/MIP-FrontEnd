@@ -39,19 +39,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="http://nova.shu.edu.cn:8083/MIP/login.do">MIP</a>
+              <a class="navbar-brand" href="http://:8083/MIP/login.do">MIP</a>
             </div>
 
             <!-- 左上角的导航 -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
               <ul class="nav navbar-nav" >
-              <li ><a href="http://nova.shu.edu.cn:8083/MIP/login.do">Home<span class="sr-only">(current)</span></a></li>
+              <li ><a href="http://202.120.121.199:8083/MIP/login.do">Home<span class="sr-only">(current)</span></a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">account <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="#">my profile</a></li>
-                  <li><a href="http://nova.shu.edu.cn:8083/MIP/jobquery.do">my jobs</a></li>
+                  <li><a href="http://202.120.121.199:8083/MIP/jobquery.do">my jobs</a></li>
                   <li><a href="#">my server</a></li>
                 </ul>
               </li>
@@ -124,8 +124,8 @@
           <div id="line" v-if="resArr[0].extract.extract_info.space_group_type"></div>
           <p v-if="resArr[0].extract.extract_info.space_group_type">Space Group</p>
           <h4 v-if="resArr[0].extract.extract_info.space_group_type">{{resArr[0].extract.extract_info.space_group_type}}</h4>
-         
-          
+
+
           <div v-if="resArr[0].extract.extract_info.spin_polarization===true|resArr[0].extract.extract_info.spin_polarization===false">
             <div id="line"></div>
             <p>Spin Polarization</p>
@@ -136,7 +136,7 @@
             <div id="line"></div>
             <p>Magnetic Moment</p>
             <h4>{{resArr[0].extract.extract_info.magnetic_moment}}&nbsp;<a>&mu;<sub>B</sub></a></h4>
-          </div> 
+          </div>
 
 
           <div v-if="resArr[0].extract.extract_info.ferrum_electronic_phase===true|resArr[0].extract.extract_info.ferrum_electronic_phase===false">
@@ -345,21 +345,21 @@
       <!-- <div class="col-md-12">
             <div class="row">
                 <div class="col-md-6">
-                  <iframe src="http://nova.shu.edu.cn/SpringMVC/page/TPPTypeChart.html?extract_id=5931199df09f7d2951b1f3de"  id="myiframe" scrolling="no" frameborder="0" onload="changeFrameHeight()" width="200px"></iframe>
+                  <iframe src="http://202.120.121.199/SpringMVC/page/TPPTypeChart.html?extract_id=5931199df09f7d2951b1f3de"  id="myiframe" scrolling="no" frameborder="0" onload="changeFrameHeight()" width="200px"></iframe>
                 </div>
 
                 <div class="col-md-6">
-                  <iframe src="http://nova.shu.edu.cn/SpringMVC/page/TPNTypeChart.html?extract_id=5931199df09f7d2951b1f3de" width="450px" height="220px"></iframe>
-
-                </div>
-
-                <div class="col-md-6">
-                  <iframe src="http://nova.shu.edu.cn/SpringMVC/page/PFPTypeChart.html?extract_id=5931199df09f7d2951b1f3de" width="450px" height="220px"></iframe>
+                  <iframe src="http://202.120.121.199/SpringMVC/page/TPNTypeChart.html?extract_id=5931199df09f7d2951b1f3de" width="450px" height="220px"></iframe>
 
                 </div>
 
                 <div class="col-md-6">
-                  <iframe src="http://nova.shu.edu.cn/SpringMVC/page/PFNTypeChart.html?extract_id=5931199df09f7d2951b1f3de" width="450px" height="220px"></iframe>
+                  <iframe src="http://202.120.121.199/SpringMVC/page/PFPTypeChart.html?extract_id=5931199df09f7d2951b1f3de" width="450px" height="220px"></iframe>
+
+                </div>
+
+                <div class="col-md-6">
+                  <iframe src="http://202.120.121.199/SpringMVC/page/PFNTypeChart.html?extract_id=5931199df09f7d2951b1f3de" width="450px" height="220px"></iframe>
 
                 </div>
             </div>
@@ -554,7 +554,6 @@
 
     </div>
   </div>
-
 </div>
 </body>
 </html>
