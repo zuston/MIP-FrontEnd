@@ -509,13 +509,13 @@
       </div>
       <div class="col-md-5">
         <label class="checkbox-inline">
-      		<input type="radio" name="optionsRadiosinline1" id="optionsRadios1" value="0" v-model="formualType"> <a>All</a>
+      		<input type="radio" name="optionsRadiosinline1" id="optionsRadios1" value="0" v-model="formualType"> <a>exclusive or</a>
       	</label>
       	<label class="checkbox-inline">
-      		<input type="radio" name="optionsRadiosinline2" id="optionsRadios2"  value="1" v-model="formualType"> <a>Exclusive</a>
+      		<input type="radio" name="optionsRadiosinline2" id="optionsRadios2"  value="1" v-model="formualType"> <a>exclusive and</a>
       	</label>
         <label class="checkbox-inline">
-      		<input type="radio" name="optionsRadiosinline3" id="optionsRadios3"  value="2" v-model="formualType"> <a>Include</a>
+      		<input type="radio" name="optionsRadiosinline3" id="optionsRadios3"  value="2" v-model="formualType"> <a>normal</a>
       	</label>
       </div>
       <div class="col-md-1">
@@ -539,7 +539,7 @@
 
                   <div class="row" >
                        <div class="form-group col-md-2">
-                        <select class="form-control" v-model="obj.action">
+                        <select class="form-control" id="selectStyle" v-model="obj.action">
                         <option value="=">=</option>
                         <option value=">">></option>
                         <option value="<"><</option>
@@ -554,7 +554,7 @@
                     </div>
 
                     <div class="form-group col-md-2" v-if="indexValue!=spaceGroup.length-1">
-                        <select class="form-control" v-model="obj.connection">
+                        <select class="form-control" id="selectStyle" v-model="obj.connection">
                         <option value="and">And</option>
                         <!-- <option value="or">Or</option> -->
                       </select>
@@ -574,7 +574,7 @@
                     <div class="col-md-10 positionLine" v-for="(obj,indexValue) in atomRadio" style="padding-top:10px;">
                       <div class="row" >
                            <div class="form-group col-md-2">
-                            <select class="form-control" v-model="obj.action">
+                            <select class="form-control" id="selectStyle" v-model="obj.action">
                             <option value="=">=</option>
                           </select>
                         </div>
@@ -587,7 +587,7 @@
                         </div>
 
                         <div class="form-group col-md-2" v-if="indexValue!=atomRadio.length-1">
-                            <select class="form-control" v-model="obj.connection">
+                            <select class="form-control" id="selectStyle" v-model="obj.connection">
                             <option value="or">Or</option>
                           </select>
                         </div>
@@ -606,7 +606,7 @@
 
                     <div class="row" >
                          <div class="form-group col-md-2">
-                          <select class="form-control" v-model="obj.action">
+                          <select class="form-control" v-model="obj.action" id="selectStyle">
                           <option value="=">=</option>
                           <option value=">">></option>
                           <option value="<"><</option>
@@ -621,7 +621,7 @@
                       </div>
 
                       <div class="form-group col-md-2" v-if="indexValue!=valenceElectrons.length-1">
-                          <select class="form-control" v-model="obj.connection">
+                          <select class="form-control" v-model="obj.connection" id="selectStyle">
                           <option value="and">And</option>
                           <!-- <option value="or">Or</option> -->
                         </select>
@@ -641,7 +641,7 @@
 
                     <div class="row" >
                          <div class="form-group col-md-2">
-                          <select class="form-control" v-model="obj.action">
+                          <select class="form-control" v-model="obj.action" id="selectStyle">
                             <option value="=">=</option>
                             <option value=">">></option>
                             <option value="<"><</option>
@@ -655,7 +655,7 @@
                       </div>
                       </div>
                       <div class="form-group col-md-2" v-if="indexValue!=elementTypeNumbers.length-1">
-                          <select class="form-control" v-model="obj.connection">
+                          <select class="form-control" v-model="obj.connection" id="selectStyle">
                           <option value="and">And</option>
                           <!-- <option value="or">Or</option> -->
                         </select>
@@ -677,7 +677,7 @@
         <button type="button" class="btn btn-default">按钮 2</button> -->
         <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            Add Conditions
+            criterion
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" v-if="formualType!=0">

@@ -230,6 +230,11 @@ var vm = new Vue({
     // 元素是全选还是只含有
     formualType : 2,
 
+    // Attention!!!!!!!!
+    // 改版之后，expressStr 不再代表条件组合的 formual 了
+    // 以 generateFormual 来代表生成的 formual
+    generateFormual : '',
+
   },
   created : function(){
     this.load(GetRequest()["token"]);
@@ -458,8 +463,8 @@ var vm = new Vue({
     },
 
     allDownload : function(){
-      window.open('/m/download?expression='+encodeURIComponent(this.expressStr)+'&computed='+this.dataType);
-      window.open('/m/poscarDownload?expression='+encodeURIComponent(this.expressStr)+'&computed='+this.dataType);
+      window.open('/m/download?expression='+encodeURIComponent(this.generateFormual)+'&computed='+this.dataType);
+      window.open('/m/poscarDownload?expression='+encodeURIComponent(this.generateFormual)+'&computed='+this.dataType);
     },
 
     search : function(page,first,searchTag=0){
@@ -496,7 +501,8 @@ var vm = new Vue({
           alert("请输入");
           return
         }
-        var searchContent = this.expressStr;
+        // 改版之后需要生成的表达式
+        var searchContent = this.generateFormual;
         searchContent = searchContent.replace(/\|/g,"#");
         console.log(searchContent);
         var changeSearchContent = encodeURIComponent(searchContent);
@@ -842,7 +848,7 @@ var vm = new Vue({
 
 
     chooseAllResult : function(){
-      var searchContent = this.expressStr;
+      var searchContent = this.generateFormual;
       searchContent = searchContent.replace(/\|/g,"#");
       var changeSearchContent = encodeURIComponent(searchContent);
       ajaxString = '/m/calculate?expression='+changeSearchContent+"&computed="+this.dataType;
@@ -874,7 +880,7 @@ var vm = new Vue({
 
     chooseRandomResult : function(randomValue){
       console.log(randomValue);
-      var searchContent = this.expressStr;
+      var searchContent = this.generateFormual;
       searchContent = searchContent.replace(/\|/g,"#");
       var changeSearchContent = encodeURIComponent(searchContent);
       ajaxString = '/m/randomcalculate?expression='+changeSearchContent+"&computed="+this.dataType;
@@ -917,7 +923,7 @@ var vm = new Vue({
          var obj = new Object()
          obj.action = "="
          obj.value = "1:1:1"
-         obj.connection = "and"
+         obj.connection = "or"
          this.atomRadio.push(obj)
       }
 
@@ -956,7 +962,7 @@ var vm = new Vue({
       }
     },
 
-    generateFormual : function(){
+    generateFormualFunction : function(){
       var conditionFormual = ""
       // spaceGroup
       var spaceGroupFormualList = []
@@ -1102,7 +1108,7 @@ var vm = new Vue({
     },
 
     searchV2 : function(page,tag){
-      this.generateFormual()
+      this.generateFormualFunction()
       // 生成 element 句子
       var originalString = this.expressStr
       if (this.expressStr != null && this.expressStr!="") {
@@ -1127,6 +1133,7 @@ var vm = new Vue({
         }
       }
       // alert(this.expressStr)
+      this.generateFormual = this.expressStr
       this.search(page,tag)
       this.expressStr = originalString
     },
@@ -1137,6 +1144,12 @@ var vm = new Vue({
       this.spaceGroup = []
       this.valenceElectrons = []
       this.elementTypeNumbers = []
+      // 收起condition框
+      this.conditionFlag.splice(0,1,true)
+      this.conditionFlag.splice(1,1,true)
+      this.conditionFlag.splice(2,1,true)
+      this.conditionFlag.splice(3,1,true)
+
     },
 
     removeConditionV2 : function(index){
