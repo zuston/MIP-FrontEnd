@@ -502,6 +502,17 @@
   </div>
 
   <div class="container">
+    <div class="col-md-offset-1 col-md-10">
+      <ul class="nav nav-tabs">
+        <li v-bind:class="{active:simpleSearchTag}"><a @click="searchModeChange(0)">Simple</a></li>
+        <li v-bind:class="{active:!simpleSearchTag}"><a @click="searchModeChange(1)">Complex</a></li>
+      </ul>
+    </div>
+  </div>
+
+<div v-if="simpleSearchTag">
+
+  <div class="container">
     <div class="col-md-offset-1 col-md-10 elementName">
       <div class="col-md-6">
         <span style="font-size:18px;">Selected Elements</span>
@@ -522,11 +533,8 @@
         <button type="button" class="btn btn-sm btn-success formualButton" name="button" @click="cancelSeletedElements">cancel</button>
       </div>
     </div>
-  </div>
 
-  <!-- 点击设置检索条件模块 -->
-  <div class="container">
-    <div class="col-md-offset-1 col-md-10">
+    <div class="col-md-offset-1 col-md-10" id="gapper">
         <form role="form">
 
           <!-- Sapce Group -->
@@ -540,11 +548,11 @@
                   <div class="row" >
                        <div class="form-group col-md-2">
                         <select class="form-control" id="selectStyle" v-model="obj.action">
-                        <option value="=">=</option>
-                        <option value=">">></option>
-                        <option value="<"><</option>
-                      </select>
-                    </div>
+                          <option value="=">=</option>
+                          <option value=">">></option>
+                          <option value="<"><</option>
+                        </select>
+                  </div>
 
                   <div class="col-md-3">
                     <div class="input-group input-group-sm">
@@ -554,9 +562,10 @@
                     </div>
 
                     <div class="form-group col-md-2" v-if="indexValue!=spaceGroup.length-1">
-                        <select class="form-control" id="selectStyle" v-model="obj.connection">
+
+                      <select class="form-control" id="selectStyle" v-model="obj.connection">
                         <option value="and">And</option>
-                        <!-- <option value="or">Or</option> -->
+                        <option value="or">Or</option>
                       </select>
                     </div>
                   </div>
@@ -623,7 +632,7 @@
                       <div class="form-group col-md-2" v-if="indexValue!=valenceElectrons.length-1">
                           <select class="form-control" v-model="obj.connection" id="selectStyle">
                           <option value="and">And</option>
-                          <!-- <option value="or">Or</option> -->
+                          <option value="or">Or</option>
                         </select>
                       </div>
                     </div>
@@ -657,7 +666,7 @@
                       <div class="form-group col-md-2" v-if="indexValue!=elementTypeNumbers.length-1">
                           <select class="form-control" v-model="obj.connection" id="selectStyle">
                           <option value="and">And</option>
-                          <!-- <option value="or">Or</option> -->
+                          <option value="or">Or</option>
                         </select>
                       </div>
                     </div>
@@ -668,47 +677,94 @@
 
         </form>
     </div>
-  </div>
-  <hr>
 
-  <div class="container">
-    <div class="btn-group col-md-2 col-md-offset-1">
-        <!-- <button type="button" class="btn btn-default">按钮 1</button>
-        <button type="button" class="btn btn-default">按钮 2</button> -->
-        <div class="btn-group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            criterion
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" v-if="formualType!=0">
-            <li><a @click="addConditionV2(0)" v-if="conditionFlag[0]">Space Group</a></li>
-            <li><a @click="addConditionV2(1)" v-if="conditionFlag[1]">Atomic Ratio</a></li>
-            <li><a @click="addConditionV2(2)" v-if="conditionFlag[2]">Valence Electrons</a></li>
-            <li><a @click="addConditionV2(3)" v-if="conditionFlag[3]">Element Type Numbers</a></li>
-        </ul>
-        </div>
+    <div>
+      <div class="btn-group col-md-2 col-md-offset-1">
+          <!-- <button type="button" class="btn btn-default">按钮 1</button>
+          <button type="button" class="btn btn-default">按钮 2</button> -->
+          <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              criterion
+              <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" v-if="formualType!=0">
+              <li><a @click="addConditionV2(0)" v-if="conditionFlag[0]">Space Group</a></li>
+              <li><a @click="addConditionV2(1)" v-if="conditionFlag[1]">Atomic Ratio</a></li>
+              <li><a @click="addConditionV2(2)" v-if="conditionFlag[2]">Valence Electrons</a></li>
+              <li><a @click="addConditionV2(3)" v-if="conditionFlag[3]">Element Type Numbers</a></li>
+          </ul>
+          </div>
+      </div>
+
+      <div class="col-md-5" style="margin-top:10px;margin-bottom:10px;">
+        <label class="checkbox-inline" v-if="userInfo[0]!=-1&(userInfo[0]=='jyang'|userInfo[0]=='test')">
+          <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="0" v-model="dataType"> <a>all</a>
+        </label>
+        <label class="checkbox-inline" v-if="userInfo[0]!=-1&(userInfo[0]=='jyang'|userInfo[0]=='test')">
+          <input type="radio" name="optionsRadiosinline" id="optionsRadios4"  value="1" v-model="dataType"> <a>computed</a>
+        </label>
+        <label class="checkbox-inline">
+          <input type="radio" name="optionsRadiosinline" id="optionsRadios4"  value="2" v-model="dataType"> <a>no computed</a>
+        </label>
+
+        <!-- <el-switch v-model="dataType" on-value="0" off-value="1"></el-switch> -->
+
+      </div>
+
+      <div class="col-md-4">
+        <button type="button" name="button" class="btn btn-primary" @click="searchV2(1,true)">Search</button>
+        <button type="button" name="button" class="btn btn-primary" @click="clearV2()">Clear</button>
+      </div>
     </div>
 
-    <div class="col-md-5" style="margin-top:10px;margin-bottom:10px;">
+
+  </div>
+
+</div>
+
+<div v-if="!simpleSearchTag">
+  <div class="container">
+    <div class="col-md-5 col-md-offset-1" style="margin-top:10px;margin-bottom:10px;">
       <label class="checkbox-inline" v-if="userInfo[0]!=-1&(userInfo[0]=='jyang'|userInfo[0]=='test')">
-    		<input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="0" v-model="dataType"> <a>all</a>
-    	</label>
-    	<label class="checkbox-inline" v-if="userInfo[0]!=-1&(userInfo[0]=='jyang'|userInfo[0]=='test')">
-    		<input type="radio" name="optionsRadiosinline" id="optionsRadios4"  value="1" v-model="dataType"> <a>computed</a>
-    	</label>
+        <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="0" v-model="dataType"> <a>all</a>
+      </label>
+      <label class="checkbox-inline" v-if="userInfo[0]!=-1&(userInfo[0]=='jyang'|userInfo[0]=='test')">
+        <input type="radio" name="optionsRadiosinline" id="optionsRadios4"  value="1" v-model="dataType"> <a>computed</a>
+      </label>
       <label class="checkbox-inline">
-    		<input type="radio" name="optionsRadiosinline" id="optionsRadios4"  value="2" v-model="dataType"> <a>no computed</a>
-    	</label>
+        <input type="radio" name="optionsRadiosinline" id="optionsRadios4"  value="2" v-model="dataType"> <a>no computed</a>
+      </label>
 
       <!-- <el-switch v-model="dataType" on-value="0" off-value="1"></el-switch> -->
 
     </div>
+    <div class="col-md-offset-1 col-md-7">
+      <div class="input-group input-group-lg" style="margin-top:15px;">
+            <span class="input-group-addon ">search formula</span>
+            <input type="text" class="form-control" placeholder="~ & |" style="border:1px solid #8492A6;" v-model="complexSearchFormual">
+        </div>
+    </div>
+    <div class="col-md-1">
+      <div class="input-group input-group-lg " style="margin-top:15px;">
+      <button type="button" class="btn btn-primary btn-lg" @click="searchV3(1,true,complexSearchFormual)">
+        Search</button>
+      </div>
+    </div>
 
-    <div class="col-md-4">
-      <button type="button" name="button" class="btn btn-primary" @click="searchV2(1,true)">Search</button>
-      <button type="button" name="button" class="btn btn-primary" @click="clearV2()">Clear</button>
+
+    <div class="col-md-1">
+      <div class="input-group input-group-lg" style="margin-top:15px;">
+        <button type="button" name="button" class="btn btn-default btn-lg" @click="clearSearchV3">Clear</button>
+      </div>
     </div>
   </div>
+</div>
+<!--
+<a href="#" @click="generateFormualFunction">点击生成</a>
+<h3>{{spaceGroup}}</h3>
+<h3>{{valenceElectrons}}</h3>
+<h3>{{elementTypeNumbers}}</h3>
+<h2>{{sstring}}</h2> -->
 
 
   <div class="container">
@@ -742,9 +798,11 @@
     <br>
     <br>
   </div>
-  <!-- <h1>{{expression}}</h1>
+  <!-- <hr>
+  <h1>{{expression}}</h1>
   <h3 v-for="i in hoverList">{{i}}</h3>
-  <h4>bandgap:{{bandgap}}</h4> -->
+  <h4>bandgap:{{bandgap}}</h4>
+  <hr> -->
   <div class="content" v-if="resList.length>0">
     <hr>
     <div class="container">
@@ -811,16 +869,27 @@
             </table>
         </div>
       </div>
-
-      <div class="row">
+      <!-- 简单查询标记 -->
+      <div class="row" v-if="simpleSearchTag">
         <div class="col-md-offset-4 col-md-4 ">
           <ul class="pagination" style="align:center;">
-            <li><a v-if="currentPage[0]!=1" @click="search(currentPage-1,false,currentSearchTag)">&laquo;</a></li>
-            <li v-for="(value,index) in buttonPage" v-bind:class="{ active: currentPage==value}"><a  @click="search(value,false,currentSearchTag)">{{value}}</a></li>
-            <li><a v-if="endPage[0]!=currentPage[0]" @click="search(currentPage+1,false,currentSearchTag)">&raquo;</a></li>
+            <li><a v-if="currentPage[0]!=1" @click="search(currentPage-1,false)">&laquo;</a></li>
+            <li v-for="(value,index) in buttonPage" v-bind:class="{ active: currentPage==value}"><a  @click="search(value,false)">{{value}}</a></li>
+            <li><a v-if="endPage[0]!=currentPage[0]" @click="search(currentPage+1,false)">&raquo;</a></li>
           </ul>
         </div>
       </div>
+
+      <div class="row" v-if="!simpleSearchTag">
+        <div class="col-md-offset-4 col-md-4 ">
+          <ul class="pagination" style="align:center;">
+            <li><a v-if="currentPage[0]!=1" @click="searchV3(currentPage-1,false,complexSearchFormual)">&laquo;</a></li>
+            <li v-for="(value,index) in buttonPage" v-bind:class="{ active: currentPage==value}"><a  @click="searchV3(value,false,complexSearchFormual)">{{value}}</a></li>
+            <li><a v-if="endPage[0]!=currentPage[0]" @click="searchV3(currentPage+1,false,complexSearchFormual)">&raquo;</a></li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

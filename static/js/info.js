@@ -13,6 +13,10 @@ function GetRequest(){
   return theRequest;
 };
 
+function generateRandom(){
+  return Math.ceil(Math.random()*1000);
+}
+
 
 var vm = new Vue({
   el : "#app",
@@ -51,15 +55,15 @@ var vm = new Vue({
 
     initHighchartsUrl:function(){
       setTimeout("",5000)
-      this.highchartUrl="http://202.120.121.199:8083/MIP/page/highCharts.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl="http://202.120.121.199:8083/MIP/page/highCharts.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
       setTimeout("",5000)
-      this.highchartUrl1="http://202.120.121.199:8083/MIP/page/TPPTypeChart.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl1="http://202.120.121.199:8083/MIP/page/TPPTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
       setTimeout("",5000)
-      this.highchartUrl2="http://202.120.121.199:8083/MIP/page/TPNTypeChart.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl2="http://202.120.121.199:8083/MIP/page/TPNTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
       setTimeout("",5000)
-      this.highchartUrl3="http://202.120.121.199:8083/MIP/page/PFPTypeChart.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl3="http://202.120.121.199:8083/MIP/page/PFPTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
       setTimeout("",5000)
-      this.highchartUrl4="http://202.120.121.199:8083/MIP/page/PFNTypeChart.html?extract_id="+GetRequest()["id"];
+      this.highchartUrl4="http://202.120.121.199:8083/MIP/page/PFNTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
     },
 
     load : function(token,id){
@@ -77,10 +81,6 @@ var vm = new Vue({
         var name = response.data.basic.pymatgen_poscar.comment;
         numberArr.splice(0,1,analyString(name)[0]);
         elementArr.splice(0,1,analyString(name)[1]);
-        // console.log(numberArr[0]);
-        // console.log(elementArr[0]);
-        // console.log(response.data);
-        // console.log(response.data.isshow);
         if (response.data.isshow==1) {
           isShowPicT.splice(0,1,true);
         }
@@ -132,10 +132,6 @@ var vm = new Vue({
     },
 
     figure : function(number){
-      // var filename = this.resArr[0].jobid+"_"+this.resArr[0].basic.original_id;
-      // var imgNameMapper = ["","BSimg","DOSimg"];
-      // console.log(filename);
-      // return "/static/xyl/"+filename+"/"+imgNameMapper[number]+".png";
       return "/m/imgload?jobid="+this.resArr[0].jobid+"&type="+number;
     },
 
@@ -147,13 +143,10 @@ var vm = new Vue({
          url:picUrl_1,
          type:'HEAD',
          error: function() {
-           console.log(11111111111111111);
              picExsitFlag.splice(0,1,false);
              return false;
          },
          success: function() {
-             //file exists
-             console.log(2222222222222222);
              picExsitFlag.splice(0,1,true);
              return true;
 

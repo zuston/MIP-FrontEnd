@@ -48,16 +48,18 @@ function GetRequest(){
 }
 
 // 是否只存在一个 key 值
+// 忽略最后一个的 connection 值
 function isExistOneKey(paramsList){
+  if(paramsList.length==1)  return true
   var map = new HashMap()
-  for (var i = 0; i < paramsList.length; i++) {
+  for (var i = 0; i < paramsList.length-1; i++) {
     var obj = paramsList[i]
     map.put(obj.connection,"")
   }
   if (map.size()==1) return true;
   return false;
 }
-
+// 选择的条件最后生成表达式，这个函数为关键函数
 function simpleGenerator(paramsList,suffix){
   var spaceGroupFormualList = []
   if (paramsList.length!=0) {
@@ -65,6 +67,7 @@ function simpleGenerator(paramsList,suffix){
     // 校验连接条件，只支持全部 And 或 全部 Or
     var tag = isExistOneKey(paramsList)
     var compareIndex = paramsList[0].connection
+    // 验证全是 all 或者 全是 or
     if (tag===true) {
       // 一个条件或者多个组合 and
       if (paramsList.length==1) {
@@ -72,6 +75,7 @@ function simpleGenerator(paramsList,suffix){
         spaceGroupFormual = "("+suffix+obj.action+obj.value+")"
         return spaceGroupFormual
       }
+      // 如果全是 and
       else if (compareIndex=='and') {
         // 多个 and 后序条件会冲掉前面的条件
         var hm = new HashMap()
@@ -98,6 +102,7 @@ function simpleGenerator(paramsList,suffix){
         }
 
       }else{
+        // 此处 else 是全部是 or 的情况
         // 全部是 = 一种情况
         // 或者是包含其他符号
         var hm = new HashMap()
@@ -105,13 +110,13 @@ function simpleGenerator(paramsList,suffix){
           var obj = paramsList[i]
           hm.put(obj.action,obj)
         }
-        if (hm.size==1 && hm.containsKey("=")) {
+        if (hm.size()==1 && hm.containsKey("=")) {
           var valueList = []
           for (var i = 0; i < paramsList.length; i++) {
             var obj = paramsList[i]
             valueList.push(obj.value)
           }
-          spaceGroupFormual = "("+suffix+"=)"+valueList.join("|")+")"
+          spaceGroupFormual = "("+suffix+"="+valueList.join("|")+")"
           return spaceGroupFormual
         }else{
           // 复杂符号的 or 组合
@@ -150,6 +155,31 @@ function loop(step,resList,end,tempString,needComponentList,keyList){
       tempString = tag+tempO.action+tempO.value
     }
     loop(step+1,resList,end,tempString,needComponentList,keyList)
+  }
+}
+
+function listener(spaceGroup){
+  if (spaceGroup.length<=0) {
+    return
+  }
+
+  var firstAction = spaceGroup[0].action
+  if (firstAction=="=") {
+    spaceGroup[0].connection = "or"
+  }else{
+    spaceGroup[0].connection = "and"
+  }
+  var firstAction = spaceGroup[0].action
+  for (var i = 1; i < spaceGroup.length; i++) {
+    if (firstAction=="=") {
+      spaceGroup[i].connection = "or"
+      spaceGroup[i].action = "="
+    }else{
+      if (spaceGroup[i].action == '=') {
+        spaceGroup[i].action = ">"
+      }
+      spaceGroup[i].connection = "and"
+    }
   }
 }
 
@@ -235,11 +265,38 @@ var vm = new Vue({
     // 以 generateFormual 来代表生成的 formual
     generateFormual : '',
 
+    // 搜索模式的切换的 tag,true 为简单模式，false 为自己输入复杂表达式模式
+    simpleSearchTag : true,
+
+    // 新增复杂表达式查询，变量
+    complexSearchFormual : "",
+
+
   },
   created : function(){
     this.load(GetRequest()["token"]);
   },
   watch : {
+
+    spaceGroup : {
+      handler : function(val, oldval){
+        listener(this.spaceGroup)
+      },
+      deep : true
+    },
+    valenceElectrons : {
+      handler : function(val, oldval){
+        listener(this.valenceElectrons)
+      },
+      deep : true
+    },
+    elementTypeNumbers : {
+      handler : function(val, oldval){
+        listener(this.elementTypeNumbers)
+      },
+      deep : true
+    },
+
     resList : function () {
         len = this.resList.length
     },
@@ -496,13 +553,14 @@ var vm = new Vue({
 
       var ajaxString = "";
       if (searchTag==0) {
+
+        // 改版之后需要生成的表达式
+        var searchContent = this.generateFormual;
         // 校验
-        if(this.expressStr===null||this.expressStr.length==0){
+        if(searchContent===null||searchContent.length==0){
           alert("请输入");
           return
         }
-        // 改版之后需要生成的表达式
-        var searchContent = this.generateFormual;
         searchContent = searchContent.replace(/\|/g,"#");
         console.log(searchContent);
         var changeSearchContent = encodeURIComponent(searchContent);
@@ -912,10 +970,25 @@ var vm = new Vue({
       // spaceGroup
       if (index===0) {
         var obj = new Object()
-        obj.action = "<"
-        obj.value = 216
-        obj.connection = "and"
+        if (this.spaceGroup.length==0) {
+          obj.action = "="
+          obj.value = 216
+          obj.connection = "or"
+          this.spaceGroup.push(obj)
+          return
+        }
+        var startAction = this.spaceGroup[0].action
+        if (startAction=="=") {
+          obj.action = "="
+          obj.value = 216
+          obj.connection = "or"
+        }else{
+          obj.action = ">"
+          obj.value = 216
+          obj.connection = "and"
+        }
         this.spaceGroup.push(obj)
+        return
       }
 
       // atom radio
@@ -930,19 +1003,49 @@ var vm = new Vue({
       // valenceElectrons
       if (index===2) {
         var obj = new Object()
-        obj.action = "="
-        obj.value = 10
-        obj.connection = "and"
+        if (this.valenceElectrons.length==0) {
+          obj.action = "="
+          obj.value = 10
+          obj.connection = "or"
+          this.valenceElectrons.push(obj)
+          return
+        }
+        var startAction = this.valenceElectrons[0].action
+        if (startAction=="=") {
+          obj.action = "="
+          obj.value = 10
+          obj.connection = "or"
+        }else{
+          obj.action = ">"
+          obj.value = 10
+          obj.connection = "and"
+        }
         this.valenceElectrons.push(obj)
+        return
       }
 
       // elementTypeNumbers
       if (index===3) {
         var obj = new Object()
-        obj.action = "="
-        obj.value = 10
-        obj.connection = "and"
+        if (this.elementTypeNumbers.length==0) {
+          obj.action = "="
+          obj.value = 10
+          obj.connection = "and"
+          this.elementTypeNumbers.push(obj)
+          return
+        }
+        var startAction = this.elementTypeNumbers[0].action
+        if (startAction=="=") {
+          obj.action = "="
+          obj.value = 10
+          obj.connection = "or"
+        }else{
+          obj.action = ">"
+          obj.value = 10
+          obj.connection = "and"
+        }
         this.elementTypeNumbers.push(obj)
+        return
       }
 
     },
@@ -977,59 +1080,6 @@ var vm = new Vue({
         }else {
           conditionFormual += res
         }
-        // var spaceGroupFormual = ""
-        // // 校验连接条件，只支持全部 And 或 全部 Or
-        // var tag = isExistOneKey(this.spaceGroup)
-        // var compareIndex = this.spaceGroup[0].connection
-        // if (tag===true) {
-        //   // 一个条件或者多个组合 and
-        //   if (this.spaceGroup.length==1) {
-        //     var obj = this.spaceGroup[0]
-        //     spaceGroupFormual = "(sg"+obj.action+obj.value+")"
-        //     conditionFormual += spaceGroupFormual
-        //   }
-        //   else if (compareIndex=='and') {
-        //     // 多个 and 后序条件会冲掉前面的条件
-        //     var hm = new HashMap()
-        //     for (var i = 0; i < this.spaceGroup.length; i++) {
-        //       var obj = this.spaceGroup[i]
-        //       if (obj.action=="=") {
-        //         this.sstring = "exist = is error"
-        //         return
-        //       }
-        //       hm.put(obj.action,obj)
-        //     }
-        //     // todo 判断是否存在两个
-        //     var leftOne = hm.get(">")
-        //     var rightOne = hm.get("<")
-        //     spaceGroupFormual = "(sg="+leftOne.value+"-"+rightOne.value+")"
-        //     conditionFormual += spaceGroupFormual
-        //   }else{
-        //     // 全部是 = 一种情况
-        //     // 或者是包含其他符号
-        //     var hm = new HashMap()
-        //     for (var i = 0; i < this.spaceGroup.length; i++) {
-        //       var obj = this.spaceGroup[i]
-        //       hm.put(obj.action,obj)
-        //     }
-        //     if (hm.size==1 && hm.containsKey("=")) {
-        //       var valueList = []
-        //       for (var i = 0; i < this.spaceGroup.length; i++) {
-        //         var obj = this.spaceGroup[i]
-        //         valueList.push(obj.value)
-        //       }
-        //       spaceGroupFormual = valueList.join("|")
-        //       conditionFormual += "(sg="+spaceGroupFormual+")"
-        //     }else{
-        //       // 复杂符号的 or 组合
-        //       spaceGroupFormualList = this.spaceGroup
-        //     }
-        //   }
-        // }else {
-        //   // 出现多个 and or 是非法
-        //   this.sstring = "multiply and or is error"
-        //   return
-        // }
       }
 
       // atomRadio 表达式形式 es=1:1:1 or es=1:1:1|1:2:4
@@ -1107,6 +1157,7 @@ var vm = new Vue({
       this.sstring = conditionFormual
     },
 
+    // 简单搜索
     searchV2 : function(page,tag){
       this.generateFormualFunction()
       // 生成 element 句子
@@ -1176,5 +1227,152 @@ var vm = new Vue({
     cancelSeletedElements : function(){
       this.clearSearch()
     },
+
+    searchModeChange : function(value){
+      if (value==0) {
+        this.simpleSearchTag = true
+      }
+      if (value==1) {
+        this.simpleSearchTag = false
+      }
+    },
+    // 复杂表达式搜索调用
+    searchV3 : function(page,first,formual,searchTag=0){
+      if (first) {
+        this.cartList = []
+        this.cartListFormual = []
+      }
+
+      count = this.totalCount
+
+
+      var Request=new Object();
+      Request=GetRequest();
+      var token = Request["token"]
+
+      if (token==undefined) {
+        this.searchError[0] = "token未携带,无法查询"
+        return
+      }
+
+      this.searchError = [-1]
+
+      this.resList.splice(0,this.resList.length);
+      this.numberArr = []
+      this.elementArr = []
+      this.complexNumberArr = []
+      this.complexElementArr = []
+
+      var ajaxString = "";
+      if (searchTag==0) {
+        // 校验
+        if(formual===null||formual.length==0){
+          alert("请输入");
+          return
+        }
+        // 复杂表达式查询语句与简单查询分开
+        var searchContent = formual;
+        searchContent = searchContent.replace(/\|/g,"#");
+        console.log(searchContent);
+        var changeSearchContent = encodeURIComponent(searchContent);
+        ajaxString = '/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token+"&computed="+this.dataType;
+      }else if (searchTag==1) {
+        if(this.bili===""){
+          alert("请输入比例");
+          return;
+        }
+        ajaxString = '/m/p?bili='+encodeURIComponent(this.bili)+'&biliNumber='+encodeURIComponent(this.biliNumber)+"&page="+page+"&computed="+this.dataType;
+      }
+
+      this.currentSearchTag = searchTag;
+
+      this.loadingIf[0] = true;
+      var loadingIf = this.loadingIf;
+      var res = this.resList
+      var buttonPage = this.buttonPage
+      var currentPage = this.currentPage
+      var endPage = this.endPage
+
+      var error = this.searchError
+
+      var numberArr = this.numberArr
+      var elementArr = this.elementArr
+
+      var complexNumberArr = this.complexNumberArr
+      var complexElementArr = this.complexElementArr
+
+      var dbCount = this.dataBaseCount
+
+
+      axios.get(ajaxString)
+      .then(function (response) {
+        console.log("searching.......");
+        if(res.length!==0){
+          res.splice(0,res.length)
+        }
+
+        if (response.data.error!=undefined) {
+            error[0] = response.data['msg']
+            loadingIf.splice(0,1,false);
+            // loadingIf[0] = false
+            return
+        }
+        console.log(response);
+        if ("c" in response.data) {
+          for(var value of response.data.c){
+            res.push(value)
+            numberArr.push(analyStringNew(value.simplified_name)[0]);
+            elementArr.push(analyStringNew(value.simplified_name)[1]);
+            complexNumberArr.push(analyStringNew(value.compound_name)[0]);
+            complexElementArr.push(analyStringNew(value.compound_name)[1]);
+          }
+
+          buttonPage.splice(0,buttonPage.length)
+
+          currentPage[0] = response.data.cpage
+          dbCount.splice(0,1,response.data.allCount)
+          totalCount = response.data.count
+          totalPage = Math.ceil(response.data.count/30)
+          if (currentPage[0]-2<=1) {
+            for (var i = currentPage-1; i>0; i--) {
+              console.log("the firewall is too big");
+              buttonPage.splice(0,0,i)
+            }
+          }else{
+            buttonPage.push(1)
+            buttonPage.push(currentPage[0]-2)
+            buttonPage.push(currentPage[0]-1)
+
+          }
+          buttonPage.push(currentPage[0])
+
+          frontIndex = buttonPage.length
+
+          if (currentPage[0]+2>=totalPage) {
+            for (var i = currentPage[0]+1; i <= totalPage; i++) {
+              console.log("the firewall is too fat");
+              buttonPage.splice(frontIndex++,0,i)
+            }
+          }else{
+            // buttonPage.push(currentPage)
+            buttonPage.push(currentPage[0]+1)
+            buttonPage.push(currentPage[0]+2)
+            buttonPage.push(totalPage)
+          }
+          endPage.splice(0,1,totalPage);
+          loadingIf.splice(0,1,false);
+          count.splice(0,1,totalCount);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+        loadingIf.splice(0,1,false);
+      });
+    },
+
+    clearSearchV3 : function(){
+        this.complexSearchFormual = ""
+    },
+
   }
 })
