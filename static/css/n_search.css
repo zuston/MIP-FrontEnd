@@ -238,3 +238,7 @@
     padding: 0;
     height: 12px;
 }
+
+.logind{
+    display: block !important;
+}
