@@ -610,7 +610,7 @@ var vm = new Vue({
         }
         console.log(response);
         if ("c" in response.data) {
-          for(var value of response.data.c){
+          for(var value in response.data.c){
             res.push(value)
             numberArr.push(analyStringNew(value.simplified_name)[0]);
             elementArr.push(analyStringNew(value.simplified_name)[1]);
@@ -919,7 +919,7 @@ var vm = new Vue({
         var ddata = response.data.c
 
         var dlist = []
-        for(var value of ddata){
+        for(var value in ddata){
           var mid = value.original_id
           calculateString += "mids="+mid+"&"
           dlist.push(mid)
@@ -951,7 +951,7 @@ var vm = new Vue({
         var ddata = response.data.c
 
         var dlist = []
-        for(var value of ddata){
+        for(var value in ddata){
           var mid = value.original_id
           calculateString += "mids="+mid+"&"
           dlist.push(mid)
@@ -1239,7 +1239,7 @@ var vm = new Vue({
       }
     },
     // 复杂表达式搜索调用
-    searchV3 : function(page,first,formual,searchTag=0){
+    searchV3 : function(page,first,formual,searchTag){
       if (first) {
         this.cartList = []
         this.cartListFormual = []
@@ -1321,7 +1321,7 @@ var vm = new Vue({
         }
         console.log(response);
         if ("c" in response.data) {
-          for(var value of response.data.c){
+          for(var value in response.data.c){
             res.push(value)
             numberArr.push(analyStringNew(value.simplified_name)[0]);
             elementArr.push(analyStringNew(value.simplified_name)[1]);

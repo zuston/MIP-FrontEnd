@@ -14,7 +14,7 @@
 
     <!--  元素周期表样式-->
     <link href="./static/css/n_search.css" rel='stylesheet' type='text/css' />
-
+    <script src="https://cdn.bootcss.com/bluebird/3.5.1/bluebird.min.js"></script>
     <script src="./static/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="./static/js/bootstrap.js"></script>
 
@@ -60,8 +60,8 @@
 
 
               <ul class="nav navbar-nav navbar-right">
-                <li data-toggle="modal" v-if="userInfo[0]==-1"><a id="username" href="http://202.120.121.199:8083/MIP/login.do">Login</a></li>
-                <li data-toggle="modal" v-if="userInfo[0]!=-1"><a href="http://202.120.121.199:8083/MIP/logout.do" id="logout">{{userInfo[0]}}&nbsp;:&nbsp;Logout</a></li>
+                <li data-toggle="modal" style="display: none;" :class="{'logind':userInfo[0]==-1}" ><a id="username" href="http://202.120.121.199:8083/MIP/login.do">Login</a></li>
+                <li data-toggle="modal" style="display: none;"  :class="{'logind':userInfo[0]!=-1}"><a  href="http://202.120.121.199:8083/MIP/logout.do" id="logout">{{userInfo[0]}}&nbsp;:&nbsp;Logout</a></li>
               </ul>
             </div>
           </div>
