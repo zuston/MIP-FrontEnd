@@ -610,7 +610,9 @@ var vm = new Vue({
         }
         console.log(response);
         if ("c" in response.data) {
-          for(var value in response.data.c){
+          var len = response.data.c.length
+          for(var i=0;i<len;i++){
+            var value = response.data.c[i]
             res.push(value)
             numberArr.push(analyStringNew(value.simplified_name)[0]);
             elementArr.push(analyStringNew(value.simplified_name)[1]);
