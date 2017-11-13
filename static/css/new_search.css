@@ -1051,6 +1051,7 @@ img#consortium {
     border-left: 30px solid #eee;
     background-color: #eee;
     color: black;
+    display: none;
 }
 
 #current_element {
