@@ -203,7 +203,7 @@ var vm = new Vue({
     element : "element",
     avaliable : "avaliable",
 
-    hoverShowArray : new Array('Z','X','Mass','element','Electronegativity(EN)','configuration'),
+    hoverShowArray : [],
 
     loadingIf : [false],
 
@@ -271,7 +271,7 @@ var vm = new Vue({
     // 新增复杂表达式查询，变量
     complexSearchFormual : "",
 
-
+     endFlag:false //赋值完成标识
   },
   created : function(){
     this.load(GetRequest()["token"]);
@@ -415,6 +415,8 @@ var vm = new Vue({
   },
   methods : {
     load : function(id){
+      this.hoverShowArray = new Array('Z','X','Mass','element','Electronegativity(EN)','configuration')
+      this.endFlag = true
       var loadString = "/m/userInfo?token="+id;
       var uinfo = this.userInfo;
       axios.get(loadString).then(function(response){

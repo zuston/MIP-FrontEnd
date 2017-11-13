@@ -393,7 +393,7 @@
                             <li class="empty" contextmenu="mymenu" style="transition: 0.1s ease-out;"></li>
                         </ul>
 
-                        <div id="current_element_wrapper">
+                        <div id="current_element_wrapper" :style="{'display':endFlag?'block':'none'}">
                             <div id="current_element">
                                 <div style="position:relative">
                                     <div id="number">{{hoverShowArray[0]}}</div>
