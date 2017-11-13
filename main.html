@@ -873,9 +873,9 @@
       <div class="row" v-if="simpleSearchTag">
         <div class="col-md-offset-4 col-md-4 ">
           <ul class="pagination" style="align:center;">
-            <li><a v-if="currentPage[0]!=1" @click="search(currentPage-1,false)">&laquo;</a></li>
-            <li v-for="(value,index) in buttonPage" v-bind:class="{ active: currentPage==value}"><a  @click="search(value,false)">{{value}}</a></li>
-            <li><a v-if="endPage[0]!=currentPage[0]" @click="search(currentPage+1,false)">&raquo;</a></li>
+            <li><a v-if="currentPage[0]!=1" @click="search(currentPage-1,false,0)">&laquo;</a></li>
+            <li v-for="(value,index) in buttonPage" v-bind:class="{ active: currentPage==value}"><a  @click="search(value,false,0)">{{value}}</a></li>
+            <li><a v-if="endPage[0]!=currentPage[0]" @click="search(currentPage+1,false,0)">&raquo;</a></li>
           </ul>
         </div>
       </div>

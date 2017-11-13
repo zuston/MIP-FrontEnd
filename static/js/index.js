@@ -524,7 +524,7 @@ var vm = new Vue({
       window.open('/m/poscarDownload?expression='+encodeURIComponent(this.generateFormual)+'&computed='+this.dataType);
     },
 
-    search : function(page,first,searchTag=0){
+    search : function(page,first,searchTag){
       console.log(this.searchTag);
       if (first) {
         this.cartList = []
@@ -1185,7 +1185,7 @@ var vm = new Vue({
       }
       // alert(this.expressStr)
       this.generateFormual = this.expressStr
-      this.search(page,tag)
+      this.search(page,tag,0)
       this.expressStr = originalString
     },
 

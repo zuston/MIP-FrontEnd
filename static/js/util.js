@@ -49,8 +49,8 @@ function analyString(ostring){
       }
     }
     if (index!=-1) {
-      numberArr.push(getStrStartFrom(str,index));
-      elementArr.push(getStrEndFrom(str,index));
+      numberArr.push(getStrStartFrom(str,index,0));
+      elementArr.push(getStrEndFrom(str,index,0));
     }else{
       numberArr.push("");
       element.push(str);
@@ -61,7 +61,7 @@ function analyString(ostring){
   return res;
 }
 
-function getStrStartFrom(originString,index,end=0){
+function getStrStartFrom(originString,index,end){
   var resString = "";
   if (end==0) {
     end = originString.length;
@@ -75,7 +75,7 @@ function getStrStartFrom(originString,index,end=0){
   return resString;
 }
 
-function getStrEndFrom(originString,index,start=0){
+function getStrEndFrom(originString,index,start){
   var resString = "";
   for (var i = start; i < index; i++) {
     resString += originString[i];
