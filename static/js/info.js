@@ -29,14 +29,16 @@ var vm = new Vue({
     numberArr : [],
     elementArr : [],
 
-    highchartUrl:"",
-    highchartUrl1:"",
-    highchartUrl2:"",
-    highchartUrl3:"",
-    highchartUrl4:"",
+    highchartUrl:[],
+    highchartUrl1:[],
+    highchartUrl2:[],
+    highchartUrl3:[],
+    highchartUrl4:[],
     highchartFlag:false,
     // 图片展示 tag
     isShowPic:[true],
+
+    jsmolHtml:[],
 
     lock : true,
   },
@@ -46,24 +48,27 @@ var vm = new Vue({
   created : function(){
     this.highchartFlag=true
     this.load(GetRequest()["token"],GetRequest()["id"]);
+    // this.initHighchartsUrl();
   },
 
   mounted : function(){
-    this.initHighchartsUrl();
+
   },
   methods : {
 
     initHighchartsUrl:function(){
       setTimeout("",5000)
       this.highchartUrl="http://202.120.121.199:8083/MIP/page/highCharts.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
-      setTimeout("",5000)
-      this.highchartUrl1="http://202.120.121.199:8083/MIP/page/TPPTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
-      setTimeout("",5000)
-      this.highchartUrl2="http://202.120.121.199:8083/MIP/page/TPNTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
-      setTimeout("",5000)
-      this.highchartUrl3="http://202.120.121.199:8083/MIP/page/PFPTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
-      setTimeout("",5000)
-      this.highchartUrl4="http://202.120.121.199:8083/MIP/page/PFNTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
+      if (this.isShowPic[0]) {
+        setTimeout("",5000)
+        this.highchartUrl1="http://202.120.121.199:8083/MIP/page/TPPTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
+        setTimeout("",5000)
+        this.highchartUrl2="http://202.120.121.199:8083/MIP/page/TPNTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
+        setTimeout("",5000)
+        this.highchartUrl3="http://202.120.121.199:8083/MIP/page/PFPTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
+        setTimeout("",5000)
+        this.highchartUrl4="http://202.120.121.199:8083/MIP/page/PFNTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
+      }
     },
 
     load : function(token,id){
@@ -76,6 +81,15 @@ var vm = new Vue({
       var isShowPicT = this.isShowPic;
 
       var picExsit = this.isFileExsit
+
+      var hu = this.highchartUrl
+      var hu1 = this.highchartUrl1
+      var hu2 = this.highchartUrl2
+      var hu3 = this.highchartUrl3
+      var hu4 = this.highchartUrl4
+
+      var jshtml = this.jsmolHtml
+
       axios.get(loadString).then(function(response){
         hg.splice(0,1,response.data);
         var name = response.data.basic.pymatgen_poscar.comment;
@@ -88,6 +102,16 @@ var vm = new Vue({
           isShowPicT[0] = false;
         }
         // picExsit();
+        // 初始化iframe url
+        jshtml[0] = "jsmol.html";
+        setTimeout("",1000);
+        hu[0]="http://202.120.121.199:8083/MIP/page/highCharts.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
+        if (isShowPicT[0]==true) {
+          hu1[0]="http://202.120.121.199:8083/MIP/page/TPPTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
+          hu2[0]="http://202.120.121.199:8083/MIP/page/TPNTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
+          hu3[0]="http://202.120.121.199:8083/MIP/page/PFPTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
+          hu4[0]="http://202.120.121.199:8083/MIP/page/PFNTypeChart.html?extract_id="+GetRequest()["id"]+"&uid="+generateRandom();
+        }
       }).catch(function(error){
         console.log(error);
       });
