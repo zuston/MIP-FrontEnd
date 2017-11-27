@@ -697,10 +697,10 @@
       </div>
 
       <div class="col-md-5" style="margin-top:10px;margin-bottom:10px;">
-        <label class="checkbox-inline" v-if="userInfo[0]!=-1&(userInfo[0]=='jyang'|userInfo[0]=='test')">
+        <label class="checkbox-inline">
           <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="0" v-model="dataType"> <a>all</a>
         </label>
-        <label class="checkbox-inline" v-if="userInfo[0]!=-1&(userInfo[0]=='jyang'|userInfo[0]=='test')">
+        <label class="checkbox-inline">
           <input type="radio" name="optionsRadiosinline" id="optionsRadios4"  value="1" v-model="dataType"> <a>computed</a>
         </label>
         <label class="checkbox-inline">
@@ -725,10 +725,10 @@
 <div v-if="!simpleSearchTag">
   <div class="container">
     <div class="col-md-5 col-md-offset-1" style="margin-top:10px;margin-bottom:10px;">
-      <label class="checkbox-inline" v-if="userInfo[0]!=-1&(userInfo[0]=='jyang'|userInfo[0]=='test')">
+      <label class="checkbox-inline">
         <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="0" v-model="dataType"> <a>all</a>
       </label>
-      <label class="checkbox-inline" v-if="userInfo[0]!=-1&(userInfo[0]=='jyang'|userInfo[0]=='test')">
+      <label class="checkbox-inline">
         <input type="radio" name="optionsRadiosinline" id="optionsRadios4"  value="1" v-model="dataType"> <a>computed</a>
       </label>
       <label class="checkbox-inline">
@@ -854,9 +854,24 @@
                     <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" >Click
                 			<span class="caret"></span>
                 		</button>
-                		<ul class="dropdown-menu pull-right" role="menu">
-                			<li v-for="v in data.jobs"><a v-bind:href="getInfoPage(v)" target="_blank" style="color:blue;">{{v}}</a></li>
-                		</ul>
+                		<div class="dropdown-menu pull-right" role="menu" style="width:300px;">
+                      <table class="table table-hover table-bordered">
+                        <thead>
+                          <tr class="active">
+                            <th>jobid</th>
+                            <th>calculate_method</th>
+                            <th>owner</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="v in data.jobs">
+                            <td><a v-bind:href="getInfoPage(v['extractid'])" target="_blank">{{v["jobid"]}}</a></td>
+                            <td>{{v["calMethod"]}}</td>
+                            <td>{{v["owner"]}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                		</div>
                   </div>
 
                   <div class="btn-group" v-if="data.computed==0">

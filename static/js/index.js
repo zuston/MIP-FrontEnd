@@ -609,7 +609,7 @@ var vm = new Vue({
             return
         }
         console.log(response);
-        if ("c" in response.data) {
+        if (typeof response.data.c!="undefined") {
           var len = response.data.c.length
           for(var i=0;i<len;i++){
             var value = response.data.c[i]
@@ -1241,7 +1241,7 @@ var vm = new Vue({
       }
     },
     // 复杂表达式搜索调用
-    searchV3 : function(page,first,formual,searchTag){
+    searchV3 : function(page,first,formual){
       if (first) {
         this.cartList = []
         this.cartListFormual = []
@@ -1268,27 +1268,20 @@ var vm = new Vue({
       this.complexElementArr = []
 
       var ajaxString = "";
-      if (searchTag==0) {
-        // 校验
-        if(formual===null||formual.length==0){
-          alert("请输入");
-          return
-        }
-        // 复杂表达式查询语句与简单查询分开
-        var searchContent = formual;
-        searchContent = searchContent.replace(/\|/g,"#");
-        console.log(searchContent);
-        var changeSearchContent = encodeURIComponent(searchContent);
-        ajaxString = '/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token+"&computed="+this.dataType;
-      }else if (searchTag==1) {
-        if(this.bili===""){
-          alert("请输入比例");
-          return;
-        }
-        ajaxString = '/m/p?bili='+encodeURIComponent(this.bili)+'&biliNumber='+encodeURIComponent(this.biliNumber)+"&page="+page+"&computed="+this.dataType;
+      // 校验
+      if(formual===null||formual.length==0){
+        alert("请输入");
+        return
       }
+      // 复杂表达式查询语句与简单查询分开
+      var searchContent = formual;
+      searchContent = searchContent.replace(/\|/g,"#");
+      console.log(searchContent);
+      var changeSearchContent = encodeURIComponent(searchContent);
+      ajaxString = '/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token+"&computed="+this.dataType;
 
-      this.currentSearchTag = searchTag;
+
+      this.currentSearchTag = 0;
 
       this.loadingIf[0] = true;
       var loadingIf = this.loadingIf;
@@ -1310,7 +1303,7 @@ var vm = new Vue({
 
       axios.get(ajaxString)
       .then(function (response) {
-        console.log("searching.......");
+        console.log("searchingv3.......");
         if(res.length!==0){
           res.splice(0,res.length)
         }
@@ -1321,9 +1314,9 @@ var vm = new Vue({
             // loadingIf[0] = false
             return
         }
-        console.log(response);
-        if ("c" in response.data) {
-          for(var value in response.data.c){
+        if (response.data.c!=undefined) {
+          for(var index in response.data.c){
+            var value = response.data.c[index]
             res.push(value)
             numberArr.push(analyStringNew(value.simplified_name)[0]);
             elementArr.push(analyStringNew(value.simplified_name)[1]);

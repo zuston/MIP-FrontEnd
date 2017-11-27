@@ -149,3 +149,7 @@
 #selectStyle{
   width: 80px;
 }
+
+.logind{
+     display: block !important;
+ }

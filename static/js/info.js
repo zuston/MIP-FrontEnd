@@ -41,6 +41,9 @@ var vm = new Vue({
     jsmolHtml:[],
 
     lock : true,
+
+    // 登录信息
+    userInfo : []
   },
   watch : {
 
@@ -72,6 +75,19 @@ var vm = new Vue({
     },
 
     load : function(token,id){
+
+      // 加载登录信息
+      var uinfo = this.userInfo
+      var loadString = "/m/userInfo?token="+token;
+      axios.get(loadString).then(function(response){
+        if (response.data!="error") {
+          uinfo.splice(0,1,response.data);
+        }
+      }).catch(function(error){
+        console.log(“登录获取信息失败”);
+      });
+
+
       var hg = this.resArr
       // TODO: token 验证
       var loadString = "/m/info?id="+id;
