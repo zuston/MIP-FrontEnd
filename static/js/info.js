@@ -51,6 +51,7 @@ var vm = new Vue({
   created : function(){
     this.highchartFlag=true
     this.load(GetRequest()["token"],GetRequest()["id"]);
+    this.showUinfo(GetRequest()["token"])
     // this.initHighchartsUrl();
   },
 
@@ -74,20 +75,19 @@ var vm = new Vue({
       }
     },
 
-    load : function(token,id){
-
-      // 加载登录信息
+    showUinfo : function(id){
       var uinfo = this.userInfo
-      var loadString = "/m/userInfo?token="+token;
-      axios.get(loadString).then(function(response){
+      var userinfoUrl = "/m/userInfo?token="+id;
+      axios.get(userinfoUrl).then(function(response){
         if (response.data!="error") {
           uinfo.splice(0,1,response.data);
         }
       }).catch(function(error){
-        console.log(“登录获取信息失败”);
+        console.log(error);
       });
+    },
 
-
+    load : function(token,id){
       var hg = this.resArr
       // TODO: token 验证
       var loadString = "/m/info?id="+id;
