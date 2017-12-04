@@ -278,6 +278,17 @@ var vm = new Vue({
   },
   watch : {
 
+    simpleSearchTag : {
+      handler : function(val, oldVal){
+        this.hoverList = []
+        //　复杂查询表达式
+        this.complexSearchFormual = ""
+        // 简单查询最后拼合而成的表达式
+        this.expressStr = ""
+      },
+      deep : true
+    },
+
     spaceGroup : {
       handler : function(val, oldval){
         listener(this.spaceGroup)
@@ -445,11 +456,30 @@ var vm = new Vue({
       this.hoverShowArray = new Array('Z','X','Mass','element','[EN]',' electron configuration')
     },
     savehover : function(val){
+      //　复杂查询，族系元素方法
+      if (!this.simpleSearchTag) {
+        if(this.hoverList.indexOf(val)<=-1){
+          this.hoverList.push(val);
+        }else{
+          this.hoverList.splice(this.hoverList.indexOf(val),1);
+        }
+        //　按压填充的数组
+        var exp = this.hoverList
+        this.complexSearchFormual = "";
+        for (var i = 0; i < exp.length; i++) {
+          // console.log(this.expression[i]);
+          this.complexSearchFormual += exp[i]+"&";
+        }
+        this.complexSearchFormual = this.complexSearchFormual.substring(0,this.complexSearchFormual.length-1);
+        // alert(simpleSearchTag)
+        return
+      }
       if(this.hoverList.indexOf(val)<=-1){
         this.hoverList.push(val);
       }else{
         this.hoverList.splice(this.hoverList.indexOf(val),1);
       }
+      //　按压填充的数组
       this.expression = this.hoverList
       this.expressStr = "";
       for (var i = 0; i < this.expression.length; i++) {
@@ -457,29 +487,6 @@ var vm = new Vue({
         this.expressStr += this.expression[i]+"&";
       }
       this.expressStr = this.expressStr.substring(0,this.expressStr.length-1);
-
-      if(this.spacegroup!=null){
-        if(this.expressStr.length>0){
-          this.expressStr += "&(sg="+this.spacegroup+")";
-        }else{
-          this.expressStr += "(sg="+this.spacegroup+")";
-        }
-      }
-
-      if(this.es!=null){
-        if(this.es.length>0){
-          this.expressStr += "&(es="+this.es+")";
-        }else{
-          this.expressStr += "(es="+this.es+")";
-        }
-      }
-      if(this.ve!=null){
-        if(this.ve.length>0){
-          this.expressStr += "&(ve="+this.ve+")";
-        }else{
-          this.expressStr += "(ve="+this.ve+")";
-        }
-      }
 
     },
 
