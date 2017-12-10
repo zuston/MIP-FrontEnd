@@ -289,6 +289,13 @@ var vm = new Vue({
       deep : true
     },
 
+    complexSearchFormual : {
+      handler : function(val, oldval){
+        this.generateFormual = val
+      },
+      deep : true
+    },
+
     spaceGroup : {
       handler : function(val, oldval){
         listener(this.spaceGroup)
