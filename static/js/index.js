@@ -935,18 +935,15 @@ var vm = new Vue({
         var ddata = response.data.c
 
         var dlist = []
-        for(var value in ddata){
-          var mid = value.original_id
-          calculateString += "mids="+mid+"&"
+        for(var i=0;i<ddata.length;i++){
+          var mid = ddata[i].original_id
+          console.log(mid);
           dlist.push(mid)
         }
         // 计算传递参数值
-        calculateString = calculateString.substring(0,calculateString.length-1)
-        // window.open("http://nova.shu.edu.cn/SpringMVC/searchFromWeb.do?"+calculateString);
+        console.log("打印全部计算的参数");
         console.log(dlist);
-        console.log("change the file");
         openWindowWithPost("http://202.120.121.199:8083/MIP/searchFromWeb.do",dlist)
-        console.log("end");
       }).catch(function(error){
         console.log(error);
       });
@@ -967,16 +964,11 @@ var vm = new Vue({
         var ddata = response.data.c
 
         var dlist = []
-        for(var value in ddata){
-          var mid = value.original_id
-          calculateString += "mids="+mid+"&"
+        for(var i=0;i<ddata.length;i++){
+          var mid = ddata[i].original_id
           dlist.push(mid)
         }
-        // 计算传递参数值
-        calculateString = calculateString.substring(0,calculateString.length-1)
-        // window.open("http://nova.shu.edu.cn/SpringMVC/searchFromWeb.do?"+calculateString);
         openWindowWithPost("http://202.120.121.199:8083/MIP/searchFromWeb.do",dlist)
-        console.log("end");
       }).catch(function(error){
         console.log(error);
       });
