@@ -937,12 +937,9 @@ var vm = new Vue({
         var dlist = []
         for(var i=0;i<ddata.length;i++){
           var mid = ddata[i].original_id
-          console.log(mid);
           dlist.push(mid)
         }
         // 计算传递参数值
-        console.log("打印全部计算的参数");
-        console.log(dlist);
         openWindowWithPost("http://202.120.121.199:8083/MIP/searchFromWeb.do",dlist)
       }).catch(function(error){
         console.log(error);
