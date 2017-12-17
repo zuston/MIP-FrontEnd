@@ -32,9 +32,8 @@ function getUrlParam(name) {
 			data : JSON.stringify(tmpdt),
 			success : function(data, status) {
 				if (status == "success") {
-					/* alert(data.folderName);
-					alert(data.pf);
-					alert(data.tp); */
+					$("#con").html(data.con);
+     			$("#l").html(data.l);
 					$("#tp").html(data.tp);
 					$("#pf").html(data.pf);
 					$("#downloadBtn").attr("href","/MIP/downloadbxsf.do?folderName="+data.folderName);
