@@ -232,7 +232,7 @@ var vm = new Vue({
     currentSearchTag : 0,
 
     //计算数据类型
-    dataType : 2,
+    dataType : 0,
 
     //化学式角标生成
     //最简化学式的角标
@@ -580,7 +580,7 @@ var vm = new Vue({
         searchContent = searchContent.replace(/\|/g,"#");
         console.log(searchContent);
         var changeSearchContent = encodeURIComponent(searchContent);
-        ajaxString = '/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token+"&computed="+this.dataType;
+        ajaxString = '/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token+"&computed="+this.dataType+"&owner="+this.userInfo[0];
       }else if (searchTag==1) {
         if(this.bili===""){
           alert("请输入比例");
@@ -1281,7 +1281,7 @@ var vm = new Vue({
       searchContent = searchContent.replace(/\|/g,"#");
       console.log(searchContent);
       var changeSearchContent = encodeURIComponent(searchContent);
-      ajaxString = '/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token+"&computed="+this.dataType;
+      ajaxString = '/m/s?expression='+changeSearchContent+"&page="+page+"&token="+token+"&computed="+this.dataType+"&owner="+this.userInfo[0];
 
 
       this.currentSearchTag = 0;
